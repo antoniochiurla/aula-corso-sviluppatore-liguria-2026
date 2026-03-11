@@ -1,0 +1,23 @@
+@startuml
+actor "Utente" as U
+
+package "Gestione Inserimento" {
+  usecase "Aggiungi Task Generico" as base
+  usecase "Aggiungi Bug" as bug
+  usecase "Aggiungi Feature" as feat
+}
+
+U --> base
+U --> bug
+U --> feat
+
+note bottom of bug
+  Richiede l'inserimento
+  della Severità
+end note
+
+note bottom of feat
+  Richiede l'inserimento
+  della Priorità
+end note
+@enduml

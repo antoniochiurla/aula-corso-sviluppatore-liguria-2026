@@ -1,0 +1,14 @@
+@startuml
+[*] --> Aperto : Creazione Task
+
+Aperto --> Completato : Metodo completa()
+Completato --> Aperto : Metodo riapri()
+Completato --> [*] : Rimozione Task
+
+state Aperto {
+  Aperto : Colore visualizzato: Standard
+}
+state Completato {
+  Completato : Colore visualizzato: Verde/Barrato
+}
+@enduml

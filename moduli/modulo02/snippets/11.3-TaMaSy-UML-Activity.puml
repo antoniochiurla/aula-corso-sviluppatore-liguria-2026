@@ -1,0 +1,30 @@
+@startuml
+start
+:Carica Task da File;
+repeat
+  :Mostra Menu;
+  :Leggi Scelta Utente;
+  if (Scelta == "Lista") then (si)
+    :Leggi Lista in Memoria;
+    :Mostra Task a Video;
+  else if (Scelta == "Aggiungi") then (si)
+    :Inserisci Dati;
+    :Crea Oggetto Task;
+    :Salva su File;
+  else if (Scelta == "Modifica") then (si)
+    :Indica il task;
+    :Inserisci i dati modificati;
+    :Modifica Oggetto Task;
+    :Salva su File;
+  else if (Scelta == "Elimina") then (si)
+    :Indica il task;
+    :Rimuovi task dalla lista;
+    :Salva su File;
+  else if (Scelta == "Stato") then (si)
+    :Indica il task;
+    :Cambia stato al task;
+    :Salva su File;
+  endif
+repeat while (L'utente non sceglie Esci)
+stop
+@enduml

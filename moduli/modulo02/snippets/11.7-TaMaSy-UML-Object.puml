@@ -1,0 +1,24 @@
+@startuml
+object "<u>task1 : BugTask</u>" as t1 {
+  titolo = "Errore Login"
+  descrizione = "Il tasto non clicca"
+  stato = "Aperto"
+  severita = "Alta"
+}
+
+object "<u>task2 : FeatureTask</u>" as t2 {
+  titolo = "Tema Scuro"
+  descrizione = "Aggiungere dark mode"
+  stato = "Completato"
+  priorita = "Media"
+}
+
+object "<u>miei_task : List</u>" as lista {
+  size = 2
+}
+
+lista o-- t1
+lista o-- t2
+
+note right of lista : Questa è la lista in memoria\nche contiene i riferimenti ai task
+@enduml

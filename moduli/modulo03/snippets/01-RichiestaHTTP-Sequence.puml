@@ -1,0 +1,21 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+Browser -> DNS: Richiesta indirizzo www.ansa.it
+DNS --> Browser: indirizzo 46.4.22.185
+
+Browser -> www.ansa.it: GET /liguria HTTP/1.0
+www.ansa.it --> Browser: <!DOCTYPE HTML><HTML>...
+Browser -> www.ansa.it: GET /sito/imgnew/regioni/liguria.png
+www.ansa.it --> Browser: <contenuto immagine>
+
+Browser -> DNS: Richiesta indirizzo imasdk.googleapis.com
+Browser <-- DNS: indirizzo 192.178.203.95
+
+Browser -> imasdk.googleapis.com: GET /js/sdkloader/ima3.js
+imasdk.googleapis.com --> Browser: // Copyright 2011 Google Inc. All Rights Reserved...
+== Via di seguito... ==
+
+@enduml

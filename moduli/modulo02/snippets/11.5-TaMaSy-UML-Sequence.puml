@@ -1,0 +1,20 @@
+@startuml
+actor Utente
+participant "Interfaccia (CLI/GUI)" as UI
+participant "Lista Task" as List
+participant "Oggetto Task" as Obj
+database "File TXT" as DB
+
+Utente -> UI : Inserisce dati task
+UI -> Obj : Crea nuova istanza
+Obj --> UI : Istanza creata
+UI -> List : append(nuovo_task)
+UI -> DB : open("data.txt", "w")
+loop per ogni task in lista
+    UI -> Obj : formatta_per_file()
+    Obj --> UI : riga di testo
+    UI -> DB : write(riga)
+end
+UI -> DB : close()
+UI -> Utente : Messaggio "Salvato!"
+@enduml

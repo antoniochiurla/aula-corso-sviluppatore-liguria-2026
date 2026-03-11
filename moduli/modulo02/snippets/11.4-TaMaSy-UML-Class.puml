@@ -1,0 +1,32 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+class Task {
+  + titolo: String
+  + descrizione: String
+  # stato: String
+  + __init__(titolo, descrizione)
+  + completa()
+  + visualizza(): String
+  + formatta_per_file(): String
+}
+
+class BugTask {
+  + severita: String
+  + __init__(titolo, descrizione, severita)
+  + visualizza(): String
+  + formatta_per_file(): String
+}
+
+class FeatureTask {
+  + priorita: String
+  + __init__(titolo, descrizione, priorita)
+  + visualizza(): String
+  + formatta_per_file(): String
+}
+
+Task <|-- BugTask
+Task <|-- FeatureTask
+
+note right of Task : Lo stato è protetto (#)\ne può essere 'Aperto' o 'Completato'
+@enduml
