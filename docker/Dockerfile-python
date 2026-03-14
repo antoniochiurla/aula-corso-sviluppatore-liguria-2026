@@ -1,0 +1,11 @@
+FROM python:3.14-slim-trixie
+
+RUN apt-get update && apt-get install -y libpq-dev gcc iputils-ping dnsutils git && apt-get clean
+
+WORKDIR /workspace
+
+#COPY requirements.txt .
+#RUN pip install --no-cache-dir -r requirements.txt
+
+# Keep the container running infinitely so VS Code can connect to it
+CMD ["sleep", "infinity"]

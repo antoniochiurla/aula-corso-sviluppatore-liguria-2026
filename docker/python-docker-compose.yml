@@ -1,0 +1,28 @@
+services:
+  app-dev:
+    image: python_application:latest
+    container_name: python_application_dev
+    build: 
+      context: .
+      dockerfile: Dockerfile-python
+    volumes:
+      - ..:/workspace:cached
+    command: sleep infinity
+    depends_on:
+      - db-dev
+
+  db-dev:
+    image: postgres:18-trixie
+    container_name: database_dev
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: devuser
+      POSTGRES_PASSWORD: devpassword
+      POSTGRES_DB: devdb
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data-dev:/var/lib/postgresql
+
+volumes:
+  postgres-data-dev:
