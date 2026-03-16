@@ -1,5 +1,5 @@
 {
-  "name": "Corso delphis",
+  "name": "Corso Chiurla",
   "dockerComposeFile": "../../docker/python-docker-compose.yml",
   "service": "app-dev",
   "workspaceFolder": "/workspace",

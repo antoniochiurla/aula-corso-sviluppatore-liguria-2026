@@ -1,5 +1,5 @@
 {
-  "name": "Corso delphis",
+  "name": "Corso Chiurla",
   "dockerComposeFile": "../../java-docker-compose.yml",
   "service": "app",
   "workspaceFolder": "/workspace",
