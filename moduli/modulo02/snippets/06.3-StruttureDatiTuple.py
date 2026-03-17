@@ -29,8 +29,8 @@ first, second, third = fruits
 first, second, third = fruits[:3]
 
 # creiamo una tupla di caratteri dalla stringa
-a = set('abracadabra')
+a = tuple('abracadabra')
 # un'altra
-b = set('alacazam')
+b = tuple('alacazam')
 
 a + b
