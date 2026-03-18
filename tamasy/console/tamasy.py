@@ -67,9 +67,21 @@ def chiedi_opzione():
     return opzione
 
 def richiedi_task():
+    print("1 - task generico")
+    print("2 - task di tipo bug")
+    print("3 - task di tipo feature")
+    tipo = input("Tipo di task da creare: ")
+    
     titolo = input("Dammi il titolo: ")
     descrizione = input("Dammi la descrizione: ")
-    task = Task(titolo, descrizione)
+    if tipo == "1":
+        task = Task(titolo, descrizione)
+    elif tipo == "2":
+        severita = input("dammi la severità: ")
+        task = BugTask(titolo, descrizione, severita)
+    elif tipo == "3":
+        priorita = input("dammi la priorità")
+        task = FeatureTask(titolo, descrizione, priorita)
     return task
 
 def aggiungi_task():
