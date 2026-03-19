@@ -1,3 +1,8 @@
+import os
+
+NOME_FILE = "tamasy_data.txt"
+tasks = []
+
 # --- 1. DEFINIZIONE DELLA CLASSE (Il Progetto/Blueprint) ---
 class Task:
     """
@@ -5,14 +10,14 @@ class Task:
     """
 
     # --- 2. COSTRUTTORE (Inizializzazione dell'oggetto) ---
-    def __init__(self, titolo, descrizione):
+    def __init__(self, titolo, descrizione, stato = "Aperto"):
         # Attributi Pubblici
         self.titolo = titolo
         self.descrizione = descrizione
 
         # --- 3. INCAPSULAMENTO (Dati protetti) ---
         # Usiamo l'underscore _ per dire "non modificare questo dato direttamente dall'esterno"
-        self._stato = "Aperto"
+        self._stato = stato
         self._tipo = "Task"
 
         # --- 4. METODI (Comportamenti dell'oggetto) ---
@@ -26,14 +31,18 @@ class Task:
         """Metodo base per visualizzare i dettagli (verrà usato per il Polimorfismo)"""
         return f"{self._tipo} [{self._stato}] {self.titolo}: {self.descrizione}"
 
+    # Trasforma l'oggetto in una riga di testo per il file
+    def formatta_per_file(self):
+        return f"TASK|{self.titolo}|{self.descrizione}|{self._stato}"
+
 
 # --- 5. EREDITARIETÀ (Specializzazione) ---
 class BugTask(Task):
     """Un tipo di Task specifico per gestire i Bug (errori del software)"""
 
-    def __init__(self, titolo, descrizione, severita):
+    def __init__(self, titolo, descrizione, severita, stato = "Aperto"):
         # Chiamiamo il costruttore della classe "Padre" (Task)
-        super().__init__(titolo, descrizione)
+        super().__init__(titolo, descrizione, stato)
         self.severita = severita  # Attributo specifico di BugTask
         self._tipo = "Bug"
 
@@ -43,18 +52,24 @@ class BugTask(Task):
         info_base = super().visualizza_info()
         return f"{info_base} | SEVERITÀ: {self.severita}"
 
+    def formatta_per_file(self):
+        return f"BUG|{self.titolo}|{self.descrizione}|{self._stato}|{self.severita}"
+
 
 class FeatureTask(Task):
     """Un tipo di Task specifico per le nuove funzionalità"""
 
-    def __init__(self, titolo, descrizione, priorita):
-        super().__init__(titolo, descrizione)
+    def __init__(self, titolo, descrizione, priorita, stato = "Aperto"):
+        super().__init__(titolo, descrizione, stato)
         self.priorita = priorita
         self._tipo = "Feature"
 
     def visualizza_info(self):
         info_base = super().visualizza_info()
         return f"{info_base} | PRIORITÀ: {self.priorita}"
+
+    def formatta_per_file(self):
+        return f"FEATURE|{self.titolo}|{self.descrizione}|{self._stato}|{self.priorita}"
 
 def mostra_menu():
     print("1 - aggiungi task")
@@ -87,6 +102,7 @@ def richiedi_task():
 def aggiungi_task():
     nuovo_task = richiedi_task()
     tasks.append(nuovo_task)
+    salva_task(tasks, NOME_FILE)
 
 def lista_task():
     for indice, task in enumerate(tasks):
@@ -99,6 +115,7 @@ def completa_task():
     task = tasks[indice]
     task.completa()
     print(task.visualizza_info())
+    salva_task(tasks, NOME_FILE)
 
 def salva_task(lista_task, nome_file):
     """Prende una lista di oggetti e li scrive sul file"""
@@ -134,10 +151,14 @@ def carica_task(nome_file):
         print(f"Dati caricati correttamente da {nome_file}")
     except Exception as e:
         print(f"Errore durante il caricamento: {e}")
+        raise e
 
     return lista_ricostruita
 
+
 def main():
+    global tasks
+    tasks = carica_task(NOME_FILE)
     rimani = True
     while rimani:
         mostra_menu()
@@ -150,8 +171,6 @@ def main():
             lista_task()
         elif opzione == "3":
             completa_task()
-
-tasks = []
 
 if __name__ == '__main__':
     main()
