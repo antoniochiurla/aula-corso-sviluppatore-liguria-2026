@@ -10,6 +10,7 @@ class Finestra:
         self.root.title("TaMaSy - Task Management System")
         self.root.geometry("500x550")
         self.file_db = "tamasy_data.txt"
+
         # --- Elementi UI (Widget) ---
         tk.Label(root, text="TaMaSy Management", font=("Arial", 16, "bold")).pack(pady=10)
 
@@ -46,6 +47,22 @@ class Finestra:
 
         tk.Button(frame_azioni, text="Inverti Stato", command=self.inverti_stato).grid(row=0, column=0, padx=5)
         tk.Button(frame_azioni, text="Rimuovi", command=self.rimuovi_task).grid(row=0, column=1, padx=5)
+
+        self.carica_dati()
+
+
+    def carica_dati(self):
+        tasks_letti = persist.carica_task(self.file_db)
+        tasks.clear()
+        for task in tasks_letti:
+            tasks.append(task)
+        self.aggiorna_lista_visuale()
+
+    def aggiorna_lista_visuale(self):
+        self.listbox.delete(0, tk.END)
+        for t in tasks:
+            print(t.visualizza_info())
+            self.listbox.insert(tk.END, t.visualizza_info())
 
     def salva_task(self):
         tit = self.ent_titolo.get()
