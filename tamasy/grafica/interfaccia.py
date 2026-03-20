@@ -1,5 +1,7 @@
 import tkinter as tk
-from tkinter import ttk
+from tkinter import ttk, messagebox
+from modelli import Task, BugTask, FeatureTask, tasks
+import persist_file as persist
 
 class Finestra:
     def __init__(self):
@@ -46,7 +48,31 @@ class Finestra:
         tk.Button(frame_azioni, text="Rimuovi", command=self.rimuovi_task).grid(row=0, column=1, padx=5)
 
     def salva_task(self):
-        pass
+        tit = self.ent_titolo.get()
+        desc = self.ent_desc.get()
+        tipo = self.combo_tipo.get()
+
+        if not tit:
+            messagebox.showwarning("Attenzione", "Il titolo è obbligatorio!")
+            return
+
+        if tipo == "Bug": nuovo = BugTask(tit, desc, "Media")
+        elif tipo == "Feature": nuovo = FeatureTask(tit, desc, "Normale")
+        else: nuovo = Task(tit, desc)
+
+        # Verifica se la lista ha un elemento selezionato
+        if self.listbox.curselection():
+            indice = self.listbox.curselection()[0]
+            tasks[indice] = nuovo
+        else:
+            tasks.append(nuovo)
+
+        self.salva_dati()
+        self.aggiorna_lista_visuale()
+        self.annulla_task()
+
+    def salva_dati(self):
+        persist.salva_task(tasks)
 
     def annulla_task(self):
         pass
