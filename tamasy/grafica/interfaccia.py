@@ -92,16 +92,40 @@ class Finestra:
         persist.salva_task(tasks)
 
     def annulla_task(self):
-        pass
+        self.ent_titolo.delete(0, tk.END)
+        self.ent_desc.delete(0, tk.END)
+        self.combo_tipo.current(0)
+        self.listbox.selection_clear(0, tk.END)
 
-    def modifica_task(self):
-        pass
+    def modifica_task(self, event):
+        indice = self.listbox.curselection()[0]
+        t = tasks[indice]
+        self.ent_titolo.delete(0, tk.END)
+        self.ent_desc.delete(0, tk.END)
+        self.ent_titolo.insert(0, t.titolo)
+        self.ent_desc.insert(0, t.descrizione)
+        self.combo_tipo.current(1 if t.__class__.__name__ == "BugTask" else 2 if t.__class__.__name__ == "FeatureTask" else 0)
 
     def inverti_stato(self):
-        pass
+        try:
+            indice = self.listbox.curselection()[0]
+            t = tasks[indice]
+            t.stato = "Completato" if t.stato == "Aperto" else "Aperto"
+            self.salva_dati()
+            self.aggiorna_lista_visuale()
+            self.annulla_task()
+        except IndexError:
+            messagebox.showerror("Errore", "Seleziona un task dalla lista!")
 
     def rimuovi_task(self):
-        pass
+        try:
+            indice = self.listbox.curselection()[0]
+            tasks.pop(indice)
+            self.salva_dati()
+            self.aggiorna_lista_visuale()
+            self.annulla_task()
+        except IndexError:
+            messagebox.showerror("Errore", "Seleziona un task dalla lista!")
     
     def loop(self):
         self.root.mainloop()
