@@ -98,6 +98,7 @@ class Finestra:
         self.listbox.selection_clear(0, tk.END)
 
     def modifica_task(self, event):
+        print(event)
         indice = self.listbox.curselection()[0]
         t = tasks[indice]
         self.ent_titolo.delete(0, tk.END)
@@ -110,7 +111,7 @@ class Finestra:
         try:
             indice = self.listbox.curselection()[0]
             t = tasks[indice]
-            t.stato = "Completato" if t.stato == "Aperto" else "Aperto"
+            t.inverti_stato()
             self.salva_dati()
             self.aggiorna_lista_visuale()
             self.annulla_task()

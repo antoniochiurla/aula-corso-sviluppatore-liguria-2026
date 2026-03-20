@@ -17,6 +17,9 @@ class Task:
 
         # --- 4. METODI (Comportamenti dell'oggetto) ---
 
+    def inverti_stato(self):
+        self._stato = "Completato" if self._stato == "Aperto" else "Aperto"
+
     def completa(self):
         """Segna il task come completato"""
         self._stato = "Completato"
