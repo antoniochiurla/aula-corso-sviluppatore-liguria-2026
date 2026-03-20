@@ -24,7 +24,7 @@ class Finestra:
         self.ent_desc.grid(row=1, column=1)
 
         tk.Label(frame_form, text="Tipo:").grid(row=2, column=0)
-        self.combo_tipo = ttk.Cookmbobox(frame_form, values=["Task Base", "Bug", "Feature"], state="readonly")
+        self.combo_tipo = ttk.Combobox(frame_form, values=["Task Base", "Bug", "Feature"], state="readonly")
         self.combo_tipo.current(0)
         self.combo_tipo.grid(row=2, column=1)
 
@@ -45,6 +45,21 @@ class Finestra:
         tk.Button(frame_azioni, text="Inverti Stato", command=self.inverti_stato).grid(row=0, column=0, padx=5)
         tk.Button(frame_azioni, text="Rimuovi", command=self.rimuovi_task).grid(row=0, column=1, padx=5)
 
+    def salva_task(self):
+        pass
+
+    def annulla_task(self):
+        pass
+
+    def modifica_task(self):
+        pass
+
+    def inverti_stato(self):
+        pass
+
+    def rimuovi_task(self):
+        pass
+    
     def loop(self):
         self.root.mainloop()
 
