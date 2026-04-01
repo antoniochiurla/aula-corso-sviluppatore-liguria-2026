@@ -1,0 +1,1497 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<title>Corso di programmazione</title>
+<!-- metadata -->
+<meta charset="UTF-8" />
+<meta name="generator" content="Zim 0.76.3" />
+<meta name="version" content="S5 1.1" />
+<meta name="presdate" content="" />
+<meta name="author" content="" />
+<meta name="company" content="" />
+<!-- configuration parameters -->
+<meta name="defaultView" content="slideshow" />
+<meta name="controlVis" content="hidden" />
+<!-- style sheet links -->
+<link rel="stylesheet" href="./03-SviluppoApplicazioniWEBDatabase_files/_resources/ui/default/slides.css" type="text/css" media="projection" id="slideProj" />
+<link rel="stylesheet" href="./03-SviluppoApplicazioniWEBDatabase_files/_resources/ui/default/outline.css" type="text/css" media="screen" id="outlineStyle" />
+<link rel="stylesheet" href="./03-SviluppoApplicazioniWEBDatabase_files/_resources/ui/default/print.css" type="text/css" media="print" id="slidePrint" />
+<link rel="stylesheet" href="./03-SviluppoApplicazioniWEBDatabase_files/_resources/ui/default/opera.css" type="text/css" media="projection" id="operaFix" />
+<!-- S5 JS -->
+<script src="./03-SviluppoApplicazioniWEBDatabase_files/_resources/ui/default/slides.js" type="text/javascript"></script>
+</head>
+<body>
+
+<div class="layout">
+<div id="controls"><!-- DO NOT EDIT --></div>
+<div id="currentSlide"><!-- DO NOT EDIT --></div>
+<div id="header"></div>
+<div id="footer">
+<!--
+<h1>[location/date of presentation]</h1>
+<h2>[slide show title here]</h2>
+-->
+<h1 id="h1-footer">&nbsp;</h1>
+<h2 id="h2-footer">&nbsp;</h2>
+</div>
+
+</div>
+
+<div class="presentation">
+
+<div class="slide">
+<h1>Corso di programmazione<a id="corso-di-programmazione" class="h_anchor"></a></h1>
+<h2>Sviluppo applicazioni WEB<a id="sviluppo-applicazioni-web" class="h_anchor"></a></h2>
+<h3>Antonio Chiurla<a id="antonio-chiurla" class="h_anchor"></a></h3>
+<h4>logo: tamasy.png<a id="logo-tamasypng" class="h_anchor"></a></h4>
+<h4>date: 2026<a id="date-2026" class="h_anchor"></a></h4>
+
+</div>
+<div class="slide">
+<h1>HTTP<a id="http" class="h_anchor"></a></h1>
+<ul style='padding-left: 30pt'>
+<li>Richiesta</li>
+<li>Risposta</li>
+<li>Metodi</li>
+<li>Sessionless</li>
+<li>Header
+<ul>
+<li>Tipi di contenuto</li>
+<li>Dimensione</li>
+<li>Tempo di validità</li>
+</ul></li>
+</ul>
+
+
+</div>
+<div class="slide">
+<h1>HTTPS<a id="https" class="h_anchor"></a></h1>
+<ul style='padding-left: 30pt'>
+<li>Crittografia</li>
+<li>Protezione
+<ul>
+<li>Privacy</li>
+<li>Finanziaria</li>
+</ul></li>
+<li>Certificati</li>
+<li>Autorità di certificazione</li>
+</ul>
+
+
+</div>
+<div class="slide">
+<h1>Client/Server<a id="clientserver" class="h_anchor"></a></h1>
+<ul style='padding-left: 30pt'>
+<li>Client - Browser
+<ul>
+<li>Esegue le richieste di risorse</li>
+<li>Mostra i contenuti</li>
+<li>Interazione con utente</li>
+</ul></li>
+<li>Server - WEB server
+<ul>
+<li>Riceve richieste</li>
+<li>Restituisce risposte</li>
+<li>Risorse
+<ul>
+<li>statiche</li>
+<li>dinamiche</li>
+</ul></li>
+</ul></li>
+</ul>
+
+
+</div>
+<div class="slide">
+<h1>Richiesta HTTP - UML<a id="richiesta-http---uml" class="h_anchor"></a></h1>
+<ul>
+<li>semplificando:</li>
+</ul>
+<p>
+<img src="file:///Users/antonio/tmp/20260218-CorsoProgrammazione/snippets/modulo-03/01-RichiestaHTTP-Sequence.png">
+</p>
+
+</div>
+<div class="slide">
+<h1>Passaggi<a id="passaggi" class="h_anchor"></a></h1>
+<ul>
+<li>Semplificando
+<ul>
+<li>Utente apre un indirizzo WEB
+<ul>
+<li><a href="https://www.ansa.it/liguria" title="https://www.ansa.it/liguria" class="https">https://www.ansa.it/liguria</a></li>
+</ul></li>
+<li>Il browser
+<ul>
+<li>risolve il nome <a href="www.ansa.it" title="www.ansa.it" class="http">www.ansa.it</a> in 46.4.22.185</li>
+<li>si connette all'indirizzo 46.4.22.185 sulla porta 443</li>
+<li>stabilisce un dialogo sicuro</li>
+<li>richiede la risorsa <a href="file:///liguria" title="/liguria" class="file">/liguria</a></li>
+</ul></li>
+<li>Il server
+<ul>
+<li>restituisce il contenuto della pagina HTML</li>
+</ul></li>
+<li>Il browser
+<ul>
+<li>recupera le ulteriori risorse necessarie (immagini...)</li>
+<li>mostra la pagina</li>
+</ul></li>
+</ul></li>
+</ul>
+
+
+
+</div>
+<div class="slide">
+<h1>Architettura 3-tier:<a id="architettura-3-tier" class="h_anchor"></a></h1>
+<ul>
+<li>Presentation Layer (Frontend - HTML/CSS/JS)</li>
+<li>Logic Layer (Backend - Django)</li>
+<li>Data Layer (Database - SQL)</li>
+</ul>
+
+
+</div>
+<div class="slide">
+<h1>Il nostro progetto<a id="il-nostro-progetto" class="h_anchor"></a></h1>
+<ul>
+<li>TaMaSy "Dove abita TaMaSy?
+<ul>
+<li>Il database tiene i task</li>
+<li>Django decide chi può vederli</li>
+<li>Il browser li mostra</li>
+</ul></li>
+</ul>
+
+
+</div>
+<div class="slide">
+<h1>HTML5<a id="html5" class="h_anchor"></a></h1>
+<ul>
+<li>Non è programmazione, è marcatura.
+<ul>
+<li>Tag generici (&lt;div&gt;, &lt;p&gt;, &lt;span&gt;)</li>
+<li>Tag semantici (&lt;header&gt;, &lt;main&gt;, &lt;footer&gt;)</li>
+<li>Form per l'input dati</li>
+<li>Table per i dati</li>
+</ul></li>
+</ul>
+
+</div>
+<div class="slide">
+<h1>Cos'è una pagina Web?<a id="cosè-una-pagina-web" class="h_anchor"></a></h1>
+<ul>
+<li>Il Browser (Chrome, Safari)
+<ul>
+<li>legge file di testo e li trasforma in grafica</li>
+</ul></li>
+<li>HTML (HyperText Markup Language)
+<ul>
+<li>Non è programmazione</li>
+<li>è "etichettatura" dei contenuti</li>
+</ul></li>
+<li>I file
+<ul>
+<li>Con estensione .html</li>
+<li>esempio
+<ul>
+<li>index.html.</li>
+</ul></li>
+</ul></li>
+</ul>
+
+</div>
+<div class="slide">
+<h1>La Struttura Standard<a id="la-struttura-standard" class="h_anchor"></a></h1>
+<ul>
+<li>Spiegazione visiva dei tag obbligatori
+<ul>
+<li>&lt;!DOCTYPE html&gt; (Dichiarazione)</li>
+<li>&lt;html&gt; (Il contenitore globale)</li>
+<li>&lt;head&gt; (Cosa non si vede: titoli della scheda, link a file esterni)</li>
+<li>&lt;body&gt; (Tutto ciò che l'utente vede)</li>
+</ul></li>
+</ul>
+
+</div>
+<div class="slide">
+<h1>I Mattoni Base<a id="i-mattoni-base" class="h_anchor"></a></h1>
+<ul>
+<li>Titoli
+<ul>
+<li>&lt;h1&gt; (il più importante) fino a &lt;h6&gt;</li>
+</ul></li>
+<li>Paragrafi
+<ul>
+<li>&lt;p&gt;</li>
+</ul></li>
+<li>Liste
+<ul>
+<li>&lt;ul&gt; (puntate)</li>
+<li>&lt;li&gt; (elementi della lista)</li>
+</ul></li>
+<li>Importante
+<ul>
+<li>Ogni tag aperto va chiuso: &lt;tag&gt; contenuto &lt;/tag&gt;</li>
+</ul></li>
+</ul>
+
+
+</div>
+<div class="slide">
+<h1>Link e Immagini<a id="link-e-immagini" class="h_anchor"></a></h1>
+<ul>
+<li>Link
+<ul>
+<li><tt>&lt;a href="https://google.com"&gt;Clicca</tt> <tt>qui&lt;/a&gt;</tt></li>
+</ul></li>
+<li>Immagini
+<ul>
+<li><tt>&lt;img src="foto.jpg" alt="Descrizione"&gt;</tt></li>
+</ul></li>
+<li>Gli "attributi" (href, src)
+<ul>
+<li>danno informazioni extra al tag.</li>
+</ul></li>
+</ul>
+
+
+</div>
+<div class="slide">
+<h1>Organizzare in Blocchi: il &lt;div&gt;<a id="organizzare-in-blocchi-il-div" class="h_anchor"></a></h1>
+<ul>
+<li>Il tag &lt;div&gt;
+<ul>
+<li>come "scatola invisibile"</li>
+</ul></li>
+<li>Serve a raggruppare elementi
+<ul>
+<li>per spostarli o colorarli insieme dopo</li>
+</ul></li>
+<li>Introduzione a class e id (le etichette per il CSS)</li>
+</ul>
+
+
+</div>
+<div class="slide">
+<h1>Caratteri particolari<a id="caratteri-particolari" class="h_anchor"></a></h1>
+<ul>
+<li><tt>&amp;gt;</tt> e <tt>&amp;lt;</tt>
+<ul>
+<li><tt>&gt;</tt> e <tt>&lt;</tt></li>
+</ul></li>
+<li><tt>&amp;egrave;</tt>
+<ul>
+<li>è</li>
+</ul></li>
+<li><tt>&amp;euro;</tt>
+<ul>
+<li>€</li>
+</ul></li>
+<li>Riferimenti
+<ul>
+<li><a href="https://www.html.am/reference/html-special-characters.cfm" title="https://www.html.am/reference/html-special-characters.cfm" class="https">https://www.html.am/reference/html-special-characters.cfm</a></li>
+<li><a href="https://www.w3schools.com/html/html_entities.asp" title="https://www.w3schools.com/html/html_entities.asp" class="https">https://www.w3schools.com/html/html_entities.asp</a></li>
+<li><a href="https://www.w3schools.com/html/html_symbols.asp" title="https://www.w3schools.com/html/html_symbols.asp" class="https">https://www.w3schools.com/html/html_symbols.asp</a></li>
+<li><a href="https://www.w3schools.com/html/html_emojis.asp" title="https://www.w3schools.com/html/html_emojis.asp" class="https">https://www.w3schools.com/html/html_emojis.asp</a></li>
+<li>...</li>
+</ul></li>
+</ul>
+
+</div>
+<div class="slide">
+<h1>Tag semantici<a id="tag-semantici" class="h_anchor"></a></h1>
+<ul>
+<li>Obiettivo: maggiore leggibilità automatica
+<ul>
+<li>SEO - Search Engine Optimization
+<ul>
+<li>molto importante per aumentare la competitività delle pagine</li>
+</ul></li>
+<li>definiscono la struttura della pagina in termini di contenuti</li>
+<li>Esempi:
+<ul>
+<li>principali
+<ul>
+<li>&lt;section&gt;</li>
+<li>&lt;article&gt;</li>
+</ul></li>
+<li>secondari
+<ul>
+<li>&lt;header&gt;</li>
+<li>&lt;footer&gt;</li>
+<li>&lt;aside&gt;</li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+
+
+</div>
+<div class="slide">
+<h1>ID e classi degli elementi<a id="id-e-classi-degli-elementi" class="h_anchor"></a></h1>
+<ul>
+<li>Gli elementi HTML
+<ul>
+<li>possono avere
+<ul>
+<li>un ID
+<ul>
+<li>attributo id=</li>
+</ul></li>
+<li>delle classi
+<ul>
+<li>attributo class=
+<ul>
+<li>serie di nomi separati da spazio</li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+
+</div>
+<div class="slide">
+<h1>CSS3<a id="css3" class="h_anchor"></a></h1>
+<ul>
+<li>Se HTML è lo scheletro, CSS è la pelle</li>
+<li>Concetti di Box Model
+<ul>
+<li>margin</li>
+<li>border</li>
+<li>padding</li>
+</ul></li>
+<li>Responsive Design
+<ul>
+<li>il sito si adatta al cellulare o al tablet</li>
+</ul></li>
+</ul>
+
+</div>
+<div class="slide">
+<h1>Come collegare il CSS<a id="come-collegare-il-css" class="h_anchor"></a></h1>
+<ul>
+<li>Il metodo migliore
+<ul>
+<li>Il file esterno style.css</li>
+</ul></li>
+<li>Il tag &lt;link rel="stylesheet" href="style.css"&gt; dentro il tag &lt;head&gt;.</li>
+</ul>
+
+
+</div>
+<div class="slide">
+<h1>La Regola CSS<a id="la-regola-css" class="h_anchor"></a></h1>
+<ul>
+<li>&lt;selettore&gt; <tt>{ &lt;proprietà&gt;: &lt;valore&gt;; }</tt></li>
+<li>Esempio
+<ul>
+<li><tt>h1 { color: blue; font-size: 24px; }</tt></li>
+</ul></li>
+<li>Selettori di classe
+<ul>
+<li><tt>.nome-classe { ... }</tt></li>
+</ul></li>
+<li>Selettori di ID
+<ul>
+<li><a href="#id-elemento" title="#id-elemento" class="page"><tt>#id-elemento</tt></a> <tt>{ ... }</tt></li>
+</ul></li>
+</ul>
+
+
+</div>
+<div class="slide">
+<h1>Colori e Sfondi<a id="colori-e-sfondi" class="h_anchor"></a></h1>
+<ul>
+<li>Nomi e codici dei colori</li>
+<li>Nom, codici decimali e esadecimali
+<ul>
+<li>red - rgb(255,0,0) - <tt>#ff0000</tt></li>
+<li>green - rgb(0,255,0) - <tt>#00ff00</tt></li>
+<li>gray - rgb(128,128,128) - <tt>#808080</tt></li>
+<li>...</li>
+</ul></li>
+<li>Proprietà
+<ul>
+<li>background-color</li>
+<li>color</li>
+<li>...</li>
+</ul></li>
+</ul>
+
+
+</div>
+<div class="slide">
+<h1>Il Box Model<a id="il-box-model" class="h_anchor"></a></h1>
+<ul>
+<li>Ogni elemento è una scatola</li>
+<li>Padding
+<ul>
+<li>Spazio dentro la scatola (tra testo e bordo)</li>
+</ul></li>
+<li>Border
+<ul>
+<li>Il confine</li>
+</ul></li>
+<li>Margin
+<ul>
+<li>Spazio fuori dalla scatola (distanza dagli altri oggetti).</li>
+</ul></li>
+</ul>
+
+
+
+</div>
+<div class="slide">
+<h1>JavaScript base<a id="javascript-base" class="h_anchor"></a></h1>
+<ul>
+<li>DOM (Document Object Model): JavaScript permette di modificare l'HTML "al volo" senza ricaricare la pagina</li>
+<li>Eventi: Cosa succede quando clicco un tasto? (onclick)</li>
+<li>Chiamate Asincrone (AJAX/Fetch): Chiedere dati al server "dietro le quinte"</li>
+<li>TaMaSy: Mettiamo un tasto 'Completa' che faccia sparire il task con un'animazione JavaScript senza ricaricare tutta la pagina</li>
+</ul>
+
+
+</div>
+<div class="slide">
+<h1>Il DOM (Document Object Model)<a id="il-dom-document-object-model" class="h_anchor"></a></h1>
+<ul>
+<li>Per JS, la pagina HTML è un oggetto che può essere modificato</li>
+<li>Selezionare elementi</li>
+</ul>
+<p>
+<div style='padding-left: 30pt'>
+<tt>const tasto = document.querySelector("#mio-tasto");</tt><br>
+<tt>const div_menu = document.getElementById("menu");</tt>
+</div>
+</p>
+
+
+</div>
+<div class="slide">
+<h1>Gli Eventi<a id="gli-eventi" class="h_anchor"></a></h1>
+<ul>
+<li>JS resta in ascolto di cosa fa l'utente</li>
+<li>Esempio</li>
+</ul>
+<p>
+<div style='padding-left: 30pt'>
+<tt>bottone.addEventListener("click", funzione);</tt>
+</div>
+</p>
+<ul>
+<li>Cosa può succedere al click?
+<ul>
+<li>Cambiare testo</li>
+<li>Nascondere un'immagine</li>
+<li>Cambiare colore</li>
+</ul></li>
+</ul>
+
+
+</div>
+<div class="slide">
+<h1>Manipolare il CSS con JS<a id="manipolare-il-css-con-js" class="h_anchor"></a></h1>
+<ul>
+<li>Esempio di codice:</li>
+</ul>
+<p>
+<div style='padding-left: 30pt'>
+code JavaScript
+</div>
+</p>
+
+<p>
+<div style='padding-left: 30pt'>
+<tt>document.body.style.backgroundColor = "black";</tt>
+</div>
+</p>
+
+<ul>
+<li>Possiamo cambiare lo stile "al volo" senza ricaricare la pagina</li>
+</ul>
+
+
+</div>
+<div class="slide">
+<h1>Framework (Bootstrap)<a id="framework-bootstrap" class="h_anchor"></a></h1>
+<ul>
+<li>Fondamentale per non perdere ore a scrivere codice che scriva HTML e CSS</li>
+<li>La Griglia (Grid System) a 12 colonne</li>
+<li>TaMaSy Usiamo i componenti di Bootstrap per creare la dashboard di TaMaSy
+<ul>
+<li>Card per i task e pulsanti colorati (Blu = Info, Rosso = Urgente).</li>
+</ul></li>
+</ul>
+
+</div>
+<div class="slide">
+<h1>Pagina di esempio<a id="pagina-di-esempio" class="h_anchor"></a></h1>
+<ul>
+<li>in 02-bootstrap-esempio.html</li>
+</ul>
+<p>
+<img src="./03-SviluppoApplicazioniWEBDatabase_files/Screenshot 2026-02-20 alle 12.50.28.png" width="800">
+</p>
+
+</div>
+<div class="slide">
+<h1>Pagina di esempio - analisi<a id="pagina-di-esempio---analisi" class="h_anchor"></a></h1>
+<ul>
+<li>I "Mattoncini" (Componenti):
+<ul>
+<li>Non abbiamo scritto una sola riga di CSS per fare i bottoni arrotondati o le card con l'ombra</li>
+<li>Abbiamo solo usato classi come btn, card, shadow-sm</li>
+<li>Bootstrap è come una scatola di LEGO</li>
+</ul></li>
+</ul>
+
+
+</div>
+<div class="slide">
+<h1>Grid system - Bootstrap<a id="grid-system---bootstrap" class="h_anchor"></a></h1>
+<ul>
+<li>Il Grid System (Le classi col-md-4):
+<ul>
+<li>Bootstrap divide la pagina in 12 colonne
+<ul>
+<li>col-md-4 significa: "Sui monitor medi (md), occupa 4 colonne (quindi 12 / 4 = 3 card per riga)"</li>
+</ul></li>
+</ul></li>
+</ul>
+
+<ul style='padding-left: 30pt'>
+<li>Cosa succede se restringiamo la finestra del browser?
+<ul>
+<li>Responsive Design</li>
+</ul></li>
+<li><a href="https://getbootstrap.com/docs/4.0/layout/grid/" title="https://getbootstrap.com/docs/4.0/layout/grid/" class="https">https://getbootstrap.com/docs/4.0/layout/grid/</a></li>
+<li><a href="https://css-tricks.com/snippets/css/a-guide-to-flexbox/#flexbox-background" title="https://css-tricks.com/snippets/css/a-guide-to-flexbox/#flexbox-background" class="https">https://css-tricks.com/snippets/css/a-guide-to-flexbox/#flexbox-background</a></li>
+</ul>
+
+
+</div>
+<div class="slide">
+<h1>nomi classi col<a id="nomi-classi-col" class="h_anchor"></a></h1>
+<ul>
+<li>nomi col-...
+<ul>
+<li>convenzione: col-&lt;dimensione-schermo&gt;-...
+<ul>
+<li>&lt;dimensione-schermo&gt;
+<ul>
+<li>- &lt; 576px</li>
+<li>sm- &gt;= 576px</li>
+<li>md- &gt;=768px</li>
+<li>lg- &gt;=992px</li>
+<li>xl- &gt;=1200px</li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+
+
+</div>
+<div class="slide">
+<h1>Colori - Bootstrap<a id="colori---bootstrap" class="h_anchor"></a></h1>
+<ul>
+<li>Colori (Utility Classes)
+<ul>
+<li>primary (Blu): Azione principale</li>
+<li>success (Verde): Operazione riuscita/completata</li>
+<li>danger (Rosso): Errore o Bug</li>
+<li>warning (Giallo): Attenzione o Feature speciale</li>
+</ul></li>
+</ul>
+
+
+</div>
+<div class="slide">
+<h1>Margini - Bootstrap<a id="margini---bootstrap" class="h_anchor"></a></h1>
+<ul>
+<li>Margini e Padding
+<ul>
+<li>convenzione: &lt;property&gt;&lt;sides&gt;-&lt;size&gt;</li>
+<li>&lt;property&gt;
+<ul>
+<li>m: margin</li>
+<li>p: padding</li>
+</ul></li>
+<li>&lt;sides&gt;
+<ul>
+<li>t: top</li>
+<li>b: bottom</li>
+<li>...</li>
+</ul></li>
+<li>&lt;size&gt;
+<ul>
+<li>0-5 o auto</li>
+</ul></li>
+</ul></li>
+</ul>
+
+
+</div>
+<div class="slide">
+<h1>Esercizio<a id="esercizio" class="h_anchor"></a></h1>
+<ul>
+<li>Prendere il codice precedente</li>
+<li>Aggiungere una quarta card
+<ul>
+<li>Deve rappresentare un 'Urgent Task'
+<ul>
+<li>usate il colore info o dark</li>
+</ul></li>
+</ul></li>
+<li>Provare a cambiare la navbar in colore azzurro (bg-info) invece che nero</li>
+<li><a href="https://getbootstrap.com/docs/5.3/getting-started/introduction/" title="https://getbootstrap.com/docs/5.3/getting-started/introduction/" class="https">https://getbootstrap.com/docs/5.3/getting-started/introduction/</a></li>
+</ul>
+
+
+</div>
+<div class="slide">
+<h1>Database relazionali<a id="database-relazionali" class="h_anchor"></a></h1>
+<ul>
+<li>Database Relazionali (MySQL/PostgreSQL)
+<ul>
+<li>Concetto di Tabella</li>
+<li>Chiavi Primarie (PK): L'ID univoco di ogni task.</li>
+<li>Chiavi Esterne (FK): Come colleghiamo un Task a un Utente (Relazione 1 a molti).</li>
+</ul></li>
+</ul>
+
+
+</div>
+<div class="slide">
+<h1>Normalizzazione<a id="normalizzazione" class="h_anchor"></a></h1>
+<ul>
+<li>Processo che tende a
+<ul>
+<li>eliminare la ripetizione dei dati (ridondanza)</li>
+<li>migliorare la consistenza</li>
+</ul></li>
+<li>Forme Normali principali:
+<ul>
+<li>1FN (Prima Forma Normale): Elimina i gruppi ripetuti, assicura che ogni cella contenga un valore atomico (indivisibile) e definisce una chiave primaria</li>
+<li>2FN (Seconda Forma Normale): Soddisfa la 1FN e rimuove le dipendenze parziali, assicurando che tutti gli attributi non chiave dipendano dall'intera chiave primaria</li>
+<li>3FN (Terza Forma Normale): Soddisfa la 2FN e rimuove le dipendenze transitive (attributi non chiave che dipendono da altri attributi non chiave)</li>
+</ul></li>
+</ul>
+
+
+</div>
+<div class="slide">
+<h1>Normalizzazione - 1NF<a id="normalizzazione---1nf" class="h_anchor"></a></h1>
+<ul>
+<li>La regola della 1FN riguarda l'assicurarsi che le tabelle siano strutturate correttamente fin dall'inizio, come quando si imposta un foglio di lavoro pulito</li>
+<li>Regola
+<ul>
+<li>ogni colonna deve avere un nome univoco e ogni cella deve contenere un solo valore indivisibile</li>
+</ul></li>
+<li>Cosa risolve
+<ul>
+<li>non puoi inserire un elenco di elementi in una singola cella</li>
+<li>Ad esempio, in una tabella "Ordini" non puoi elencare "Latte, Uova, Pane" in una sola cella sotto la colonna "Prodotti ordinati". Invece, ogni prodotto deve avere la propria riga, il che garantisce che i dati siano ricercabili e gestibili.</li>
+</ul></li>
+</ul>
+
+
+</div>
+<div class="slide">
+<h1>Normalizzazione - 2NF<a id="normalizzazione---2nf" class="h_anchor"></a></h1>
+<ul>
+<li>La regola della 2FN si applica se la tabella utilizza una chiave primaria composita. Chiave primaria è la colonna o le colonne i cui valori identificano in modo univoco ogni riga di una tabella</li>
+<li>Regola
+<ul>
+<li>una tabella deve già essere in 1NF e tutte le colonne non chiave devono dipendere dall'intera chiave composita, non solo da una parte di essa</li>
+</ul></li>
+<li>Cosa risolve
+<ul>
+<li>riuscire ad archiviare i dati solo dove completamente pertinenti</li>
+<li>tabella in cui la chiave è (OrderID, ProductID), colonna Prezzo del prodotto non deve essere presente, il prezzo dipende solo dal ProductID, non dall'OrderID. Spostare ProductID e Prezzo in tabella Prodotti separata, in cui ProductID è unica chiave primaria</li>
+</ul></li>
+</ul>
+
+
+</div>
+<div class="slide">
+<h1>Normalizzazione - 3NF<a id="normalizzazione---3nf" class="h_anchor"></a></h1>
+<ul>
+<li>La regola 3NF è l'obiettivo più comune per la progettazione di database e riguarda la rimozione delle relazioni indirette tra i punti dati</li>
+<li>Regola
+<ul>
+<li>una tabella deve essere in 2NF e le colonne non chiave devono dipendere solo dalla chiave primaria, non da altre colonne non chiave</li>
+</ul></li>
+<li>Cosa risolve
+<ul>
+<li>evita che un dato non chiave determini il valore di un altro dato non chiave</li>
+<li>Tabella "Dipendenti" con un ID ufficio non chiave e posizione dell'ufficio non chiave. Posizione dell'ufficio è determinata da ID dell'ufficio, non da ID del dipendente. Creare nuova tabella Uffici con ID ufficio e posizione ufficio, poi colleghi le tabelle ID ufficio</li>
+</ul></li>
+</ul>
+
+
+</div>
+<div class="slide">
+<h1>Linguaggio SQL<a id="linguaggio-sql" class="h_anchor"></a></h1>
+<ul>
+<li>Le 4 operazioni fondamentali (CRUD):
+<ul>
+<li>INSERT - Create - (Crea task)</li>
+<li>SELECT - Read - (Leggi task)</li>
+<li>UPDATE - Update - (Modifica stato)</li>
+<li>DELETE - Delete - (Cancella task)</li>
+</ul></li>
+<li>Opzioni in lettura
+<ul>
+<li>ORDER BY</li>
+<li>JOIN</li>
+<li>GROUP BY</li>
+</ul></li>
+<li>Connessione tra applicazione e database (JDBC, ORM, SQLAlchemy, Entity Framework)</li>
+</ul>
+
+
+</div>
+<div class="slide">
+<h1>Il nostro progetto<a id="il-nostro-progetto" class="h_anchor"></a></h1>
+<ul>
+<li>TaMaSy
+<ul>
+<li>Progettiamo lo schema
+<ul>
+<li>Tabelle
+<ul>
+<li>UTENTI
+<ul>
+<li>User_ID</li>
+<li>Name</li>
+<li>Surname</li>
+<li>Role</li>
+</ul></li>
+<li>TASK
+<ul>
+<li>Task_ID</li>
+<li>Description</li>
+<li>User_ID</li>
+<li>CONSTRAINT fk_user_task FOREIGN KEY(User_ID) REFERENCES UTENTI(User_ID))</li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+
+
+
+</div>
+<div class="slide">
+<h1>Django<a id="django" class="h_anchor"></a></h1>
+<ul>
+<li>Django - Framework backend
+<ul>
+<li>fornisce
+<ul>
+<li>sicurezza</li>
+<li>template</li>
+<li>accesso database</li>
+</ul></li>
+<li>alternative
+<ul>
+<li>Flask - Python</li>
+<li>Ruby On Rails - Ruby</li>
+<li>JakartaEE, Spring, Springboot, Quarkus - Java</li>
+<li>... tanti altri</li>
+</ul></li>
+</ul></li>
+</ul>
+
+
+
+</div>
+<div class="slide">
+<h1>ORM<a id="orm" class="h_anchor"></a></h1>
+<ul>
+<li>Object Relational Mapping
+<ul>
+<li>Invece di scrivere SQL
+<ul>
+<li><tt>select from TASK</tt></li>
+</ul></li>
+<li>Scriviamo codice Python
+<ul>
+<li><tt>tasks = Task.objects.all()</tt></li>
+</ul></li>
+<li>Definizione del modello Task
+<ul>
+<li>classe Task corrispondente alla tabella TASK</li>
+<li>proprietà corrispondenti alle colonne della tabella TASK</li>
+</ul></li>
+</ul></li>
+</ul>
+
+
+</div>
+<div class="slide">
+<h1>Il nostro progetto<a id="il-nostro-progetto" class="h_anchor"></a></h1>
+<ul>
+<li>TaMaSy
+<ul>
+<li>implementiamo il CRUD</li>
+<li>trasformiamo le classi del modulo precedente in un modello Django</li>
+</ul></li>
+</ul>
+
+
+</div>
+<div class="slide">
+<h1>UML<a id="uml" class="h_anchor"></a></h1>
+<ul>
+<li>Use Case diagram
+<ul>
+<li>Serve a definire il perimetro del progetto</li>
+</ul></li>
+<li>Class Diagram
+<ul>
+<li>Mostra la struttura "statica": le classi, i loro attributi, i metodi e le relazioni di ereditarietà</li>
+</ul></li>
+<li>Activity diagram
+<ul>
+<li>Visualizza la logica di un processo o di un algoritmo</li>
+</ul></li>
+<li>Sequence diagram
+<ul>
+<li>Mostra come gli oggetti comunicano tra loro nel tempo</li>
+</ul></li>
+</ul>
+
+</div>
+<div class="slide">
+<h1>UML<a id="uml" class="h_anchor"></a></h1>
+<ul>
+<li>State diagram
+<ul>
+<li>Descrive i vari stati in cui può trovarsi un singolo oggetto e quali eventi causano il passaggio da uno stato all'altro</li>
+</ul></li>
+<li>Object diagram
+<ul>
+<li>Mostra come gli oggetti specifici sono relazionati tra loro in un determinato momento</li>
+</ul></li>
+</ul>
+
+</div>
+<div class="slide">
+<h1>plantuml<a id="plantuml" class="h_anchor"></a></h1>
+<ul>
+<li>genera i diagrammi UML
+<ul>
+<li>dal testo descrittivo</li>
+<li>permette la gestione di versioni come per i sorgenti</li>
+</ul></li>
+<li>reference
+<ul>
+<li><a href="https://plantuml.com/" title="https://plantuml.com/" class="https">https://plantuml.com/</a></li>
+</ul></li>
+</ul>
+
+</div>
+<div class="slide">
+<h1>Il nostro progetto<a id="il-nostro-progetto" class="h_anchor"></a></h1>
+<ul>
+<li>TaMaSy
+<ul>
+<li>Progettiamo l'applicazione</li>
+<li>UML
+<ul>
+<li>in seguito guarderemo se sono ancora attuali</li>
+<li>per formalizzare le idee</li>
+</ul></li>
+</ul></li>
+</ul>
+
+
+</div>
+<div class="slide">
+<h1>TaMaSy - WEB<a id="tamasy---web" class="h_anchor"></a></h1>
+<ul>
+<li>iniziamo l'applicazione WEB
+<ul>
+<li>creiamo un virtual environment</li>
+<li>installiamo django</li>
+<li>creiamo un progetto</li>
+<li>creiamo una applicazione</li>
+<li>definiamo i modelli</li>
+<li>definiamo le pagine</li>
+</ul></li>
+</ul>
+
+
+</div>
+<div class="slide">
+<h1>Virtual Env - TaMaSy<a id="virtual-env---tamasy" class="h_anchor"></a></h1>
+<ul>
+<li>creiamo un ambiente isolato
+<ul>
+<li>creiamo la directory tamasy</li>
+<li>entriamo nella directory tamasy</li>
+<li><tt>python -m venv venv</tt></li>
+<li>attiviamo l'ambiente
+<ul>
+<li>windows
+<ul>
+<li>command prompt
+<ul>
+<li><tt>venv\Scripts\activate.bat</tt></li>
+</ul></li>
+<li>power shell
+<ul>
+<li><tt>venv\Scripts\Activate.ps1</tt></li>
+</ul></li>
+</ul></li>
+<li>linux
+<ul>
+<li><tt>source venv/bin/activate</tt></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+
+
+</div>
+<div class="slide">
+<h1>Django - TaMaSy<a id="django---tamasy" class="h_anchor"></a></h1>
+<ul>
+<li>installiamo django
+<ul>
+<li><tt>pip install django</tt></li>
+</ul></li>
+<li>creiamo un progetto
+<ul>
+<li><tt>django-admin startproject tamasy_server .</tt>
+<ul>
+<li>il progetto si chiama "tamasy"</li>
+<li>la directory che lo contiene "." è la directory corrente</li>
+</ul></li>
+</ul></li>
+<li>primo avvio
+<ul>
+<li><tt>python manage.py runserver</tt></li>
+<li>come suggerito aprire il browser su
+<ul>
+<li><a href="http://127.0.0.1:8000" title="http://127.0.0.1:8000" class="http">http://127.0.0.1:8000</a></li>
+</ul></li>
+</ul></li>
+</ul>
+
+
+</div>
+<div class="slide">
+<h1>Django in poche parole<a id="django-in-poche-parole" class="h_anchor"></a></h1>
+<ul>
+<li>framework WEB
+<ul>
+<li>si occupa di
+<ul>
+<li>dialogo HTTP/S</li>
+<li>gestire la sessione con l'utente</li>
+<li>può gestire
+<ul>
+<li>autenticazione
+<ul>
+<li>chi sei</li>
+</ul></li>
+<li>autorizzazione
+<ul>
+<li>cosa puoi fare</li>
+</ul></li>
+</ul></li>
+<li>semplifica utilizzo database</li>
+</ul></li>
+</ul></li>
+</ul>
+
+</div>
+<div class="slide">
+<h1>Struttura - Django<a id="struttura---django" class="h_anchor"></a></h1>
+<pre>
+tamasy/          &lt;-- La "Scatola" esterna (il tuo cantiere)
+├─ venv/          &lt;-- L'ambiente isolato (non toccare!)
+├─ manage.py      &lt;-- Il "Telecomando" del progetto
+└─ tamasy_server/ &lt;-- Il "Cervello" del server (Configuration Folder)
+  ├─ _ _ init _ _.py   &lt;-- file vuoto
+  ├─ asgi.py     &lt;-- (Adv) Per comunicazioni asincrone
+  ├─ settings.py &lt;-- Configurazioni
+  ├─ urls.py     &lt;-- Indirizzi del sito
+  └─ wsgi.py     &lt;-- (Adv) Per mettere il sito online
+</pre>
+
+</div>
+<div class="slide">
+<h1>WSGI<a id="wsgi" class="h_anchor"></a></h1>
+<ul>
+<li>Web Server Gateway Interface
+<ul>
+<li>Specifiche
+<ul>
+<li>per la comunicazione tra
+<ul>
+<li>Web Server
+<ul>
+<li>Apache</li>
+<li>Nginx</li>
+<li>Microsoft IIS</li>
+</ul></li>
+<li>Applicazioni</li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+
+</div>
+<div class="slide">
+<h1>ASGI<a id="asgi" class="h_anchor"></a></h1>
+<ul>
+<li>Asynchronous Server Gateway Interface
+<ul>
+<li>Specifiche
+<ul>
+<li>per la comunicazione tra
+<ul>
+<li>Pagine WEB</li>
+<li>Applicazioni</li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+
+</div>
+<div class="slide">
+<h1>Progetto vs App<a id="progetto-vs-app" class="h_anchor"></a></h1>
+<ul>
+<li>progetto
+<ul>
+<li>il progetto tamasy_server è l'intero sito WEB
+<ul>
+<li>come se fosse un centro commerciale</li>
+</ul></li>
+</ul></li>
+<li>app
+<ul>
+<li>una app è una funzionalità specifica
+<ul>
+<li>come se fosse un negozio nel centro commerciale</li>
+</ul></li>
+</ul></li>
+</ul>
+
+
+</div>
+<div class="slide">
+<h1>Tasks - TaMaSy<a id="tasks---tamasy" class="h_anchor"></a></h1>
+<ul>
+<li>creiamo una app nel progetto
+<ul>
+<li><tt>python manage.py startapp tasks</tt></li>
+</ul></li>
+<li>aggiungiamo "tasks" alla lista INSTALLED_APPS in tamasy_server/settings.py</li>
+</ul>
+
+</div>
+<div class="slide">
+<h1>MVT - Django<a id="mvt---django" class="h_anchor"></a></h1>
+<ul>
+<li>MVT - Model View Template
+<ul>
+<li>Model
+<ul>
+<li>gestisce i dati</li>
+</ul></li>
+<li>View
+<ul>
+<li>contiene la logica</li>
+</ul></li>
+<li>Template
+<ul>
+<li>definisce l'interfaccia grafica HTML + Bootstrap</li>
+</ul></li>
+<li>differente da MVC - Model View Controller</li>
+</ul></li>
+</ul>
+
+
+
+</div>
+<div class="slide">
+<h1>Prima vista<a id="prima-vista" class="h_anchor"></a></h1>
+<ul>
+<li>in tasks/views.py</li>
+</ul>
+<pre>
+from django.http import HttpResponse
+
+def index(request):
+	return HttpResponse("Hello, world. TaMaSy is alive.")
+</pre>
+
+</div>
+<div class="slide">
+<h1>Connessione url - vista<a id="connessione-url---vista" class="h_anchor"></a></h1>
+<ul>
+<li>in tasks/urls.py</li>
+</ul>
+<pre>
+from django.urls import path
+
+from . import views
+
+urlpatterns = [
+	path("", views.index, name="index"),
+]
+</pre>
+
+
+</div>
+<div class="slide">
+<h1>Connessione progetto / applicazione<a id="connessione-progetto--applicazione" class="h_anchor"></a></h1>
+<ul>
+<li>in tamasy_server/urls.py</li>
+</ul>
+<pre>
+from django.contrib import admin
+from django.urls import include, path
+
+urlpatterns = [
+	path("tasks/", include("tasks.urls")),
+	path("admin/", admin.site.urls),
+]
+</pre>
+<ul>
+<li>aprire il browser su
+<ul>
+<li><a href="http://127.0.0.1:8000/tasks" title="http://127.0.0.1:8000/tasks" class="http">http://127.0.0.1:8000/tasks</a></li>
+</ul></li>
+</ul>
+
+</div>
+<div class="slide">
+<h1>Model - TaMaSy<a id="model---tamasy" class="h_anchor"></a></h1>
+<ul>
+<li>seguendo 03-models.py
+<ul>
+<li>definiamo le tre classi come modelli in tasks/models.py</li>
+</ul></li>
+<li>prepariamo il database
+<ul>
+<li>python manage.py makemigrations tasks
+<ul>
+<li>genera gli script per il database</li>
+</ul></li>
+<li>python manage.py migrate
+<ul>
+<li>esegue tutti gli script di database</li>
+<li>anche quelli di base di django</li>
+</ul></li>
+</ul></li>
+</ul>
+
+
+</div>
+<div class="slide">
+<h1>Amministrazione - Django<a id="amministrazione---django" class="h_anchor"></a></h1>
+<ul>
+<li>aprire il browser su
+<ul>
+<li><a href="http://127.0.0.1:8000/admin" title="http://127.0.0.1:8000/admin" class="http">http://127.0.0.1:8000/admin</a></li>
+<li>richiesta di autenticazione
+<ul>
+<li>non abbiamo utenti definiti</li>
+</ul></li>
+<li>creiamo un utente amministrativo
+<ul>
+<li><tt>python manage.py createsuperuser</tt></li>
+<li>rispondiamo alle richieste</li>
+</ul></li>
+<li>eseguiamo il login</li>
+<li>esploriamo l'interfaccia di amministrazione</li>
+</ul></li>
+</ul>
+
+
+</div>
+<div class="slide">
+<h1>Modelli gestiti da amministrazione<a id="modelli-gestiti-da-amministrazione" class="h_anchor"></a></h1>
+<ul>
+<li>in tasks/admin.py</li>
+</ul>
+<p>
+<tt>from django.contrib import admin</tt><br>
+<tt>from .models import Task, BugTask, FeatureTask</tt>
+</p>
+
+<p>
+<tt>admin.site.register(Task)</tt><br>
+<tt>admin.site.register(BugTask)</tt><br>
+<tt>admin.site.register(FeatureTask)</tt>
+</p>
+<ul>
+<li>notare le nuove tabelle in amministrazione</li>
+</ul>
+
+
+</div>
+<div class="slide">
+<h1>Considerazioni su Django<a id="considerazioni-su-django" class="h_anchor"></a></h1>
+<ul>
+<li>Cosa offre
+<ul>
+<li>Autenticazione</li>
+<li>Amministrazione
+<ul>
+<li>utenti</li>
+<li>CRUD tabelle</li>
+</ul></li>
+<li>Aspetto gradevole</li>
+</ul></li>
+</ul>
+
+
+</div>
+<div class="slide">
+<h1>Pagina dei task<a id="pagina-dei-task" class="h_anchor"></a></h1>
+<ul>
+<li>La gestione dei task richiede
+<ul>
+<li>Un modo più "comodo" per la gestione</li>
+</ul></li>
+<li>Definiamo una nuova pagina
+<ul>
+<li>Torniamo ai diagrammi del modulo precedente</li>
+<li>Vediamo se sono ancora validi</li>
+</ul></li>
+</ul>
+
+
+</div>
+<div class="slide">
+<h1>TaMaSy - Gestione task<a id="tamasy---gestione-task" class="h_anchor"></a></h1>
+<ul>
+<li>Passaggi
+<ul>
+<li>definiamo i percorsi in tasks/urls.py
+<ul>
+<li>verifichiamo di averlo incluso in tamasy_server/urls.py</li>
+</ul></li>
+<li>definiamo le operazioni in tasks/views.py</li>
+<li>aggiungiamo i template HTML
+<ul>
+<li>in tasks/templates/tasks
+<ul>
+<li>index.html</li>
+<li>add_form.html</li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+
+
+</div>
+<div class="slide">
+<h1>Considerazioni sul codice<a id="considerazioni-sul-codice" class="h_anchor"></a></h1>
+<ul>
+<li>Definizioni URL
+<ul>
+<li>gli URL non sono fissi ma calcolati
+<ul>
+<li>le parti variabili racchiuse in &lt; e &gt;</li>
+</ul></li>
+<li>gli assegniamo un nome</li>
+</ul></li>
+<li>CSRF
+<ul>
+<li>Protegge il server e l'utente da utilizzi non corretti</li>
+</ul></li>
+<li>Template
+<ul>
+<li>codice Python racchiuso in {% e %}</li>
+</ul></li>
+<li>Redirect
+<ul>
+<li>Dopo ogni operazione
+<ul>
+<li>torniamo alla lista</li>
+</ul></li>
+</ul></li>
+</ul>
+
+
+</div>
+<div class="slide">
+<h1>ToDo<a id="todo" class="h_anchor"></a></h1>
+<ul>
+<li>Accesso solo tramite login</li>
+<li>Aggiungere a Task il riferimento all'utente che l'ha creato</li>
+<li>Introdurre i campi specifici di Bug e Feature</li>
+<li>Migliorare l'aspetto di inserimento task</li>
+<li>Varie ed eventuali</li>
+</ul>
+
+
+</div>
+<div class="slide">
+<h1>Accesso tramite login<a id="accesso-tramite-login" class="h_anchor"></a></h1>
+<ul>
+<li>in tasks/views.py
+<ul>
+<li><tt>from django.contrib.auth.decorators import login_required</tt></li>
+<li><tt>@login_required</tt>
+<ul>
+<li>nei metodi che lo richiedono</li>
+</ul></li>
+</ul></li>
+<li>in tamasy_server/settings.py
+<ul>
+<li><tt>LOGIN_URL = "/admin/login/"</tt></li>
+</ul></li>
+</ul>
+
+
+</div>
+<div class="slide">
+<h1>Utente che crea il task<a id="utente-che-crea-il-task" class="h_anchor"></a></h1>
+<ul>
+<li>in tasks/model.py
+<ul>
+<li>aggiungiamo
+<ul>
+<li><tt>from django.contrib.auth.models import User</tt></li>
+<li><tt>created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='tasks')</tt></li>
+</ul></li>
+</ul></li>
+<li>eseguiamo
+<ul>
+<li><tt>python manage.py makemigrations tasks</tt></li>
+<li><tt>python manage.py migrate</tt>
+<ul>
+<li>fornire 1 come valore di default</li>
+</ul></li>
+</ul></li>
+<li>in tasks/views.py
+<ul>
+<li>nelle chiamate di creazione modelli
+<ul>
+<li><tt>created_by=request.user,</tt></li>
+</ul></li>
+</ul></li>
+</ul>
+
+
+</div>
+<div class="slide">
+<h1>Sicurezza e autenticazione di base<a id="sicurezza-e-autenticazione-di-base" class="h_anchor"></a></h1>
+<ul>
+<li>Hashing Password
+<ul>
+<li>Mai salvare password in chiaro nel database</li>
+<li>Si salva un codice criptato irreversibile</li>
+</ul></li>
+<li>Sessioni e Accessi
+<ul>
+<li>Come fa il sito a ricordarsi che sono loggato?</li>
+<li>Cookie e Sessioni</li>
+</ul></li>
+</ul>
+
+</div>
+<div class="slide">
+<h1>Il nostro progetto<a id="il-nostro-progetto" class="h_anchor"></a></h1>
+<ul>
+<li>Evoluzione di TaMaSy
+<ul>
+<li>sicurezza
+<ul>
+<li>quali operazioni possiamo limitare?</li>
+<li>come si possono limitare?</li>
+</ul></li>
+<li>nuove funzionalità
+<ul>
+<li>nuovi tipi di task?</li>
+<li>importazione da file?</li>
+<li>collegamenti con altri software?</li>
+<li>dashboard grafica?</li>
+<li>nuova UI angular?</li>
+</ul></li>
+</ul></li>
+</ul>
+
+</div>
+<div class="slide">
+<h1>SPA - Single Page Application<a id="spa---single-page-application" class="h_anchor"></a></h1>
+<ul>
+<li>SPA
+<ul>
+<li>interfaccia WEB</li>
+<li>caricata una sola volta</li>
+<li>si modifica con l'interazione utente/server
+<ul>
+<li>script javascript</li>
+<li>dati dal server</li>
+</ul></li>
+<li>aggiornamento dinamico</li>
+<li>vantaggi
+<ul>
+<li>UX veloce</li>
+<li>funziona anche off-line</li>
+</ul></li>
+<li>svantaggi
+<ul>
+<li>caricamento iniziale lento</li>
+<li>sovraccarico risorse client</li>
+<li>sviluppo complesso</li>
+</ul></li>
+</ul></li>
+</ul>
+
+
+</div>
+<div class="slide">
+<h1>Angular<a id="angular" class="h_anchor"></a></h1>
+<ul>
+<li>javascript/typescript</li>
+<li>sviluppare per
+<ul>
+<li>componenti</li>
+<li>template</li>
+<li>servizi</li>
+<li>segnali</li>
+</ul></li>
+<li>basato su typescript</li>
+<li>lato backend richiede
+<ul>
+<li>l'implementazione dei servizi</li>
+</ul></li>
+</ul>
+
+</div>
+<div class="slide">
+<h1>Versione Angular<a id="versione-angular" class="h_anchor"></a></h1>
+<h2>Appunti<a id="appunti" class="h_anchor"></a></h2>
+<p>
+pip install djangorestframework django-cors-headers<br>
+npm install -g <span class="zim-tag">@angular</span>/cli<br>
+ng new ang --defaults --skip-git --no-interactive --style css --routing false<br>
+npm install bootstrap bootstrap-icons<br>
+ng serve<br>
+ng build --base-href /tasks/ang/ --deploy-url /static/
+</p>
+
+
+
+
+</div>
+
+</div>
+
+</body>
+</html>
