@@ -11,9 +11,10 @@
         <h2>Dimostra la velocit&agrave; dei tuoi riflessi.</h2>
         <h3>Colpisci la talpa quando compare.</h3>
         <div class="container">
-            <img class="img layer1" src="img/Buca_dietro.png" alt="buca dietro">
-            <img class="img layer2" src="img/Talpa_sorridente.png" alt="talpa">
-            <img class="img layer3" src="img/buco_davanti.png" alt="buca davanti">
+            <img class="img" id="buca-dietro" src="img/Buca_dietro.png" alt="buca dietro">
+            <img class="img" id="talpa" src="img/Talpa_sorridente.png" alt="talpa">
+            <img class="img" id="buca-davanti" src="img/buco_davanti.png" alt="buca davanti" onclick="talpa_colpita()">
+            <button class="start" onclick="start_game()">START</button>
         </div>
     </body>
 </html>
