@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaMaSy - Web Dashboard</title>
+    <!-- Collegamento a Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.min.css" rel="stylesheet">
+    <style>
+        /* Un piccolo tocco di CSS personalizzato per lo sfondo */
+        body { background-color: #f8f9fa; }
+    </style>
+</head>
+<body>
+
+    <!-- 1. NAVBAR (Barra di navigazione) -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">🐍 TaMaSy </a>
+            <span class="navbar-text">Il tuo Pou dei Task</span>
+        </div>
+    </nav>
+
+    <!-- 2. CONTAINER (Contenitore principale centrato) -->
+    <div class="container mt-5">
+
+        <div class="row mb-4">
+            <div class="col">
+                <h1>Benvenuto, Sviluppatore!</h1>
+                <p class="text-muted">Ecco lo stato dei tuoi impegni oggi.</p>
+            </div>
+            <div class="col-auto">
+                <!-- Pulsante con colore primario di Bootstrap -->
+                <button class="btn btn-primary">+ Nuovo Task</button>
+            </div>
+        </div>
+
+        <!-- 3. GRID SYSTEM (Griglia a 3 colonne) -->
+        <div class="row">
+
+            <!-- TASK BASE (Card standard) -->
+            <div class="col-md-4 mb-3">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title">Riunione Team</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">Generico</h6>
+                        <p class="card-text">Discussione settimanale sull'andamento del progetto.</p>
+                        <button class="btn btn-outline-success btn-sm">Completa</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BUG TASK (Card con colori di avviso) -->
+            <div class="col-md-4 mb-3">
+                <div class="card h-100 border-danger shadow-sm">
+                    <div class="card-header bg-danger text-white">
+                        🐞 BUG RISCONTRATO
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title text-danger">Errore Login</h5>
+                        <p class="card-text">Il pulsante non risponde su Safari. Severità: <strong>ALTA</strong></p>
+                        <a href="#" class="btn btn-danger btn-sm">Risolvi ora</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FEATURE TASK (Card con badge e colori info) -->
+            <div class="col-md-4 mb-3">
+                <div class="card h-100 border-warning shadow-sm">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                            <h5 class="card-title">Tema Scuro</h5>
+                            <span class="badge bg-warning text-dark">⭐ Feature</span>
+                        </div>
+                        <p class="card-text">Implementare la modalità notte nel menu impostazioni.</p>
+                        <button class="btn btn-warning btn-sm">Pianifica</button>
+                    </div>
+                </div>
+            </div>
+
+        </div> <!-- Fine Row -->
+
+    </div> <!-- Fine Container -->
+
+    <!-- Bootstrap JS (per componenti interattivi come menu a tendina) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
