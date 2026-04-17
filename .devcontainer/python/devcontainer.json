@@ -8,7 +8,8 @@
       "extensions":[
         "mhutchie.git-graph",
         "ms-python.python",
-        "ms-python.vscode-pylance"
+        "ms-python.vscode-pylance",
+        "lang2hong.db-client"
       ]
     },
   "settings": {
