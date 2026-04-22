@@ -1,0 +1,16 @@
+<div class="container mt-5">
+    <h2>Aggiungi nuovo {{ tipo }}</h2>
+    <form method="POST">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label class="form-label">Titolo</label>
+            <input type="text" name="titolo" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Descrizione</label>
+            <textarea name="descrizione" class="form-control"></textarea>
+        </div>
+        <button type="submit" class="btn btn-success">Salva Task</button>
+        <a href="{% url 'index' %}" class="btn btn-secondary">Annulla</a>
+    </form>
+</div>
