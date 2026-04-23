@@ -2,4 +2,4 @@
 /**/__pycache__
 /**/*.class
 tamasy/django/db.sqlite3
-mytamasy/db.sqlite3
+/**/db.sqlite3
