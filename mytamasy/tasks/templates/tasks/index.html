@@ -22,7 +22,13 @@
         <div class="row">
             {% for t in tasks %}
             <div class="col-md-4 mb-3">
-                <div class="card shadow-sm {% if t.status == 'CL' %}opacity-50{% endif %}">
+                {% if t.type == 'T' %}
+                <div class="card shadow-sm {% if t.status == 'CL' %}opacity-50{% endif %} border border-primary">
+                {% elif t.type == 'B' %}
+                <div class="card shadow-sm {% if t.status == 'CL' %}opacity-50{% endif %} border border-danger">
+                {% elif t.type == 'F' %}
+                <div class="card shadow-sm {% if t.status == 'CL' %}opacity-50{% endif %} border border-warning">
+                {% endif %}
                     <div class="card-body">
                         <h5 class="card-title">
                             {% if t.status == 'CL' %}<del>{% endif %}

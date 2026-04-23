@@ -1,6 +1,11 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+class TaskType(models.TextChoices):
+    TASK = 'T', 'Task'
+    BUG = 'B', 'Bug'
+    FEATURE = 'F', 'Feature'
+
 # --- CLASSE BASE: TASK ---
 class Task(models.Model):
     # Definiamo gli stati possibili (come avevamo fatto con la logica)
@@ -17,6 +22,7 @@ class Task(models.Model):
         choices=Status.choices,
         default=Status.OPEN
     )
+    type = models.CharField(choices=TaskType.choices, default=TaskType.TASK)
 
     def __str__(self):
         # Questo decide cosa vedremo nel pannello Admin (es. il titolo del task)
@@ -37,6 +43,11 @@ class BugTask(Task):
         verbose_name="Severità"
     )
 
+    def save(self, *args, **kwargs):
+       self.type = TaskType.BUG
+       super(Task, self).save(*args, **kwargs)
+
+
 
 # --- SOTTOCLASSE: FEATURE ---
 class FeatureTask(Task):
@@ -51,4 +62,7 @@ class FeatureTask(Task):
         default=Priority.NORMAL,
         verbose_name="Priorità"
     )
-    
+
+    def save(self, *args, **kwargs):
+       self.type = TaskType.FEATURE
+       super(Task, self).save(*args, **kwargs)
