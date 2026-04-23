@@ -6,8 +6,8 @@
 </head>
 <body class="bg-light">
     <nav class="navbar navbar-dark bg-dark mb-4">
-        <div class="container"><a class="navbar-brand">TaMaSy Web Dashboard</a></div>
-        <div class="text-light me-3">{{ user.get_username }}</div>
+        <div class="w-auto ms-3"><a class="navbar-brand">TaMaSy Web Dashboard</a></div>
+        <div class="w-auto text-light col-md-auto me-4">{{ user.get_username }} <a href="{% url 'logout' %}">logout</a></div>
     </nav>
 
     <div class="container">
