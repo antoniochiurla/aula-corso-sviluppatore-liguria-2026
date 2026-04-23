@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpRequest
+from django.contrib.auth import logout
 
 from .models import Task, BugTask, FeatureTask
 from django.contrib.auth.decorators import login_required
@@ -38,3 +39,6 @@ def delete_task(request, task_id):
     task = Task.objects.get(id=task_id)
     task.delete()
     return redirect('index')
+
+def logout_view(request):
+    logout(request)
