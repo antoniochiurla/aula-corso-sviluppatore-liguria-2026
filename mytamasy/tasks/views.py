@@ -77,13 +77,14 @@ def add_task(request, tipo):
     if request.method == "POST":
         titolo = request.POST.get('titolo')
         desc = request.POST.get('descrizione')
+        assigned_to_id = request.POST.get('assigned_to')
 
         if tipo == 'B':
-            BugTask.objects.create(created_by=request.user,title=titolo, description=desc, severity='ME')
+            BugTask.objects.create(created_by=request.user,title=titolo, description=desc, severity='ME', assigned_to_id=assigned_to_id)
         elif tipo == 'F':
-            FeatureTask.objects.create(created_by=request.user,title=titolo, description=desc, priority='2')
+            FeatureTask.objects.create(created_by=request.user,title=titolo, description=desc, priority='2', assigned_to_id=assigned_to_id)
         else:
-            Task.objects.create(created_by=request.user,title=titolo, description=desc)
+            Task.objects.create(created_by=request.user,title=titolo, description=desc, assigned_to_id=assigned_to_id)
 
         return redirect('index')
     context = {
