@@ -5,6 +5,8 @@ from django.contrib.auth import logout
 from .models import Task, BugTask, FeatureTask
 from django.contrib.auth.decorators import login_required
 
+types = {'T': 'Task', 'B': "Bug", 'F': 'Feature'}
+
 @login_required
 def index(request):
     # Recuperiamo tutti i task dal database
@@ -51,7 +53,7 @@ def edit_task(request, task_id):
         'task': task,
         'bug': bug_task,
         'feature': feature_task,
-        'types': {'T': 'Task', 'B': "Bug", 'F': 'Feature'}
+        'types': types
         }
     return render(request, 'tasks/add_form.html', context)
 
@@ -61,15 +63,15 @@ def add_task(request, tipo):
         titolo = request.POST.get('titolo')
         desc = request.POST.get('descrizione')
 
-        if tipo == 'bug':
+        if tipo == 'B':
             BugTask.objects.create(created_by=request.user,title=titolo, description=desc, severity='ME')
-        elif tipo == 'feature':
+        elif tipo == 'F':
             FeatureTask.objects.create(created_by=request.user,title=titolo, description=desc, priority='2')
         else:
             Task.objects.create(created_by=request.user,title=titolo, description=desc)
 
         return redirect('index')
-    return render(request, 'tasks/add_form.html', {'tipo': tipo})
+    return render(request, 'tasks/add_form.html', {'tipo': tipo, 'types': types})
 
 
 @login_required
