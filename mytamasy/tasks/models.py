@@ -16,13 +16,16 @@ class Task(models.Model):
     title = models.CharField(max_length=200, verbose_name="Titolo")
     description = models.TextField(blank=True, verbose_name="Descrizione")
     created_at = models.DateTimeField(auto_now_add=True)  # Data automatica alla creazione
-    created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='tasks')
+    created_by = models.ForeignKey(User, on_delete=models.DO_NOTHING, related_name='tasks')
+    assigned_to = models.ForeignKey(User, on_delete=models.DO_NOTHING, null=True, blank=True)
     status = models.CharField(
         max_length=2,
         choices=Status.choices,
         default=Status.OPEN
     )
     type = models.CharField(choices=TaskType.choices, default=TaskType.TASK)
+    # bug = models.ForeignKey("BugTask", on_delete=models.CASCADE)
+    # feature = models.ForeignKey("FeatureTask", on_delete=models.CASCADE)
 
     def __str__(self):
         # Questo decide cosa vedremo nel pannello Admin (es. il titolo del task)

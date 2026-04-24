@@ -10,23 +10,36 @@
             <label class="form-label">Descrizione</label>
             <textarea name="descrizione" class="form-control">{{task.description}}</textarea>
         </div>
-        {% if task.type == 'B' %}
+        <div class="mb-3">
+            <label class="form-label">Creato da</label>
+            {{task.created_by}}
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Assegnato a</label>
+            <select name="assigned_to" class="form-control" required>
+                <option value="0">-</option>
+                {% for assignable_user in users %}
+                <option value="{{assignable_user.id}}" {{ task.assigned_to_id|is_selected:assignable_user.id }}>{{assignable_user}}</option>
+                {% endfor %}
+            </select>
+        </div>
+        {% if tipo == 'B' %}
         <div class="mb-3">
             <label class="form-label">Severit&agrave;</label>
             <select name="severity" class="form-control" required>
                 <option value="LO">Bassa</option>
-                <option value="ME">Media</option>
-                <option value="HI">Alta</option>
+                <option value="ME" {{ bug.severity|is_selected:"ME" }}>Media</option>
+                <option value="HI" {{ bug.severity|is_selected:"HI" }}>Alta</option>
             </select>
         </div>
         {% endif %}
-        {% if task.type == 'F' %}
+        {% if tipo == 'F' %}
         <div class="mb-3">
             <label class="form-label">Priorit&agrave;</label>
             <select name="priority" class="form-control" required>
                 <option value="1">Bassa</option>
-                <option value="2">Normale</option>
-                <option value="3">Urgente</option>
+                <option value="2" {{ feature.priority|is_selected:"2" }}>Normale</option>
+                <option value="3" {{ feature.priority|is_selected:"3" }}>Urgente</option>
             </select>
         </div>
         {% endif %}
