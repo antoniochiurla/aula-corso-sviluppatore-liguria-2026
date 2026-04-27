@@ -36,9 +36,9 @@ def edit_task(request, task_id):
     bug_task = None
     feature_task = None
     if task.type == 'B':
-        bug_task = BugTask.objects.get(pk=task_id)
+        bug_task = task.bugtask
     if task.type == 'F':
-        feature_task = FeatureTask.objects.get(pk=task_id)
+        feature_task = task.featuretask
     if request.method == "POST":
         title = request.POST.get('titolo')
         description = request.POST.get('descrizione')
