@@ -5,6 +5,45 @@ from django.contrib.auth.models import User
 
 from .models import Task, BugTask, FeatureTask
 from django.contrib.auth.decorators import login_required
+from rest_framework import viewsets, permissions
+from .serializers import TaskSerializer, BugTaskSerializer, FeatureTaskSerializer
+from rest_framework.decorators import action
+from rest_framework.response import Response
+
+class TaskViewSet(viewsets.ModelViewSet):
+    queryset = Task.objects.all().order_by('-created_at')
+    serializer_class = TaskSerializer
+    permission_classes = [permissions.AllowAny] # Simplified for now
+
+    def perform_create(self, serializer):
+        # Default to first user if not authenticated for simplicity in this exercise
+        from django.contrib.auth.models import User
+        user = self.request.user if self.request.user.is_authenticated else User.objects.first()
+        serializer.save(created_by=user)
+
+    @action(detail=True, methods=['post'])
+    def toggle(self, request, pk=None):
+        task = self.get_object()
+        task.status = 'CL' if task.status == 'AP' else 'AP'
+        task.save()
+        return Response({'status': 'task status toggled', 'new_status': task.status})
+
+class BugTaskViewSet(viewsets.ModelViewSet):
+    queryset = BugTask.objects.all()
+    serializer_class = BugTaskSerializer
+    def perform_create(self, serializer):
+        from django.contrib.auth.models import User
+        user = self.request.user if self.request.user.is_authenticated else User.objects.first()
+        serializer.save(created_by=user)
+
+class FeatureTaskViewSet(viewsets.ModelViewSet):
+    queryset = FeatureTask.objects.all()
+    serializer_class = FeatureTaskSerializer
+    def perform_create(self, serializer):
+        from django.contrib.auth.models import User
+        user = self.request.user if self.request.user.is_authenticated else User.objects.first()
+        serializer.save(created_by=user)
+
 
 types = {'T': 'Task', 'B': "Bug", 'F': 'Feature'}
 
@@ -112,3 +151,6 @@ def delete_task(request, task_id):
 @login_required
 def logout_view(request):
     logout(request)
+
+def angular_index(request):
+    return render(request, 'index.html')

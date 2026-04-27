@@ -2,7 +2,7 @@ FROM python:3.14-slim-trixie
 
 RUN apt-get update && apt-get install -y libpq-dev gcc iputils-ping dnsutils git postgresql-client nodejs npm && apt-get clean
 
-RUN npm install -g @angular/cli bootstrap bootstrap-icons
+RUN npm install -g @angular/cli bootstrap bootstrap-icons @angular-devkit/build-angular
 
 WORKDIR /workspace
 

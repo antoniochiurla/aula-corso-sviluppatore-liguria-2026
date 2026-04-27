@@ -1,0 +1,63 @@
+<nav class="navbar navbar-dark bg-primary mb-4">
+    <div class="container">
+        <a class="navbar-brand">TaMaSy Angular Dashboard</a>
+    </div>
+</nav>
+
+<div class="container">
+    <!-- FORM AGGIUNTA -->
+    <div class="card mb-4 shadow-sm">
+        <div class="card-body">
+            <h5 class="card-title">Aggiungi Nuovo Task</h5>
+            <div class="row g-3">
+                <div class="col-md-4">
+                    <input type="text" class="form-control" placeholder="Titolo" [(ngModel)]="newTaskTitle">
+                </div>
+                <div class="col-md-4">
+                    <input type="text" class="form-control" placeholder="Descrizione" [(ngModel)]="newTaskDesc">
+                </div>
+                <div class="col-md-2">
+                    <select class="form-select" [(ngModel)]="newTaskType">
+                        <option value="base">Base Task</option>
+                        <option value="bug">Bug 🐞</option>
+                        <option value="feature">Feature ⭐</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <button class="btn btn-success w-100" (click)="addTask()">Aggiungi</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- LISTA TASK -->
+    <div class="row">
+        <div class="col-md-4 mb-3" *ngFor="let t of tasks">
+            <div class="card shadow-sm" [ngClass]="{'opacity-50': t.status === 'CL'}">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <span *ngIf="t.task_type === 'bug'">🐞 </span>
+                        <span *ngIf="t.task_type === 'feature'">⭐ </span>
+                        <del *ngIf="t.status === 'CL'">{{ t.title }}</del>
+                        <span *ngIf="t.status !== 'CL'">{{ t.title }}</span>
+                    </h5>
+                    <p class="text-muted small">{{ t.description }}</p>
+                    <p class="text-muted small" *ngIf="t.created_by_username">created by: {{ t.created_by_username }}</p>
+
+                    <div class="mt-3 d-flex justify-content-between">
+                        <button (click)="toggleTask(t.id)" class="btn btn-sm"
+                                [ngClass]="t.status === 'AP' ? 'btn-outline-success' : 'btn-outline-warning'">
+                            {{ t.status === 'AP' ? 'Completa' : 'Riapri' }}
+                        </button>
+                        <button (click)="deleteTask(t.id)" class="btn btn-sm btn-outline-danger">
+                            <i class="bi bi-trash"></i> Elimina
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12" *ngIf="tasks.length === 0">
+            <p class="text-center">Nessun task presente. Inizia a crearne uno!</p>
+        </div>
+    </div>
+</div>
