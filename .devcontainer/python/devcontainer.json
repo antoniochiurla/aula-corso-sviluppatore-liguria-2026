@@ -9,7 +9,8 @@
         "mhutchie.git-graph",
         "ms-python.python",
         "ms-python.vscode-pylance",
-        "lang2hong.db-client"
+        "lang2hong.db-client",
+        "pachwenko.django-test-runner"
       ]
     },
   "settings": {
