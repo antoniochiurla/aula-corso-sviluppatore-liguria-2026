@@ -5,13 +5,13 @@ from tasks.util_tests import create_admin, create_dev1
 from tasks.models import Task
 
 
-class TaskTestCase(TestCase):
+class MassiveTaskTestCase(TestCase):
     dev1 = None
 
     @classmethod
     def setUpClass(cls):
         my_admin = create_admin()
-        TaskTestCase.dev1 = create_dev1()
+        MassiveTaskTestCase.dev1 = create_dev1()
         # creo dati fastidiosi agli altri test
         return super().setUpClass()
 
@@ -26,7 +26,7 @@ class TaskTestCase(TestCase):
         # mi connetto ad un server remoto
         for num_task in range(1000):
             task_n = Task.objects.create(
-                                created_by=TaskTestCase.dev1,
+                                created_by=MassiveTaskTestCase.dev1,
                                 title="Titolo " + str(num_task),
                                 description="Descrizione " + str(num_task),
                                 status=Task.Status.OPEN
