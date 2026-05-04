@@ -29,7 +29,7 @@ class Task(models.Model):
 
     def __str__(self):
         # Questo decide cosa vedremo nel pannello Admin (es. il titolo del task)
-        return self.title
+        return f"{self.type}: {self.title}"
 
 
 # --- SOTTOCLASSE: BUG ---

@@ -3,11 +3,13 @@ from .models import Task, BugTask, FeatureTask
 
 class TaskSerializer(serializers.ModelSerializer):
     created_by_username = serializers.CharField(source='created_by.username', read_only=True)
+    severity = serializers.CharField(source='bugtask.severity')
+    priority = serializers.CharField(source='featuretask.priority')
     task_type = serializers.SerializerMethodField()
 
     class Meta:
         model = Task
-        fields = ['id', 'title', 'description', 'created_at', 'created_by', 'created_by_username', 'status', 'task_type']
+        fields = ['id', 'title', 'description', 'created_at', 'created_by', 'created_by_username', 'status', 'task_type', 'priority', 'severity']
         read_only_fields = ['created_by', 'created_at']
 
     def get_task_type(self, obj):
