@@ -10,6 +10,8 @@ class TaskViewTest(TestCase):
     def setUpClass(cls):
         my_admin = create_admin()
         TaskViewTest.dev1 = create_dev1()
+        return super().setUpClass()
+
 
     def test_index_redirect_if_not_logged_in(self):
         """Verifica che un utente anonimo venga rimandato al login (302)"""
