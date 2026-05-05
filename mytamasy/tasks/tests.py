@@ -41,6 +41,11 @@ class TaskTestCase(TestCase):
         task_crea_progetto = Task.objects.get(title=TaskTestCase.task1_title)
         self.assertEqual(task_crea_progetto.description, TaskTestCase.task1_description)
 
+    def test_str_corretto(self):
+        """La conversione a string di un task ha un determinato formato"""
+        task_crea_progetto = Task.objects.get(title=TaskTestCase.task1_title)
+        self.assertEqual(str(task_crea_progetto), f'T: {TaskTestCase.task1_title}')
+
     def test_crea_il_repository(self):
         """Il secondo task deve essere presente"""
         task_crea_repository = Task.objects.get(title=TaskTestCase.task2_title)
