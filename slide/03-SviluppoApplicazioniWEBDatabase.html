@@ -401,6 +401,21 @@
 <li><a href="#id-elemento" title="#id-elemento" class="page"><tt>#id-elemento</tt></a> <tt>{ ... }</tt></li>
 </ul></li>
 </ul>
+<p>
+Oppure ogni combinazione possibile, esempio: H1.nome-classe 
+</p>
+
+
+</div>
+<div class="slide">
+<h1>Riferimenti CSS<a id="riferimenti-css" class="h_anchor"></a></h1>
+<ul>
+<li><a href="https://www.w3schools.com/cssref/css_selectors.php" title="https://www.w3schools.com/cssref/css_selectors.php" class="https">https://www.w3schools.com/cssref/css_selectors.php</a></li>
+<li><a href="https://www.w3schools.com/cssref/css_ref_combinators.php" title="https://www.w3schools.com/cssref/css_ref_combinators.php" class="https">https://www.w3schools.com/cssref/css_ref_combinators.php</a></li>
+<li><a href="https://www.w3schools.com/cssref/css_ref_pseudo_classes.php" title="https://www.w3schools.com/cssref/css_ref_pseudo_classes.php" class="https">https://www.w3schools.com/cssref/css_ref_pseudo_classes.php</a></li>
+<li><a href="https://www.w3schools.com/cssref/css_ref_pseudo_elements.php" title="https://www.w3schools.com/cssref/css_ref_pseudo_elements.php" class="https">https://www.w3schools.com/cssref/css_ref_pseudo_elements.php</a></li>
+</ul>
+
 
 
 </div>
@@ -426,6 +441,16 @@
 
 </div>
 <div class="slide">
+<h1>Riferimenti Colori<a id="riferimenti-colori" class="h_anchor"></a></h1>
+<ul>
+<li><a href="https://www.w3schools.com/cssref/css_colors.php" title="https://www.w3schools.com/cssref/css_colors.php" class="https">https://www.w3schools.com/cssref/css_colors.php</a></li>
+<li><a href="https://www.w3schools.com/cssref/css_colors_legal.php" title="https://www.w3schools.com/cssref/css_colors_legal.php" class="https">https://www.w3schools.com/cssref/css_colors_legal.php</a></li>
+</ul>
+
+
+
+</div>
+<div class="slide">
 <h1>Il Box Model<a id="il-box-model" class="h_anchor"></a></h1>
 <ul>
 <li>Ogni elemento è una scatola</li>
@@ -441,8 +466,8 @@
 <ul>
 <li>Spazio fuori dalla scatola (distanza dagli altri oggetti).</li>
 </ul></li>
+<li><a href="https://www.w3schools.com/css/css_boxmodel.asp" title="https://www.w3schools.com/css/css_boxmodel.asp" class="https">https://www.w3schools.com/css/css_boxmodel.asp</a></li>
 </ul>
-
 
 
 </div>
@@ -527,6 +552,7 @@ code JavaScript
 <li>Card per i task e pulsanti colorati (Blu = Info, Rosso = Urgente).</li>
 </ul></li>
 </ul>
+
 
 </div>
 <div class="slide">
@@ -750,6 +776,7 @@ code JavaScript
 <li>ORDER BY</li>
 <li>JOIN</li>
 <li>GROUP BY</li>
+<li>WHERE</li>
 </ul></li>
 <li>Connessione tra applicazione e database (JDBC, ORM, SQLAlchemy, Entity Framework)</li>
 </ul>
@@ -818,7 +845,7 @@ code JavaScript
 <ul>
 <li>Invece di scrivere SQL
 <ul>
-<li><tt>select from TASK</tt></li>
+<li><tt>select * from TASK</tt></li>
 </ul></li>
 <li>Scriviamo codice Python
 <ul>
@@ -990,11 +1017,11 @@ code JavaScript
 <div class="slide">
 <h1>Django in poche parole<a id="django-in-poche-parole" class="h_anchor"></a></h1>
 <ul>
-<li>framework WEB
+<li>framework per applicazioni WEB
 <ul>
 <li>si occupa di
 <ul>
-<li>dialogo HTTP/S</li>
+<li>dialogo tramite protocollo HTTP/S</li>
 <li>gestire la sessione con l'utente</li>
 <li>può gestire
 <ul>
@@ -1011,6 +1038,7 @@ code JavaScript
 </ul></li>
 </ul></li>
 </ul>
+
 
 </div>
 <div class="slide">
@@ -1098,6 +1126,7 @@ tamasy/          &lt;-- La "Scatola" esterna (il tuo cantiere)
 <li>aggiungiamo "tasks" alla lista INSTALLED_APPS in tamasy_server/settings.py</li>
 </ul>
 
+
 </div>
 <div class="slide">
 <h1>MVT - Django<a id="mvt---django" class="h_anchor"></a></h1>
@@ -1134,6 +1163,7 @@ from django.http import HttpResponse
 def index(request):
 	return HttpResponse("Hello, world. TaMaSy is alive.")
 </pre>
+
 
 </div>
 <div class="slide">
@@ -1173,6 +1203,7 @@ urlpatterns = [
 <li><a href="http://127.0.0.1:8000/tasks" title="http://127.0.0.1:8000/tasks" class="http">http://127.0.0.1:8000/tasks</a></li>
 </ul></li>
 </ul>
+
 
 </div>
 <div class="slide">
@@ -1300,27 +1331,40 @@ urlpatterns = [
 <div class="slide">
 <h1>Considerazioni sul codice<a id="considerazioni-sul-codice" class="h_anchor"></a></h1>
 <ul>
-<li>Definizioni URL
+<li>Definizioni URL tramite path
 <ul>
 <li>gli URL non sono fissi ma calcolati
 <ul>
 <li>le parti variabili racchiuse in &lt; e &gt;</li>
 </ul></li>
-<li>gli assegniamo un nome</li>
-</ul></li>
-<li>CSRF
-<ul>
-<li>Protegge il server e l'utente da utilizzi non corretti</li>
+<li>gli assegniamo un nome, il nome verrà utilizzato in seguito</li>
 </ul></li>
 <li>Template
 <ul>
-<li>codice Python racchiuso in {% e %}</li>
+<li>codice Python racchiuso in {% e %} o <img src="./03-SviluppoApplicazioniWEBDatabase_files/ e "></li>
 </ul></li>
 <li>Redirect
 <ul>
 <li>Dopo ogni operazione
 <ul>
 <li>torniamo alla lista</li>
+</ul></li>
+</ul></li>
+</ul>
+
+
+</div>
+<div class="slide">
+<h1>Sicurezza delle richieste<a id="sicurezza-delle-richieste" class="h_anchor"></a></h1>
+<ul>
+<li>CSRF Cross-Site Request Forgery
+<ul>
+<li>Pratica malevola per inviare dati al server sfruttando l'autenticazione ad insaputa dell'utente</li>
+<li>Il token protegge il server e l'utente da utilizzi non corretti</li>
+<li>Spiegazione dettagliata: <a href="https://www.redhotcyber.com/post/cosa-e-il-cross-site-request-forgery-csrf/" title="https://www.redhotcyber.com/post/cosa-e-il-cross-site-request-forgery-csrf/" class="https">https://www.redhotcyber.com/post/cosa-e-il-cross-site-request-forgery-csrf/</a></li>
+<li>aggiungere in &lt;form&gt;
+<ul>
+<li>{% csrf_token %}</li>
 </ul></li>
 </ul></li>
 </ul>
@@ -1361,12 +1405,12 @@ urlpatterns = [
 <div class="slide">
 <h1>Utente che crea il task<a id="utente-che-crea-il-task" class="h_anchor"></a></h1>
 <ul>
-<li>in tasks/model.py
+<li>in tasks/models.py
 <ul>
 <li>aggiungiamo
 <ul>
 <li><tt>from django.contrib.auth.models import User</tt></li>
-<li><tt>created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='tasks')</tt></li>
+<li><tt>created_by = models.ForeignKey(User, on_delete=models.DO_NOTHING, related_name='tasks')</tt></li>
 </ul></li>
 </ul></li>
 <li>eseguiamo
@@ -1374,7 +1418,7 @@ urlpatterns = [
 <li><tt>python manage.py makemigrations tasks</tt></li>
 <li><tt>python manage.py migrate</tt>
 <ul>
-<li>fornire 1 come valore di default</li>
+<li>fornire 1 come valore di default che rappresenta l'id di admin</li>
 </ul></li>
 </ul></li>
 <li>in tasks/views.py
@@ -1403,6 +1447,82 @@ urlpatterns = [
 </ul></li>
 </ul>
 
+
+</div>
+<div class="slide">
+<h1>Permessi disponibili<a id="permessi-disponibili" class="h_anchor"></a></h1>
+<ul>
+<li>Per ogni modello django crea i seguenti permessi
+<ul>
+<li>add_&lt;nome-modello&gt;</li>
+<li>change_&lt;nome-modello&gt;</li>
+<li>delete_&lt;nome-modello&gt;</li>
+<li>view_&lt;nome-modello&gt;</li>
+</ul></li>
+</ul>
+
+
+</div>
+<div class="slide">
+<h1>Creare permessi specifici<a id="creare-permessi-specifici" class="h_anchor"></a></h1>
+<ul>
+<li>Introdurre permessi specifici agli utenti
+<ul>
+<li>creare permessi
+<ul>
+<li>programmaticamente</li>
+</ul></li>
+</ul></li>
+</ul>
+<pre>
+class Meta:
+        permissions = [
+            ("can_reopen_task", "Can reopen task"),
+        ]
+</pre>
+
+</div>
+<div class="slide">
+<h1>Verificare le autorizzazioni<a id="verificare-le-autorizzazioni" class="h_anchor"></a></h1>
+<ul>
+<li>verificare la condizione
+<ul>
+<li><tt>user.has_perm('tasks.delete_task')</tt></li>
+<li><tt>user.has_perm('tasks.can_reopen_task')</tt></li>
+</ul></li>
+<li>usando il decorator
+<ul>
+<li><tt>@permission_required("tasks.delete_task")</tt></li>
+</ul></li>
+</ul>
+
+
+</div>
+<div class="slide">
+<h1>Assegnare le autorizzazioni<a id="assegnare-le-autorizzazioni" class="h_anchor"></a></h1>
+<ul>
+<li>Dalla interfaccia di amministrazione
+<ul>
+<li>aggiungere i permessi
+<ul>
+<li>all'utente</li>
+<li>a un gruppo
+<ul>
+<li>assegnare i gruppi agli utenti</li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+
+
+</div>
+<div class="slide">
+<h1>Classi per view<a id="classi-per-view" class="h_anchor"></a></h1>
+<ul>
+<li>!!!!!!</li>
+</ul>
+
+
 </div>
 <div class="slide">
 <h1>Il nostro progetto<a id="il-nostro-progetto" class="h_anchor"></a></h1>
@@ -1424,6 +1544,7 @@ urlpatterns = [
 </ul></li>
 </ul></li>
 </ul>
+
 
 </div>
 <div class="slide">
@@ -1473,6 +1594,7 @@ urlpatterns = [
 </ul></li>
 </ul>
 
+
 </div>
 <div class="slide">
 <h1>Versione Angular<a id="versione-angular" class="h_anchor"></a></h1>
@@ -1483,7 +1605,7 @@ npm install -g <span class="zim-tag">@angular</span>/cli<br>
 ng new ang --defaults --skip-git --no-interactive --style css --routing false<br>
 npm install bootstrap bootstrap-icons<br>
 ng serve<br>
-ng build --base-href /ang/ --deploy-url /static/
+ng build --base-href /tasks/ang/ --deploy-url /static/
 </p>
 
 

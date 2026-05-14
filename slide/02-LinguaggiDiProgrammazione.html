@@ -507,6 +507,7 @@ Importante: l'indentazione (lo spazio a inizio riga) è importante
 <li>== (uguale a)</li>
 <li>!= (diverso da)</li>
 <li>&gt; e &lt; (maggiore/minore)</li>
+<li>&gt;= e &lt;= (maggiore o uguale/minore o uguale)</li>
 </ul></li>
 <li>Operatori logici (in ordine di precedenza)
 <ul>
@@ -617,9 +618,8 @@ mia_funzione(name='John', eta=35, nazione='USA')
 <li>Liste: Elenchi ordinati di elementi (es. la lista dei task del giorno).</li>
 <li>Dizionari (Mappe): Coppie "Chiave-Valore".
 <ul>
-<li>Esempio TaMaSy: Usare il codice ID del task come chiave per trovare istantaneamente l'oggetto Task corrispondente.</li>
+<li>Esempio TaMaSy: Usare il codice ID del task come chiave per trovare istantaneamente l'oggetto Task corrispondente</li>
 </ul></li>
-<li>Array: Simili alle liste ma di solito con dimensioni fisse e prestazioni ottimizzate (più comuni in C/Java).</li>
 <li>Esempio TaMaSy In 05-Task-Collection.py gestiamo liste di task</li>
 </ul>
 
@@ -783,6 +783,20 @@ mia_funzione(name='John', eta=35, nazione='USA')
 <li>...</li>
 </ul></li>
 </ul>
+
+
+</div>
+<div class="slide">
+<h1>Il main loop<a id="il-main-loop" class="h_anchor"></a></h1>
+<ul>
+<li>una volta generata l'interfaccia grafica</li>
+<li>e associate le funzioni ai comandi degli elementi dell'interfaccia</li>
+<li>va richiamata l'esecuzione del metodo mainloop
+<ul>
+<li>un ciclo continuo che gestisce gli eventi e mantiene il programma attivo</li>
+</ul></li>
+</ul>
+
 
 </div>
 <div class="slide">
@@ -1030,16 +1044,23 @@ File main.py per avviare tutto.
 <li>Riuso del codice: Se scrivo una funzione utile per le date, posso usarla in TaMaSy e anche in altri progetti futuri semplicemente importandola.</li>
 </ul>
 
+
+
 </div>
 <div class="slide">
 <h1>Introduzione alle librerie esterne e gestione dei pacchetti (pip, Maven, NuGet).<a id="introduzione-alle-librerie-esterne-e-gestione-dei-pacchetti-pip-maven-nuget" class="h_anchor"></a></h1>
 <ul style='padding-left: 30pt'>
 <li>I programmatori non rifanno tutto da zero. Se serve una funzione complessa (es. inviare una mail), usiamo una libreria scritta da altri.</li>
-<li>Gestori di pacchetti: Strumenti per scaricare queste librerie.
+<li>Gestori di moduli (o pacchetti): Strumenti per scaricare queste librerie.
 <ul>
 <li>pip (Python)</li>
 <li>Maven (Java)</li>
 <li>NuGet (C# / .NET)</li>
+</ul></li>
+<li>Gestiscono
+<ul>
+<li>versioni</li>
+<li>dipendenze tra moduli (o pacchetti)</li>
 </ul></li>
 <li>Metafora: È come ordinare i pezzi su Amazon per montare un PC, invece di costruire da soli i circuiti integrati.</li>
 </ul>
