@@ -11,6 +11,19 @@ from .serializers import TaskSerializer, BugTaskSerializer, FeatureTaskSerialize
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
+
+types = {'T': 'Task', 'B': "Bug", 'F': 'Feature'}
+
+colors = {
+    'T': 'primary',
+    'B': 'danger',
+    'F': 'warning'}
+icons = {
+    'T': '...',
+    'B': '🐞',
+    'F': '⭐'
+}
+
 class TaskViewSet(viewsets.ModelViewSet):
     queryset = Task.objects.all().order_by('-created_at')
     serializer_class = TaskSerializer
@@ -47,25 +60,17 @@ class FeatureTaskViewSet(viewsets.ModelViewSet):
 
 class TaskListView(ListView):
     model = Task
-    template_name = 'index.html'
+    template_name = 'tasks/index.html'
     context_object_name = 'tasks'
+    extra_context = {
+        'colors': colors,
+        'icons': icons}
 
-
-types = {'T': 'Task', 'B': "Bug", 'F': 'Feature'}
 
 @login_required
 def index(request):
     # Recuperiamo tutti i task dal database
     tasks = Task.objects.all().order_by('-created_at')
-    colors = {
-        'T': 'primary',
-        'B': 'danger',
-        'F': 'warning'}
-    icons = {
-        'T': '...',
-        'B': '🐞',
-        'F': '⭐'
-    }
     context = {
         'tasks': tasks,
         'colors': colors,
