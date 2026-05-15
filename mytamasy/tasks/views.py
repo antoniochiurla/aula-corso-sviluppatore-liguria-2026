@@ -1,10 +1,11 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse, HttpRequest
+from django.http import HttpResponse, HttpRequest, HttpResponseForbidden
 from django.contrib.auth import logout
 from django.contrib.auth.models import User
+from django.views.generic import ListView
 
 from .models import Task, BugTask, FeatureTask
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 from rest_framework import viewsets, permissions
 from .serializers import TaskSerializer, BugTaskSerializer, FeatureTaskSerializer
 from rest_framework.decorators import action
@@ -44,6 +45,11 @@ class FeatureTaskViewSet(viewsets.ModelViewSet):
         user = self.request.user if self.request.user.is_authenticated else User.objects.first()
         serializer.save(created_by=user)
 
+class TaskListView(ListView):
+    model = Task
+    template_name = 'index.html'
+    context_object_name = 'tasks'
+
 
 types = {'T': 'Task', 'B': "Bug", 'F': 'Feature'}
 
@@ -70,6 +76,7 @@ def get_list_of_users():
     return User.objects.all().order_by('username')
 
 @login_required
+@permission_required("tasks.change_task", raise_exception=True)
 def edit_task(request, task_id):
     task = Task.objects.get(pk=task_id)
     bug_task = None
@@ -136,8 +143,15 @@ def add_task(request, tipo):
 
 @login_required
 def toggle_task(request, task_id):
+    'Cambia lo stato del task'
     task = Task.objects.get(id=task_id)
-    task.status = 'CL' if task.status == 'AP' else 'AP'
+    if task.status == 'CL':
+        if request.user.has_perm('tasks.can_reopen_task'):
+            task.status = 'AP'
+        else:
+            return HttpResponseForbidden("Non puoi riaprire un task, chiedi all'amministratore.")
+    else:
+        task.status = 'CL'
     task.save()
     return redirect('index')
 
@@ -150,7 +164,7 @@ def delete_task(request, task_id):
 
 @login_required
 def logout_view(request):
-    logout(request)
+    return logout(request)
 
 def angular_index(request):
     return render(request, 'index.html')

@@ -31,6 +31,10 @@ class Task(models.Model):
         # Questo decide cosa vedremo nel pannello Admin (es. il titolo del task)
         return f"{self.type}: {self.title}"
 
+    class Meta:
+        permissions = [
+            ("can_reopen_task", "Can reopen task"),
+        ]
 
 # --- SOTTOCLASSE: BUG ---
 class BugTask(Task):

@@ -41,11 +41,11 @@
                         {% endif %}
 
                         <div class="mt-3">
-                            <a href="{% url 'toggle_task' t.id %}" class="btn btn-sm btn-outline-success">
+                            <a href="{% url 'toggle_task' t.id %}" class="btn btn-sm btn-outline-success {% if t.status == 'CL' and not perms.tasks.can_reopen_task %}disabled{% endif %}">
                                 {% if t.status == 'AP' %}Completa{% else %}Riapri{% endif %}
                             </a>
-                            <a href="{% url 'edit_task' t.id %}" class="btn btn-sm btn-outline-primary">Modifica</a>
-                            <a href="{% url 'delete_task' t.id %}" class="btn btn-sm btn-outline-danger">Elimina</a>
+                            <a href="{% url 'edit_task' t.id %}" class="btn btn-sm btn-outline-primary {% if not perms.tasks.change_task %}disabled{% endif %}">Modifica</a>
+                            <a href="{% url 'delete_task' t.id %}" class="btn btn-sm btn-outline-danger {% if not perms.tasks.delete_task %}disabled{% endif %}">Elimina</a>
                         </div>
                     </div>
                 </div>
