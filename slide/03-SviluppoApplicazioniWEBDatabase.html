@@ -1355,6 +1355,32 @@ urlpatterns = [
 
 </div>
 <div class="slide">
+<h1>Decorator per le funzioni view<a id="decorator-per-le-funzioni-view" class="h_anchor"></a></h1>
+<ul>
+<li>esempi
+<ul>
+<li><tt>@require_http_methods(["GET", "POST"])</tt>
+<ul>
+<li>view disponibile solo tramite metodi GET e POST</li>
+</ul></li>
+<li><tt>@gzip_page</tt>
+<ul>
+<li>il contenuto viene compresso se il browser lo accetta</li>
+</ul></li>
+</ul></li>
+<li>si possono definire nuovi decorator
+<ul>
+<li>nel file decorators.py
+<ul>
+<li>definendo nuove funzioni</li>
+</ul></li>
+</ul></li>
+</ul>
+
+
+
+</div>
+<div class="slide">
 <h1>Sicurezza delle richieste<a id="sicurezza-delle-richieste" class="h_anchor"></a></h1>
 <ul>
 <li>CSRF Cross-Site Request Forgery
@@ -1480,6 +1506,10 @@ class Meta:
             ("can_reopen_task", "Can reopen task"),
         ]
 </pre>
+<ul>
+<li>vanno rieseguite le operazioni di migrazione (makemigrations, migrate)</li>
+</ul>
+
 
 </div>
 <div class="slide">
@@ -1519,7 +1549,55 @@ class Meta:
 <div class="slide">
 <h1>Classi per view<a id="classi-per-view" class="h_anchor"></a></h1>
 <ul>
-<li>!!!!!!</li>
+<li>Un altro modo di realizzare le view
+<ul>
+<li>realizzare classi estendendo le seguenti classi
+<ul>
+<li>ListView</li>
+<li>DetailView</li>
+<li>DeleteView</li>
+<li>CreateView</li>
+</ul></li>
+</ul></li>
+</ul>
+
+
+</div>
+<div class="slide">
+<h1>Classe view per la lista<a id="classe-view-per-la-lista" class="h_anchor"></a></h1>
+<ul>
+<li>Un esempio minimale</li>
+</ul>
+<p>
+<tt>class TaskList(ListView):</tt><br>
+<div style='padding-left: 30pt'>
+<tt>model = Task</tt>
+</div>
+</p>
+
+<ul>
+<li>è necessario creare un template
+<ul>
+<li><tt>tasks/templates/tasks/task_list.html</tt></li>
+<li>notare che task_list deriva da TaskList</li>
+<li>nel contesto viene inserito l'oggetto <tt>object_list</tt></li>
+</ul></li>
+<li>aggiungere in tasks/urls.py
+<ul>
+<li><tt>path("lista", views.TaskList.as_view(), name="lista"),</tt></li>
+</ul></li>
+</ul>
+
+
+</div>
+<div class="slide">
+<h1>Classe view senza creare una classe<a id="classe-view-senza-creare-una-classe" class="h_anchor"></a></h1>
+<ul>
+<li>in tasks/urls.py
+<ul>
+<li><tt>path("lista", ListView.as_view(model=Task), name="lista"),</tt></li>
+<li>il template è comunque necessario crearlo</li>
+</ul></li>
 </ul>
 
 
