@@ -14,7 +14,7 @@ def create_tables(conn):
     try:
         with conn.cursor() as cursore: # creating a cursor
             # comando per creare la tabella Studenti
-            cursore.execute("DROP TABLE STUDENTI")
+            cursore.execute("DROP TABLE IF EXISTS STUDENTI")
             cursore.execute("""
             CREATE TABLE IF NOT EXISTS STUDENTI
             (
