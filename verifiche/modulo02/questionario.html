@@ -1,0 +1,344 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Verifica Modulo 2 - Linguaggi di Programmazione</title>
+  <style>
+    :root {
+      --ink: #111;
+      --muted: #555;
+      --line: #c8c8c8;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: #fff;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 12pt;
+      line-height: 1.35;
+    }
+
+    main {
+      max-width: 210mm;
+      margin: 0 auto;
+      padding: 16mm;
+    }
+
+    h1 {
+      margin: 0 0 8mm;
+      text-align: center;
+      font-size: 18pt;
+      line-height: 1.2;
+    }
+
+    h2 {
+      margin: 10mm 0 4mm;
+      padding-bottom: 1.5mm;
+      border-bottom: 1px solid var(--ink);
+      font-size: 13.5pt;
+      text-transform: uppercase;
+    }
+
+    .student-data {
+      display: grid;
+      grid-template-columns: 1fr 45mm;
+      gap: 10mm;
+      margin-bottom: 8mm;
+      align-items: end;
+    }
+
+    .field {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 2mm;
+      align-items: end;
+      white-space: nowrap;
+    }
+
+    .field input {
+      width: 100%;
+      min-height: 8mm;
+      padding: 1mm 2mm;
+      border: 1px solid var(--ink);
+      color: var(--ink);
+      background: #fff;
+      font: inherit;
+    }
+
+    .field input:focus {
+      outline: 2px solid var(--ink);
+      outline-offset: 1px;
+    }
+
+    .question {
+      margin: 0 0 6mm;
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+
+    .question-text {
+      margin: 0 0 3mm;
+      font-weight: 700;
+    }
+
+    .answers {
+      display: grid;
+      gap: 2mm;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .answer {
+      display: grid;
+      grid-template-columns: 7mm 1fr;
+      gap: 2mm;
+      align-items: start;
+    }
+
+    .answer input {
+      width: 4mm;
+      height: 4mm;
+      margin: 0.75mm 0 0;
+      accent-color: #000;
+    }
+
+    .answer label {
+      display: block;
+    }
+
+    .answer-space {
+      display: block;
+      width: 100%;
+      height: 34mm;
+      margin-top: 3mm;
+      padding: 1mm 2mm;
+      border: 1px solid var(--line);
+      color: var(--ink);
+      background-color: #fff;
+      background-image: repeating-linear-gradient(
+        to bottom,
+        transparent 0,
+        transparent 7.5mm,
+        var(--line) 7.5mm,
+        var(--line) 7.85mm
+      );
+      font: inherit;
+      line-height: 7.5mm;
+      resize: vertical;
+    }
+
+    .answer-space:focus {
+      outline: 2px solid var(--ink);
+      outline-offset: 1px;
+    }
+
+    .muted {
+      color: var(--muted);
+      font-weight: 400;
+    }
+
+    @page {
+      size: A4;
+      margin: 12mm;
+    }
+
+    @media print {
+      main {
+        max-width: none;
+        padding: 0;
+      }
+
+      h2 {
+        break-after: avoid;
+        page-break-after: avoid;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Verifica Modulo 2: Linguaggi di Programmazione</h1>
+
+    <div class="student-data">
+      <div class="field">
+        <label for="student-name">Nome e Cognome:</label>
+        <input type="text" id="student-name" name="student_name" autocomplete="name">
+      </div>
+      <div class="field">
+        <label for="exam-date">Data:</label>
+        <input type="text" id="exam-date" name="exam_date" autocomplete="off">
+      </div>
+    </div>
+
+    <h2>Parte 1: Storia e Fondamenti <span class="muted">(Risposta Chiusa)</span></h2>
+
+    <section class="question">
+      <p class="question-text">1. Qual è la differenza principale tra un linguaggio compilato (es. C) e uno interpretato (es. Python)?</p>
+      <ul class="answers">
+        <li class="answer"><input type="radio" name="q1" id="q1a"><label for="q1a">A) Il linguaggio compilato è più facile da leggere per l'essere umano.</label></li>
+        <li class="answer"><input type="radio" name="q1" id="q1b"><label for="q1b">B) Il compilato traduce l'intero codice in linguaggio macchina prima dell'esecuzione; l'interpretato lo traduce riga per riga durante l'esecuzione.</label></li>
+        <li class="answer"><input type="radio" name="q1" id="q1c"><label for="q1c">C) Il linguaggio interpretato non può gestire errori di sintassi.</label></li>
+        <li class="answer"><input type="radio" name="q1" id="q1d"><label for="q1d">D) Non c'è differenza, sono sinonimi.</label></li>
+      </ul>
+    </section>
+
+    <section class="question">
+      <p class="question-text">2. Perché il linguaggio Java è definito "portabile" (Write Once, Run Anywhere)?</p>
+      <ul class="answers">
+        <li class="answer"><input type="radio" name="q2" id="q2a"><label for="q2a">A) Perché il codice sorgente è identico all'inglese.</label></li>
+        <li class="answer"><input type="radio" name="q2" id="q2b"><label for="q2b">B) Perché viene compilato in un formato intermedio chiamato Bytecode, eseguito da una Virtual Machine (JVM).</label></li>
+        <li class="answer"><input type="radio" name="q2" id="q2c"><label for="q2c">C) Perché non richiede l'uso di variabili.</label></li>
+        <li class="answer"><input type="radio" name="q2" id="q2d"><label for="q2d">D) Perché può essere eseguito solo su sistemi Linux.</label></li>
+      </ul>
+    </section>
+
+    <section class="question">
+      <p class="question-text">3. Qual è la caratteristica distintiva della sintassi di Python rispetto a linguaggi come Java o C++?</p>
+      <ul class="answers">
+        <li class="answer"><input type="radio" name="q3" id="q3a"><label for="q3a">A) L'uso obbligatorio del punto e virgola ; a fine riga.</label></li>
+        <li class="answer"><input type="radio" name="q3" id="q3b"><label for="q3b">B) L'uso di parentesi graffe {} per definire ogni blocco di codice.</label></li>
+        <li class="answer"><input type="radio" name="q3" id="q3c"><label for="q3c">C) L'uso dell'indentazione (spazi a inizio riga) per definire la struttura dei blocchi.</label></li>
+        <li class="answer"><input type="radio" name="q3" id="q3d"><label for="q3d">D) L'impossibilità di usare funzioni.</label></li>
+      </ul>
+    </section>
+
+    <section class="question">
+      <p class="question-text">4. Il linguaggio Assembly è considerato:</p>
+      <ul class="answers">
+        <li class="answer"><input type="radio" name="q4" id="q4a"><label for="q4a">A) Un linguaggio ad alto livello, molto vicino al linguaggio umano.</label></li>
+        <li class="answer"><input type="radio" name="q4" id="q4b"><label for="q4b">B) Un linguaggio orientato esclusivamente al web.</label></li>
+        <li class="answer"><input type="radio" name="q4" id="q4c"><label for="q4c">C) Un linguaggio a basso livello, molto vicino all'hardware della macchina.</label></li>
+        <li class="answer"><input type="radio" name="q4" id="q4d"><label for="q4d">D) Un linguaggio nato dopo il 2010.</label></li>
+      </ul>
+    </section>
+
+    <h2>Parte 2: Programmazione a Oggetti <span class="muted">(OOP)</span></h2>
+
+    <section class="question">
+      <p class="question-text">5. In OOP, che cos'è una "Classe"?</p>
+      <ul class="answers">
+        <li class="answer"><input type="radio" name="q5" id="q5a"><label for="q5a">A) Un errore del compilatore.</label></li>
+        <li class="answer"><input type="radio" name="q5" id="q5b"><label for="q5b">B) Lo "stampo" o progetto (blueprint) che definisce dati e comportamenti di un oggetto.</label></li>
+        <li class="answer"><input type="radio" name="q5" id="q5c"><label for="q5c">C) Una variabile che contiene solo numeri interi.</label></li>
+        <li class="answer"><input type="radio" name="q5" id="q5d"><label for="q5d">D) La riga di codice che chiude il programma.</label></li>
+      </ul>
+    </section>
+
+    <section class="question">
+      <p class="question-text">6. Qual è lo scopo del metodo "Costruttore" (es. __init__ in Python)?</p>
+      <ul class="answers">
+        <li class="answer"><input type="radio" name="q6" id="q6a"><label for="q6a">A) Distruggere l'oggetto quando non serve più.</label></li>
+        <li class="answer"><input type="radio" name="q6" id="q6b"><label for="q6b">B) Stampare a video il codice sorgente.</label></li>
+        <li class="answer"><input type="radio" name="q6" id="q6c"><label for="q6c">C) Inizializzare gli attributi dell'oggetto nel momento in cui viene creato.</label></li>
+        <li class="answer"><input type="radio" name="q6" id="q6d"><label for="q6d">D) Collegare il programma a Internet.</label></li>
+      </ul>
+    </section>
+
+    <section class="question">
+      <p class="question-text">7. L'Ereditarietà permette a una classe "figlia" di:</p>
+      <ul class="answers">
+        <li class="answer"><input type="radio" name="q7" id="q7a"><label for="q7a">A) Acquisire attributi e metodi della classe "padre", potendo aggiungerne di nuovi o modificarli.</label></li>
+        <li class="answer"><input type="radio" name="q7" id="q7b"><label for="q7b">B) Cancellare il codice della classe "padre".</label></li>
+        <li class="answer"><input type="radio" name="q7" id="q7c"><label for="q7c">C) Funzionare solo se il computer ha due processori.</label></li>
+        <li class="answer"><input type="radio" name="q7" id="q7d"><label for="q7d">D) Essere usata solo all'interno di cicli while.</label></li>
+      </ul>
+    </section>
+
+    <section class="question">
+      <p class="question-text">8. Che cos'è il Polimorfismo?</p>
+      <ul class="answers">
+        <li class="answer"><input type="radio" name="q8" id="q8a"><label for="q8a">A) La capacità di un programma di cambiare linguaggio durante l'esecuzione.</label></li>
+        <li class="answer"><input type="radio" name="q8" id="q8b"><label for="q8b">B) La possibilità per oggetti diversi di rispondere allo stesso metodo in modi differenti.</label></li>
+        <li class="answer"><input type="radio" name="q8" id="q8c"><label for="q8c">C) Un sistema per comprimere i file di testo.</label></li>
+        <li class="answer"><input type="radio" name="q8" id="q8d"><label for="q8d">D) L'atto di scrivere codice in più file contemporaneamente.</label></li>
+      </ul>
+    </section>
+
+    <h2>Parte 3: Logica, Collezioni ed Errori</h2>
+
+    <section class="question">
+      <p class="question-text">9. Quale struttura dati useresti per memorizzare una coppia "Chiave-Valore" (es. ID Utente -&gt; Nome Utente)?</p>
+      <ul class="answers">
+        <li class="answer"><input type="radio" name="q9" id="q9a"><label for="q9a">A) Una Lista (Array).</label></li>
+        <li class="answer"><input type="radio" name="q9" id="q9b"><label for="q9b">B) Una variabile di tipo Boolean.</label></li>
+        <li class="answer"><input type="radio" name="q9" id="q9c"><label for="q9c">C) Un file eseguibile.</label></li>
+        <li class="answer"><input type="radio" name="q9" id="q9d"><label for="q9d">D) Un Dizionario (Mappa).</label></li>
+      </ul>
+    </section>
+
+    <section class="question">
+      <p class="question-text">10. A cosa serve il blocco try...except (o try...catch)?</p>
+      <ul class="answers">
+        <li class="answer"><input type="radio" name="q10" id="q10a"><label for="q10a">A) A velocizzare l'esecuzione del codice.</label></li>
+        <li class="answer"><input type="radio" name="q10" id="q10b"><label for="q10b">B) A gestire le eccezioni (errori runtime) evitando che il programma crashi improvvisamente.</label></li>
+        <li class="answer"><input type="radio" name="q10" id="q10c"><label for="q10c">C) A ripetere una porzione di codice per numerose volte.</label></li>
+        <li class="answer"><input type="radio" name="q10" id="q10d"><label for="q10d">D) A nascondere il codice agli altri programmatori.</label></li>
+      </ul>
+    </section>
+
+    <section class="question">
+      <p class="question-text">11. La "Persistenza dei dati" si ottiene principalmente tramite:</p>
+      <ul class="answers">
+        <li class="answer"><input type="radio" name="q11" id="q11a"><label for="q11a">A) Il salvataggio delle informazioni su supporti esterni (file, database).</label></li>
+        <li class="answer"><input type="radio" name="q11" id="q11b"><label for="q11b">B) L'uso di variabili globali.</label></li>
+        <li class="answer"><input type="radio" name="q11" id="q11c"><label for="q11c">C) L'aumento della memoria RAM.</label></li>
+        <li class="answer"><input type="radio" name="q11" id="q11d"><label for="q11d">D) L'uso di commenti nel codice.</label></li>
+      </ul>
+    </section>
+    <hr>
+    <h2>Parte 4: Risposte Aperte <span class="muted">(Spiegazione e Analisi)</span></h2>
+
+    <section class="question">
+      <p class="question-text">12. Spiega, con una metafora del mondo reale, la differenza tra Classe e Oggetto.</p>
+      <textarea class="answer-space" name="q12" aria-label="Risposta alla domanda 12"></textarea>
+    </section>
+
+    <section class="question">
+      <p class="question-text">13. Descrivi il concetto di Incapsulamento e spiega perché è utile nascondere alcuni dati all'interno di un oggetto.</p>
+      <textarea class="answer-space" name="q13" aria-label="Risposta alla domanda 13"></textarea>
+    </section>
+
+    <section class="question">
+      <p class="question-text">14. Qual è la differenza tra Overriding e Overloading di un metodo?</p>
+      <textarea class="answer-space" name="q14" aria-label="Risposta alla domanda 14"></textarea>
+    </section>
+
+    <section class="question">
+      <p class="question-text">15. Nel progetto TaMaSy, abbiamo creato le classi BugTask e FeatureTask come sottoclassi di Task. Spiega quali vantaggi ha portato questa scelta a livello di codice.</p>
+      <textarea class="answer-space" name="q15" aria-label="Risposta alla domanda 15"></textarea>
+    </section>
+
+    <section class="question">
+      <p class="question-text">16. Perché è importante utilizzare un "Gestore di Pacchetti" (come pip o Maven) invece di copiare manualmente il codice delle librerie esterne?</p>
+      <textarea class="answer-space" name="q16" aria-label="Risposta alla domanda 16"></textarea>
+    </section>
+
+    <section class="question">
+      <p class="question-text">17. Descrivi brevemente cosa accade quando il programma TaMaSy grafico carica i dati dal file di testo all'avvio.</p>
+      <textarea class="answer-space" name="q17" aria-label="Risposta alla domanda 17"></textarea>
+    </section>
+
+    <section class="question">
+      <p class="question-text">18. Che cos'è la "Programmazione Modulare" e quali vantaggi offre in un progetto di grandi dimensioni?</p>
+      <textarea class="answer-space" name="q18" aria-label="Risposta alla domanda 18"></textarea>
+    </section>
+
+    <section class="question">
+      <p class="question-text">19. Spiega la differenza tra un errore di sintassi e un errore di runtime.</p>
+      <textarea class="answer-space" name="q19" aria-label="Risposta alla domanda 19"></textarea>
+    </section>
+
+    <section class="question">
+      <p class="question-text">20. In una GUI (Interfaccia Grafica), che cos'è il "Main Loop" (Ciclo principale)?</p>
+      <textarea class="answer-space" name="q20" aria-label="Risposta alla domanda 20"></textarea>
+    </section>
+  </main>
+</body>
+</html>
