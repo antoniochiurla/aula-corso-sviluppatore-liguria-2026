@@ -5,7 +5,8 @@ import statistics
 import csv
 
 create_all_data = False
-create_fk_also = False
+create_fk = False
+remove_fk = False
 
 nomi = ['Antonio', 'Giovanni', 'Giorgio', 'Daniele', 'Giulio', 'Angelo', 'Ivo', 'Hamid', 'Sidar']
 cognomi = ['Rossi', 'Bianchi', 'Gialli', 'Verdi', 'Blu', 'Gallo', 'Agnello']
@@ -88,40 +89,66 @@ def create_tables(conn):
             # )
             # """)
 
-            if create_fk_also:
-                cursore.execute("""
-                ALTER TABLE PRESENZE 
-                    ADD CONSTRAINT FK_PRESENZE_STUDENTI
-                    FOREIGN KEY (ID_STUDENTE) 
-                    REFERENCES STUDENTI (ID)
-                """)
-                cursore.execute("""
-                ALTER TABLE STUDENTI 
-                    ADD CONSTRAINT FK_STUDENTI_INDIRIZZI
-                    FOREIGN KEY (ID_INDIRIZZO) 
-                    REFERENCES INDIRIZZI (ID)
-                """)
-                cursore.execute("""
-                ALTER TABLE INDIRIZZI
-                    ADD CONSTRAINT FK_INDIRIZZI_CITTA
-                    FOREIGN KEY (ID_CITTA) 
-                    REFERENCES CITTA(ID)
-                """)
-                cursore.execute("""
-                ALTER TABLE STUDENTI_MATERIE
-                    ADD CONSTRAINT FK_STUDENTI_MATERIE_1
-                    FOREIGN KEY (ID_STUDENTE) 
-                    REFERENCES STUDENTI(ID)
-                """)
-                cursore.execute("""
-                ALTER TABLE STUDENTI_MATERIE
-                    ADD CONSTRAINT FK_STUDENTI_MATERIE_2
-                    FOREIGN KEY (ID_MATERIA) 
-                    REFERENCES MATERIE(ID)
-                """)
         commit_on_db(conn)
     except Exception as e:
         print(f"La connessione al DB non funziona correttamente: {e}")
+
+
+def create_fk_fun(conn):
+    with conn.cursor() as cursore: # creating a cursor
+        cursore.execute("""
+        ALTER TABLE PRESENZE 
+            ADD CONSTRAINT FK_PRESENZE_STUDENTI
+            FOREIGN KEY (ID_STUDENTE) 
+            REFERENCES STUDENTI (ID)
+        """)
+        cursore.execute("""
+        ALTER TABLE STUDENTI 
+            ADD CONSTRAINT FK_STUDENTI_INDIRIZZI
+            FOREIGN KEY (ID_INDIRIZZO) 
+            REFERENCES INDIRIZZI (ID)
+        """)
+        cursore.execute("""
+        ALTER TABLE INDIRIZZI
+            ADD CONSTRAINT FK_INDIRIZZI_CITTA
+            FOREIGN KEY (ID_CITTA) 
+            REFERENCES CITTA(ID)
+        """)
+        cursore.execute("""
+        ALTER TABLE STUDENTI_MATERIE
+            ADD CONSTRAINT FK_STUDENTI_MATERIE_1
+            FOREIGN KEY (ID_STUDENTE) 
+            REFERENCES STUDENTI(ID)
+        """)
+        cursore.execute("""
+        ALTER TABLE STUDENTI_MATERIE
+            ADD CONSTRAINT FK_STUDENTI_MATERIE_2
+            FOREIGN KEY (ID_MATERIA) 
+            REFERENCES MATERIE(ID)
+        """)
+
+def remove_fk_fun(conn):
+    with conn.cursor() as cursore: # creating a cursor
+        cursore.execute("""
+        ALTER TABLE PRESENZE 
+            DROP CONSTRAINT FK_PRESENZE_STUDENTI
+        """)
+        cursore.execute("""
+        ALTER TABLE STUDENTI 
+            DROP CONSTRAINT FK_STUDENTI_INDIRIZZI
+        """)
+        cursore.execute("""
+        ALTER TABLE INDIRIZZI
+            DROP CONSTRAINT FK_INDIRIZZI_CITTA
+        """)
+        cursore.execute("""
+        ALTER TABLE STUDENTI_MATERIE
+            DROP CONSTRAINT FK_STUDENTI_MATERIE_1
+        """)
+        cursore.execute("""
+        ALTER TABLE STUDENTI_MATERIE
+            DROP CONSTRAINT FK_STUDENTI_MATERIE_2
+        """)
 
 
 def delete_all_rows(conn):
@@ -284,6 +311,7 @@ def list_presenze_with_students_and_indirizzo_and_city_and_materie(conn):
                 JOIN CITTA c ON c.ID = i.ID_CITTA
                 JOIN STUDENTI_MATERIE sm ON sm.ID_STUDENTE = s.ID
                 JOIN MATERIE m ON m.ID = sm.ID_MATERIA
+                WHERE c.NOME LIKE 'A%'
             """)
         rows = cursore.fetchall()
         # for row in rows:
@@ -299,7 +327,7 @@ def list_cities(conn):
 if __name__ == "__main__":
     times = []
     num_tries = 20
-    if create_all_data:
+    if create_all_data or create_fk or remove_fk:
         num_tries = 1
     for num_try in range(num_tries):
         start_time = time.time()
@@ -314,9 +342,11 @@ if __name__ == "__main__":
                 create_cities(conn)
                 create_materie(conn)
                 create_dummy_students(conn)
-                # list_students(conn)
+            if create_fk:
+                create_fk_fun(conn)
+            if remove_fk:
+                remove_fk_fun(conn)
             list_presenze_with_students_and_indirizzo_and_city_and_materie(conn)
-            # list_cities(conn)
         elapsed = time.time() - start_time
         print(f"Elapsed time: {elapsed}")
         print(f"Number of commit: {commit_number}")
