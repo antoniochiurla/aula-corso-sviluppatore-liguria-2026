@@ -125,12 +125,6 @@ class Calculator(ICalculator):
         #    a = 5 + 7
         return False
     
-    def _assignment_with_calculation(elements: list[str]) -> float:
-        # TODO: Implementare e verificare che la sintassi sia corretta
-        # esempi:
-        #    a = 5 + 7
-        return 0.0
-    
     def _is_assignment(elements: list[str]) -> bool:
         # TODO: Implementare verificando che sia un'assegnazione semplice
         # esempi:
@@ -143,6 +137,12 @@ class Calculator(ICalculator):
         #    a + 5
         #    a - 5
         return False
+    
+    def _assignment_with_calculation(elements: list[str]) -> float:
+        # TODO: Implementare e verificare che la sintassi sia corretta
+        # esempi:
+        #    a = 5 + 7
+        return 0.0
     
     def _assignment_or_calculation(elements: list[str]) -> float:
         # TODO: Implementare e verificare che la sintassi sia corretta
