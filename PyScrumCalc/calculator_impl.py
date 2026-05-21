@@ -77,8 +77,8 @@ class Calculator(ICalculator):
         Se la variabile esiste già va sostituita
         Restituisce il valore assegnato alla variabile
         """
-        # TODO: Implementare la funzione impostando il valore nella variabile
-        pass
+        self._variables[name] = value
+        return value
 
     @staticmethod
     def sum(add1: float, add2: float) -> float:
