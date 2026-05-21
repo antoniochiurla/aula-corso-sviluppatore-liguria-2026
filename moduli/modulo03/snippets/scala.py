@@ -1,3 +1,6 @@
+import sys
+
+
 coords = [487,661,  501,579,
           570,546,  613,348,
           759,268,  826,270,
@@ -7,6 +10,12 @@ coords = [487,661,  501,579,
 
 new_coords = []
 
-for coord in coords:
-    new_coords.append(str(coord * 520 // 1536))
+mode = 1
+if mode == 0:
+    for coord in coords:
+        new_coords.append(str(coord * 520 // 1536))
+elif mode == 1:
+    new_coords = [str(coord * 520 // 1536) for coord in coords]
 print(",".join(new_coords))
+
+print(sys.argv)

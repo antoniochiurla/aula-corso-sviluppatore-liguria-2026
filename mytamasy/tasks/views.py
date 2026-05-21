@@ -11,6 +11,9 @@ from .serializers import TaskSerializer, BugTaskSerializer, FeatureTaskSerialize
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
+from logging import getLogger
+
+log = getLogger(__name__)
 
 types = {'T': 'Task', 'B': "Bug", 'F': 'Feature'}
 
@@ -69,6 +72,7 @@ class TaskListView(ListView):
 
 @login_required
 def index(request):
+    log.debug(f"Begin of index")
     # Recuperiamo tutti i task dal database
     tasks = Task.objects.all().order_by('-created_at')
     context = {
@@ -125,19 +129,26 @@ def edit_task(request, task_id):
 
 @login_required
 def add_task(request, tipo):
+    log.debug("Begin of add_task")
     if request.method == "POST":
+        log.debug("POST in add_task")
         titolo = request.POST.get('titolo')
         desc = request.POST.get('descrizione')
         assigned_to_id = request.POST.get('assigned_to')
 
+        log.debug(f"Type of task received: '{tipo}'")
         if tipo == 'B':
+            log.debug("Creating a bug task")
             BugTask.objects.create(created_by=request.user,title=titolo, description=desc, severity='ME', assigned_to_id=assigned_to_id)
         elif tipo == 'F':
+            log.debug("Creating a feature task")
             FeatureTask.objects.create(created_by=request.user,title=titolo, description=desc, priority='2', assigned_to_id=assigned_to_id)
         else:
+            log.debug("Creating a generic task")
             Task.objects.create(created_by=request.user,title=titolo, description=desc, assigned_to_id=assigned_to_id)
 
         return redirect('index')
+    log.debug('GET in add_task')
     context = {
         'tipo': tipo,
         'types': types,

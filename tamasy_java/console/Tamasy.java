@@ -86,7 +86,7 @@ public class Tamasy {
                     rimani = false;
                     break;
                 default:
-                    System.out.println("Opzione non valida.");
+                    System.err.println("Opzione non valida.");
             }
         }
     }

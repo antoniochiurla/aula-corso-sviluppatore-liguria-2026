@@ -3,3 +3,5 @@
 /**/*.class
 tamasy/django/db.sqlite3
 /**/db.sqlite3
+/ang/.vscode
+/ang/.editorconfig
