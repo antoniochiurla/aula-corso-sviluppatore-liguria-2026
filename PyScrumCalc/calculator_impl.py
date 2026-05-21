@@ -72,7 +72,7 @@ class Calculator(ICalculator):
         # TODO: Implementare la funzione restituendo il valore float contenuto nella variabile
         return 0.0
 
-    def set_variable(self, name: str, value: float) -> float:
+    def set_variable(self, name: str, value: float):
         """
         ISTRUZIONI:
         Aggiungere la variabile con il valore fornito
