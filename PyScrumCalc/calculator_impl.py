@@ -115,18 +115,21 @@ class Calculator(ICalculator):
         # TODO: implementare la divisione e generare CalcDivisionByZero se il divisore è zero
         return 0.0
 
+    @staticmethod
     def _is_assignment_with_calculation(elements: list[str]) -> bool:
         # TODO: Implementare verificando che sia un'assegnazione con calcolo
         # esempi:
         #    a = 5 + 7
         return False
     
+    @staticmethod
     def _is_assignment(elements: list[str]) -> bool:
         # TODO: Implementare verificando che sia un'assegnazione semplice
         # esempi:
         #    a = 5
         return False
     
+    @staticmethod
     def _is_calculation(elements: list[str]) -> bool:
         # TODO: Implementare verificando che sia un calcolo semplice
         # esempi:
@@ -134,12 +137,14 @@ class Calculator(ICalculator):
         #    a - 5
         return False
     
+    @staticmethod
     def _assignment_with_calculation(elements: list[str]) -> float:
         # TODO: Implementare e verificare che la sintassi sia corretta
         # esempi:
         #    a = 5 + 7
         return 0.0
     
+    @staticmethod
     def _assignment_or_calculation(elements: list[str]) -> float:
         # TODO: Implementare e verificare che la sintassi sia corretta
         # esempi:
