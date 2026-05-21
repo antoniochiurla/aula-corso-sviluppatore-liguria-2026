@@ -59,7 +59,7 @@ class Calculator(ICalculator):
         Converte la stringa in un numero float
         """
         # TODO: Implementare la funzione restituendo il valore float corrispondente al contenuto della stringa
-        return 0.0
+        return float(str_number)
 
     def get_variable(self, name: str) -> float:
         """
@@ -105,7 +105,7 @@ class Calculator(ICalculator):
         Restituire il risultato del prodotto dei due parametri
         """
         # TODO: implementare la moltiplicazione
-        return 0.0
+        return mult1*mult2
 
     @staticmethod
     def div(div1: float, div2: float) -> float:
