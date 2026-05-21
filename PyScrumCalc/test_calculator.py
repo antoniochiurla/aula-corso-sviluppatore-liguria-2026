@@ -84,16 +84,16 @@ class TestCalculator(unittest.TestCase):
         self.assertEqual(self.calc._parse_number("0.5"), 0.5)
     
     def test_inner_addition(self):
-        self.assertEqual(self.calc._sum(10, 5), 15.0)
+        self.assertEqual(self.calc.sum(10, 5), 15.0)
 
     def test_inner_subtraction(self):
-        self.assertEqual(self.calc._diff(10, 4), 6.0)
+        self.assertEqual(self.calc.diff(10, 4), 6.0)
 
     def test_inner_multiplication(self):
-        self.assertEqual(self.calc._mult(3, 4), 12.0)
+        self.assertEqual(self.calc.mult(3, 4), 12.0)
 
     def test_inner_division(self):
-        self.assertEqual(self.calc._div(10, 2), 5.0)
+        self.assertEqual(self.calc.div(10, 2), 5.0)
 
     def test_inner_division_by_zero(self):
         with self.assertRaises(CalcDivisionByZero):
