@@ -55,6 +55,18 @@ class TestCalculator(unittest.TestCase):
         self.assertFalse(self.calc._is_variable_name("1a"))
         self.assertFalse(self.calc._is_variable_name("-a"))
 
+    def test_inner_get_variable(self):
+        self.calc.get_variables()["a"] = 0.0
+        self.assertEqual(self.calc.get_variable("a"), 0.0)
+        self.calc.get_variables()["a"] = 0.0
+        self.assertEqual(self.calc.get_variable("a"), 5.0)
+
+    def test_inner_set_variable(self):
+        self.calc.set_variable("a", 0)
+        self.assertEqual(self.calc.get_variables()["a"], 0.0)
+        self.calc.set_variable("a", 5.0)
+        self.assertEqual(self.calc.get_variables()["a"], 5.0)
+
     def test_is_assignment_with_calculation(self):
         self.assertTrue(self.calc._is_assignment_with_calculation(["a", "=", "5", "+", "1"]))
         self.assertTrue(self.calc._is_assignment_with_calculation(["a", "=", "b", "+", "1"]))
