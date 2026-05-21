@@ -23,7 +23,7 @@ class Calculator(ICalculator):
         altrimenti restituisce False 
         """
 
-        return str_value in ["+", "-", "*", "/"]
+        return str_value in Calculator.operators
     
     @staticmethod
     def _is_assignment_sign(str_value: str) -> bool:
