@@ -54,7 +54,7 @@ class Calculator(ICalculator):
         """
         # TODO: Implementare la funzione e verificare che il
         # corrispondente test funzioni correttamente
-        return False
+        return len(str_value) > 0 and str_value[0].isalpha() and str_value.isalnum()
     
     @staticmethod
     def _parse_number(str_number: str) -> float:
