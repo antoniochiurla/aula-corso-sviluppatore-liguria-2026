@@ -22,9 +22,8 @@ class Calculator(ICalculator):
         Restituisce True se str_value contiene un numero
         altrimenti restituisce False 
         """
-        # TODO: Implementare la funzione e verificare che il
-        # corrispondente test funzioni correttamente
-        return False
+
+        return str_value in ["+", "-", "*", "/"]
     
     @staticmethod
     def _is_assignment_sign(str_value: str) -> bool:
