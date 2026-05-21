@@ -35,13 +35,17 @@ class Calculator(ICalculator):
     
     @staticmethod
     def _is_number(str_value: str) -> bool:
+       
         """
         Restituisce True se str_value contiene un numero
         altrimenti restituisce False 
         """
-        # TODO: Implementare la funzione e verificare che il
-        # corrispondente test funzioni correttamente
-        return False
+     
+        try:
+            float(str_value)
+            return True
+        except ValueError:
+            return False
     
     @staticmethod
     def _is_variable_name(str_value: str) -> bool:
