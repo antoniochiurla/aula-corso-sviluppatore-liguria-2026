@@ -32,9 +32,7 @@ class Calculator(ICalculator):
         Restituisce True se str_value contiene il simbolo = (uguale)
         altrimenti restituisce False 
         """
-        # TODO: Implementare la funzione e verificare che il
-        # corrispondente test funzioni correttamente
-        return False
+        return str_value == "="
     
     @staticmethod
     def _is_number(str_value: str) -> bool:
