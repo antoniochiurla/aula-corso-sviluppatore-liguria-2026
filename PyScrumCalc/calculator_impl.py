@@ -53,9 +53,7 @@ class Calculator(ICalculator):
         Restituisce True se str_value contiene un nome valido di variabile
         deve iniziare per una lettera maiuscola o minuscola e contenere solo lettere o cifre
         """
-        # TODO: Implementare la funzione e verificare che il
-        # corrispondente test funzioni correttamente
-        return False
+        return len(str_value) > 0 and str_value[0].isalpha() and str_value.isalnum()
     
     @staticmethod
     def _parse_number(str_number: str) -> float:
