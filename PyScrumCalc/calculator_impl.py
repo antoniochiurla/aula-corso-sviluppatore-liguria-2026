@@ -150,12 +150,14 @@ class Calculator(ICalculator):
         #    3 * 2
         return 0.0
 
+    @staticmethod
     def _is_single_value(elements: list[str]) -> bool:
-        # TODO: Implementare e verificare che la sintassi sia corretta
-        # esempi:
-        #    5
-        #    42
-        return False
+        """
+        Restituisce True se la lista contiene
+        un solo valore numerico
+        """
+        
+        return len(elements) == 1 and Calculator._is_number(elements[0])
         
     def _is_variable(elements: list[str]) -> bool:
         # TODO: Implementare e verificare che la sintassi sia corretta
