@@ -71,8 +71,7 @@ class Calculator(ICalculator):
         Restituire il valore  della variabile con il nome fornito
         Se la variabile non esiste va restituito 0.0
         """
-        # TODO: Implementare la funzione restituendo il valore float contenuto nella variabile
-        return 0.0
+        return float(self._variables.get(name, 0.0))
 
     def set_variable(self, name: str, value: float):
         """
