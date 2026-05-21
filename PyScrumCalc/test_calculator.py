@@ -84,7 +84,7 @@ class TestCalculator(unittest.TestCase):
         self.assertEqual(self.calc._parse_number("0.5"), 0.5)
     
     def test_inner_addition(self):
-        self.assertEqual(self.calc._sum(10, 5), 15.0)
+        self.assertEqual(self.calc.sum(10, 5), 15.0)
 
     def test_inner_subtraction(self):
         self.assertEqual(self.calc._diff(10, 4), 6.0)
