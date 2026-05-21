@@ -61,12 +61,12 @@ class TestCalculator(unittest.TestCase):
         self.assertTrue(self.calc._is_assignment_with_calculation(["a", "=", "5", "+", "c"]))
 
     def test_is_assignment(self):
-        self.assertTrue(self.calc._is_assignment_with_calculation(["a", "=", "5"]))
-        self.assertTrue(self.calc._is_assignment_with_calculation(["a", "=", "b"]))
+        self.assertTrue(self.calc._is_assignment(["a", "=", "5"]))
+        self.assertTrue(self.calc._is_assignment(["a", "=", "b"]))
 
     def test_is_calculation(self):
-        self.assertTrue(self.calc._is_assignment_with_calculation(["a", "+", "5"]))
-        self.assertTrue(self.calc._is_assignment_with_calculation(["a", "/", "b"]))
+        self.assertTrue(self.calc._is_calculation(["a", "+", "5"]))
+        self.assertTrue(self.calc._is_calculation(["a", "/", "b"]))
 
     def test_is_single_value(self):
         self.assertTrue(self.calc._is_single_value(["5"]))
