@@ -165,7 +165,7 @@ class Calculator(ICalculator):
         
     def _single_value_or_variable(elements: list[str]) -> float:
              (   token = elements[0]
-            return float(token) if token.replace('.', '', 1).isdigit() else self.get_variable(token)
+            return float(token) if Calculator._is_number (token) else self.get_variable(token)
              )
     return 0.0
     
