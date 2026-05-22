@@ -1,5 +1,5 @@
 from interfaces import ICalculator
-from exceptions import CalcSyntaxError
+from exceptions import CalcDivisionByZero, CalcSyntaxError
 
 class Calculator(ICalculator):
     def __init__(self):
@@ -111,8 +111,10 @@ class Calculator(ICalculator):
         ISTRUZIONI:
         Restituire il risultato della divisione tra i due parametri
         """
-        # TODO: implementare la divisione e generare CalcDivisionByZero se il divisore è zero
-        return 0.0
+        if div2 == 0:
+            raise CalcDivisionByZero("Divisione per zero non consentita!!!")
+        return div1/div2
+    
 
     @staticmethod
     def _is_assignment_with_calculation(elements: list[str]) -> bool:
