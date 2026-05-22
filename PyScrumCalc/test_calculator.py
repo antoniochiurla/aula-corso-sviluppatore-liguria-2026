@@ -71,6 +71,7 @@ class TestCalculator(unittest.TestCase):
         self.assertTrue(self.calc._is_assignment_with_calculation(["a", "=", "5", "+", "1"]))
         self.assertTrue(self.calc._is_assignment_with_calculation(["a", "=", "b", "+", "1"]))
         self.assertTrue(self.calc._is_assignment_with_calculation(["a", "=", "5", "+", "c"]))
+        self.assertFalse(self.calc._is_assignment_with_calculation(["=", "+", "5", "a", "c"]))
 
     def test_assignment_with_calculation(self):
         self.calc.set_variable("a", 0)
