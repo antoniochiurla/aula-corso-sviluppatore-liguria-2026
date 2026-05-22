@@ -163,12 +163,10 @@ class Calculator(ICalculator):
         #    b5
         return False
         
-    def _single_value_or_variable(elements: list[str]) -> float:
-             (   token = elements[0]
-            return float(token) if Calculator._is_number (token) else self.get_variable(token)
-             )
-    return 0.0
-    
+    def _single_value_or_variable(self, elements: list[str]) -> float:
+        token = elements[0]
+        return float(token) if Calculator._is_number (token) else self.get_variable(token)
+
     operators = {
         '+': sum,
         '-': diff,
