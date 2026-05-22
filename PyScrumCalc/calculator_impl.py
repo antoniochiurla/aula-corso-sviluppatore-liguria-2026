@@ -113,7 +113,7 @@ class Calculator(ICalculator):
         Restituire il risultato della divisione tra i due parametri
         """
         # TODO: implementare la divisione e generare CalcDivisionByZero se il divisore è zero
-        return 0.0
+        return div1/div2
 
     @staticmethod
     def _is_assignment_with_calculation(elements: list[str]) -> bool:
