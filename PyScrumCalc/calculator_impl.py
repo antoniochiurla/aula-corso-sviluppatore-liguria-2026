@@ -95,8 +95,7 @@ class Calculator(ICalculator):
         ISTRUZIONI:
         Restituire il risultato della differenza tra i due parametri
         """
-        # TODO: implementare la differenza
-        return 0.0
+        return sub1-sub2
 
     @staticmethod
     def mult(mult1: float, mult2: float) -> float:
