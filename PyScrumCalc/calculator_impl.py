@@ -132,16 +132,15 @@ class Calculator(ICalculator):
 
         variable, assign, left, operator, right = elements
 
-        valid_operators = {"+", "-", "*", "/"}
+        valid_operators = Calculator._is_operator
+        valid_variable = Calculator._is_variable_name
 
         return (
-            variable.isidentifier() and
-            assign == "=" and
-            (left.isidentifier() or left.isdigit())
-        ) and (
-            operator in valid_operators
-        ) and (
-            right.isidentifier() or right.isdigit()
+            valid_variable(variable)
+            and assign == "="
+            and (left.isdigit() or valid_variable(left))
+            and valid_operators(operator)
+            and (right.isdigit() or valid_variable(right))
         )
     
     @staticmethod
