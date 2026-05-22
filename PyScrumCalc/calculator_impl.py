@@ -161,13 +161,11 @@ class Calculator(ICalculator):
         
         return len(elements) == 1 and Calculator._is_number(elements[0])
         
-    def _is_variable(elements: list[str]) -> bool:
-        # TODO: Implementare e verificare che la sintassi sia corretta
-        # esempi:
-        #    a
-        #    b5
-        return False
-        
+    def _is_variable(self, elements: list[str]) -> bool:
+        if len(elements) != 1:
+            return False
+        return self._is_variable_name(elements[0])
+    
     def _single_value_or_variable(elements: list[str]) -> float:
         # TODO: Implementare e verificare che la sintassi sia corretta
         # esempi:
