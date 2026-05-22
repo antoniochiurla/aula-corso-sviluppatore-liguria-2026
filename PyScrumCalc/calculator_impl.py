@@ -190,12 +190,9 @@ class Calculator(ICalculator):
 
          return result
     
-    def _assignment_or_calculation(self, elements: list[str]) -> float:
-        # TODO: Implementare e verificare che la sintassi sia corretta
-        # esempi:
-        #    a = 5
-        #    3 * 2
-        return 0.0
+    def _single_value_or_variable(self, elements: list[str]) -> float:
+        token = elements[0]
+        return float(token) if Calculator._is_number (token) else self.get_variable(token)
 
     @staticmethod
     def _is_single_value(elements: list[str]) -> bool:
