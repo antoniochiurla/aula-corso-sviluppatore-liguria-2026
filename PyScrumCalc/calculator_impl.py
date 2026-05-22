@@ -148,12 +148,53 @@ class Calculator(ICalculator):
             and (Calculator._is_number(elements[2]) or Calculator._is_variable_name(elements[2]))
         )
     
-    @staticmethod
-    def _assignment_with_calculation(elements: list[str]) -> float:
-        # TODO: Implementare e verificare che la sintassi sia corretta
-        # esempi:
-        #    a = 5 + 7
-        return 0.0
+   
+    def _assignment_with_calculation(self,elements: list[str]) -> float:
+         
+         if len(elements) != 5:
+            raise CalcSyntaxError(" ".join(elements), "assegnazione con calcolo non valida")
+
+         if not Calculator._is_variable_name(elements[0]):
+            raise CalcSyntaxError(" ".join(elements), "nome variabile non valido")
+
+         if not Calculator._is_assignment_sign(elements[1]):
+            raise CalcSyntaxError(" ".join(elements), "segno = mancante")
+
+         if not (
+            Calculator._is_number(elements[2])
+            or Calculator._is_variable_name(elements[2])
+        ):
+            raise CalcSyntaxError(" ".join(elements), "primo valore non valido")
+
+         if not Calculator._is_operator(elements[3]):
+            raise CalcSyntaxError(" ".join(elements), "operatore non valido")
+
+         if not (
+            Calculator._is_number(elements[4])
+            or Calculator._is_variable_name(elements[4])
+        ):
+            raise CalcSyntaxError(" ".join(elements), "secondo valore non valido")
+
+         variable_name = elements[0]
+         first_value = elements[2]
+         operator = elements[3]
+         second_value = elements[4]
+
+         if Calculator._is_number(first_value):
+            num1 = Calculator._parse_number(first_value)
+         else:
+            num1 = self.get_variable(first_value)
+
+         if Calculator._is_number(second_value):
+            num2 = Calculator._parse_number(second_value)
+         else:
+            num2 = self.get_variable(second_value)
+
+         result = Calculator.operators[operator](num1, num2)
+
+         self.set_variable(variable_name, result)
+
+         return result
     
     def _assignment_or_calculation(self, elements: list[str]) -> float:
         # TODO: Implementare e verificare che la sintassi sia corretta
