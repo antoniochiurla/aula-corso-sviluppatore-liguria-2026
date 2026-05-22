@@ -135,10 +135,10 @@ class Calculator(ICalculator):
 
         return (
             valid_variable(variable)
-            and assign == "="
-            and (left.isdigit() or valid_variable(left))
+            and Calculator._is_assignment_sign(assign)
+            and (Calculator._is_number(left) or valid_variable(left))
             and valid_operators(operator)
-            and (right.isdigit() or valid_variable(right))
+            and (Calculator._is_number(right) or valid_variable(right))
         )
     
     @staticmethod
