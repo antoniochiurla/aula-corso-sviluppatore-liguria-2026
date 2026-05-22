@@ -28,13 +28,13 @@ class TestCalculator(unittest.TestCase):
         self.assertFalse(self.calc._is_operator("5"))
 
     def test_inner_is_assignment_sign(self):
-        self.assertTrue(self.calc._is_operator("="))
-        self.assertFalse(self.calc._is_operator("+"))
-        self.assertFalse(self.calc._is_operator("-"))
-        self.assertFalse(self.calc._is_operator("*"))
-        self.assertFalse(self.calc._is_operator("/"))
-        self.assertFalse(self.calc._is_operator("a"))
-        self.assertFalse(self.calc._is_operator("5"))
+        self.assertTrue(self.calc._is_assignment_sign("="))
+        self.assertFalse(self.calc._is_assignment_sign("+"))
+        self.assertFalse(self.calc._is_assignment_sign("-"))
+        self.assertFalse(self.calc._is_assignment_sign("*"))
+        self.assertFalse(self.calc._is_assignment_sign("/"))
+        self.assertFalse(self.calc._is_assignment_sign("a"))
+        self.assertFalse(self.calc._is_assignment_sign("5"))
 
     def test_inner_is_number(self):
         self.assertTrue(self.calc._is_number("1"))
@@ -55,18 +55,43 @@ class TestCalculator(unittest.TestCase):
         self.assertFalse(self.calc._is_variable_name("1a"))
         self.assertFalse(self.calc._is_variable_name("-a"))
 
+    def test_inner_get_variable(self):
+        self.calc.get_variables()["a"] = 0.0
+        self.assertEqual(self.calc.get_variable("a"), 0.0)
+        self.calc.get_variables()["a"] = 0.0
+        self.assertEqual(self.calc.get_variable("a"), 5.0)
+
+    def test_inner_set_variable(self):
+        self.calc.set_variable("a", 0)
+        self.assertEqual(self.calc.get_variables()["a"], 0.0)
+        self.calc.set_variable("a", 5.0)
+        self.assertEqual(self.calc.get_variables()["a"], 5.0)
+
     def test_is_assignment_with_calculation(self):
         self.assertTrue(self.calc._is_assignment_with_calculation(["a", "=", "5", "+", "1"]))
         self.assertTrue(self.calc._is_assignment_with_calculation(["a", "=", "b", "+", "1"]))
         self.assertTrue(self.calc._is_assignment_with_calculation(["a", "=", "5", "+", "c"]))
+        self.assertFalse(self.calc._is_assignment_with_calculation(["=", "+", "5", "a", "c"]))
+
+    def test_assignment_with_calculation(self):
+        self.calc.set_variable("a", 0)
+        self.calc._assignment_with_calculation(["a", "=", "5", "+", "1"])
+        self.assertEqual(self.calc.get_variables()["a"], 6.0)
+
+    def test_assignment_or_calculation(self):
+        self.assertTrue(self.calc._assignment_or_calculation(["a", "=", "5"]))
+        self.assertTrue(self.calc._assignment_or_calculation(["a", "+", "5"]))
+        self.assertFalse(self.calc._assignment_or_calculation(["a"]))
+        self.assertFalse(self.calc._assignment_or_calculation(["5"]))
+        self.assertFalse(self.calc._assignment_or_calculation(["5", "="]))
 
     def test_is_assignment(self):
-        self.assertTrue(self.calc._is_assignment_with_calculation(["a", "=", "5"]))
-        self.assertTrue(self.calc._is_assignment_with_calculation(["a", "=", "b"]))
+        self.assertTrue(self.calc._is_assignment(["a", "=", "5"]))
+        self.assertTrue(self.calc._is_assignment(["a", "=", "b"]))
 
     def test_is_calculation(self):
-        self.assertTrue(self.calc._is_assignment_with_calculation(["a", "+", "5"]))
-        self.assertTrue(self.calc._is_assignment_with_calculation(["a", "/", "b"]))
+        self.assertTrue(self.calc._is_calculation(["a", "+", "5"]))
+        self.assertTrue(self.calc._is_calculation(["a", "/", "b"]))
 
     def test_is_single_value(self):
         self.assertTrue(self.calc._is_single_value(["5"]))
@@ -84,16 +109,16 @@ class TestCalculator(unittest.TestCase):
         self.assertEqual(self.calc._parse_number("0.5"), 0.5)
     
     def test_inner_addition(self):
-        self.assertEqual(self.calc._sum(10, 5), 15.0)
+        self.assertEqual(self.calc.sum(10, 5), 15.0)
 
     def test_inner_subtraction(self):
-        self.assertEqual(self.calc._diff(10, 4), 6.0)
+        self.assertEqual(self.calc.diff(10, 4), 6.0)
 
     def test_inner_multiplication(self):
-        self.assertEqual(self.calc._mult(3, 4), 12.0)
+        self.assertEqual(self.calc.mult(3, 4), 12.0)
 
     def test_inner_division(self):
-        self.assertEqual(self.calc._div(10, 2), 5.0)
+        self.assertEqual(self.calc.div(10, 2), 5.0)
 
     def test_inner_division_by_zero(self):
         with self.assertRaises(CalcDivisionByZero):

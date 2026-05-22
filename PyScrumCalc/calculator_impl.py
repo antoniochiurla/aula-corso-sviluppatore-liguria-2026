@@ -1,5 +1,5 @@
 from interfaces import ICalculator
-from exceptions import CalcSyntaxError
+from exceptions import CalcDivisionByZero, CalcSyntaxError
 
 class Calculator(ICalculator):
     def __init__(self):
@@ -22,9 +22,8 @@ class Calculator(ICalculator):
         Restituisce True se str_value contiene un numero
         altrimenti restituisce False 
         """
-        # TODO: Implementare la funzione e verificare che il
-        # corrispondente test funzioni correttamente
-        return False
+
+        return str_value in Calculator.operators
     
     @staticmethod
     def _is_assignment_sign(str_value: str) -> bool:
@@ -32,19 +31,21 @@ class Calculator(ICalculator):
         Restituisce True se str_value contiene il simbolo = (uguale)
         altrimenti restituisce False 
         """
-        # TODO: Implementare la funzione e verificare che il
-        # corrispondente test funzioni correttamente
-        return False
+        return str_value == "="
     
     @staticmethod
     def _is_number(str_value: str) -> bool:
+       
         """
         Restituisce True se str_value contiene un numero
         altrimenti restituisce False 
         """
-        # TODO: Implementare la funzione e verificare che il
-        # corrispondente test funzioni correttamente
-        return False
+     
+        try:
+            float(str_value)
+            return True
+        except ValueError:
+            return False
     
     @staticmethod
     def _is_variable_name(str_value: str) -> bool:
@@ -52,17 +53,14 @@ class Calculator(ICalculator):
         Restituisce True se str_value contiene un nome valido di variabile
         deve iniziare per una lettera maiuscola o minuscola e contenere solo lettere o cifre
         """
-        # TODO: Implementare la funzione e verificare che il
-        # corrispondente test funzioni correttamente
-        return False
+        return len(str_value) > 0 and str_value[0].isalpha() and str_value.isalnum()
     
     @staticmethod
     def _parse_number(str_number: str) -> float:
         """
         Converte la stringa in un numero float
         """
-        # TODO: Implementare la funzione restituendo il valore float corrispondente al contenuto della stringa
-        return 0.0
+        return float(str_number)
 
     def get_variable(self, name: str) -> float:
         """
@@ -88,7 +86,7 @@ class Calculator(ICalculator):
         Restituire il risultato della somma dei due parametri
         """
         # TODO: implementare la somma
-        return 0.0
+        return add1 + add2
 
     @staticmethod
     def diff(sub1: float, sub2: float) -> float:
@@ -96,8 +94,7 @@ class Calculator(ICalculator):
         ISTRUZIONI:
         Restituire il risultato della differenza tra i due parametri
         """
-        # TODO: implementare la differenza
-        return 0.0
+        return sub1-sub2
 
     @staticmethod
     def mult(mult1: float, mult2: float) -> float:
@@ -105,8 +102,7 @@ class Calculator(ICalculator):
         ISTRUZIONI:
         Restituire il risultato del prodotto dei due parametri
         """
-        # TODO: implementare la moltiplicazione
-        return 0.0
+        return mult1*mult2
 
     @staticmethod
     def div(div1: float, div2: float) -> float:
@@ -114,47 +110,106 @@ class Calculator(ICalculator):
         ISTRUZIONI:
         Restituire il risultato della divisione tra i due parametri
         """
-        # TODO: implementare la divisione e generare CalcDivisionByZero se il divisore è zero
-        return 0.0
+        if div2 == 0:
+            raise CalcDivisionByZero("Divisione per zero non consentita!!!")
+        return div1/div2
+    
 
+    @staticmethod
     def _is_assignment_with_calculation(elements: list[str]) -> bool:
         # TODO: Implementare verificando che sia un'assegnazione con calcolo
         # esempi:
         #    a = 5 + 7
         return False
     
+    @staticmethod
     def _is_assignment(elements: list[str]) -> bool:
         # TODO: Implementare verificando che sia un'assegnazione semplice
         # esempi:
         #    a = 5
-        return False
+        return (
+        len(elements) == 3
+        and Calculator._is_variable_name(elements[0])
+        and Calculator._is_assignment_sign(elements[1])
+        and (
+            Calculator._is_number(elements[2])
+            or Calculator._is_variable_name(elements[2])
+        )
+    )
     
+    @staticmethod
     def _is_calculation(elements: list[str]) -> bool:
-        # TODO: Implementare verificando che sia un calcolo semplice
-        # esempi:
-        #    a + 5
-        #    a - 5
-        return False
+        
+        return(
+            len(elements) == 3
+            and (Calculator._is_number(elements[0]) or Calculator._is_variable_name(elements[0]))
+            and Calculator._is_operator(elements[1])
+            and (Calculator._is_number(elements[2]) or Calculator._is_variable_name(elements[2]))
+        )
     
-    def _assignment_with_calculation(elements: list[str]) -> float:
-        # TODO: Implementare e verificare che la sintassi sia corretta
-        # esempi:
-        #    a = 5 + 7
-        return 0.0
+   
+    def _assignment_with_calculation(self,elements: list[str]) -> float:
+         
+         if len(elements) != 5:
+            raise CalcSyntaxError(" ".join(elements), "assegnazione con calcolo non valida")
+
+         if not Calculator._is_variable_name(elements[0]):
+            raise CalcSyntaxError(" ".join(elements), "nome variabile non valido")
+
+         if not Calculator._is_assignment_sign(elements[1]):
+            raise CalcSyntaxError(" ".join(elements), "segno = mancante")
+
+         if not (
+            Calculator._is_number(elements[2])
+            or Calculator._is_variable_name(elements[2])
+        ):
+            raise CalcSyntaxError(" ".join(elements), "primo valore non valido")
+
+         if not Calculator._is_operator(elements[3]):
+            raise CalcSyntaxError(" ".join(elements), "operatore non valido")
+
+         if not (
+            Calculator._is_number(elements[4])
+            or Calculator._is_variable_name(elements[4])
+        ):
+            raise CalcSyntaxError(" ".join(elements), "secondo valore non valido")
+
+         variable_name = elements[0]
+         first_value = elements[2]
+         operator = elements[3]
+         second_value = elements[4]
+
+         if Calculator._is_number(first_value):
+            num1 = Calculator._parse_number(first_value)
+         else:
+            num1 = self.get_variable(first_value)
+
+         if Calculator._is_number(second_value):
+            num2 = Calculator._parse_number(second_value)
+         else:
+            num2 = self.get_variable(second_value)
+
+         result = Calculator.operators[operator](num1, num2)
+
+         self.set_variable(variable_name, result)
+
+         return result
     
-    def _assignment_or_calculation(elements: list[str]) -> float:
+    def _assignment_or_calculation(self, elements: list[str]) -> float:
         # TODO: Implementare e verificare che la sintassi sia corretta
         # esempi:
         #    a = 5
         #    3 * 2
         return 0.0
 
+    @staticmethod
     def _is_single_value(elements: list[str]) -> bool:
-        # TODO: Implementare e verificare che la sintassi sia corretta
-        # esempi:
-        #    5
-        #    42
-        return False
+        """
+        Restituisce True se la lista contiene
+        un solo valore numerico
+        """
+        
+        return len(elements) == 1 and Calculator._is_number(elements[0])
         
     def _is_variable(elements: list[str]) -> bool:
         # TODO: Implementare e verificare che la sintassi sia corretta

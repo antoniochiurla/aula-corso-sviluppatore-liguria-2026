@@ -6,3 +6,4 @@ tamasy/django/db.sqlite3
 /ang/.vscode
 /ang/.editorconfig
 /mytamasy/debug.log
+.vscode/
