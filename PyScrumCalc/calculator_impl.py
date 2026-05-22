@@ -139,11 +139,13 @@ class Calculator(ICalculator):
     
     @staticmethod
     def _is_calculation(elements: list[str]) -> bool:
-        # TODO: Implementare verificando che sia un calcolo semplice
-        # esempi:
-        #    a + 5
-        #    a - 5
-        return False
+        
+        return(
+            len(elements) == 3
+            and (Calculator._is_number(elements[0]) or Calculator._is_variable_name(elements[0]))
+            and Calculator._is_operator(elements[1])
+            and (Calculator._is_number(elements[2]) or Calculator._is_variable_name(elements[2]))
+        )
     
     @staticmethod
     def _assignment_with_calculation(elements: list[str]) -> float:
