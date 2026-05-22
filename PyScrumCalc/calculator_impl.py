@@ -164,14 +164,10 @@ class Calculator(ICalculator):
         return False
         
     def _single_value_or_variable(elements: list[str]) -> float:
-        # TODO: Implementare e verificare che la sintassi sia corretta
-        # esempi:
-        #    5
-        #    a
-            value = elements[0]
-            return float(value) if value.replace('.', '', 1).isdigit() else VARIABLES[value]
-        return 0.0
-    
+             (   token = elements[0]
+            return float(token) if token.replace('.', '', 1).isdigit() else self.get_variable(token)
+             )
+    return 0.0
     
     operators = {
         '+': sum,
