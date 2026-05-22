@@ -122,7 +122,7 @@ class TestCalculator(unittest.TestCase):
 
     def test_inner_division_by_zero(self):
         with self.assertRaises(CalcDivisionByZero):
-            self.calc._div(10, 0)
+            self.calc.div(10, 0)
 
     def test_basic_addition(self):
         self.assertEqual(self.calc.evaluate("10 + 5"), 15.0)

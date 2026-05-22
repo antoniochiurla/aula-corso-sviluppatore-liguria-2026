@@ -50,7 +50,7 @@ class Calculator(ICalculator):
         Restituisce True se str_value contiene un nome valido di variabile
         deve iniziare per una lettera maiuscola o minuscola e contenere solo lettere o cifre
         """
-        return len(str_value) > 0 and str_value[0].isalpha() and str_value.isalnum()
+        return len(str_value) > 0 and str_value[0].isalpha() and str_value.isalnum() or str_value == Calculator.last_value_variable
     
     @staticmethod
     def _parse_number(str_number: str) -> float:
@@ -268,15 +268,15 @@ class Calculator(ICalculator):
         result = 0.0
         match len(elements):
             case 1: # single value or variable
-                result = Calculator._single_value_or_variable(elements)
+                result = self._single_value_or_variable(elements)
             case 2: # error
                 raise CalcSyntaxError(expression, "non interpretata correttamente!!!")
             case 3: # variable assignment with single value or calculation
-                result = Calculator._assignment_or_calculation(elements)
+                result = self._assignment_or_calculation(elements)
             case 4: # error
                 raise CalcSyntaxError(expression, "non interpretata correttamente!!!")
             case 5: # variable assignment with calculation
-                result = Calculator._assignment_with_calculation(elements)
+                result = self._assignment_with_calculation(elements)
             case _:
                 raise CalcSyntaxError(expression, "non interpretata correttamente!!!")
         self.set_variable(self.last_value_variable, result)
