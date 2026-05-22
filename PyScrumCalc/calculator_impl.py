@@ -116,8 +116,33 @@ class Calculator(ICalculator):
 
     @staticmethod
     def _is_assignment_with_calculation(elements: list[str]) -> bool:
-        expr = " ".join(elements)
-        return "=" in expr and any(op in expr for op in "+-*/%")
+        """
+        Verifica se la lista rappresenta un'assegnazione con calcolo
+        nel formato:
+            variabile = operando operatore operando
+
+        Esempi validi:
+            ["a", "=", "5", "+", "1"]
+            ["a", "=", "b", "+", "1"]
+            ["a", "=", "5", "+", "c"]
+        """
+
+        if len(elements) != 5:
+            return False
+
+        variable, assign, left, operator, right = elements
+
+        valid_operators = {"+", "-", "*", "/"}
+
+        return (
+            variable.isidentifier() and
+            assign == "=" and
+            (left.isidentifier() or left.isdigit())
+        ) and (
+            operator in valid_operators
+        ) and (
+            right.isidentifier() or right.isdigit()
+        )
     
     @staticmethod
     def _is_assignment(elements: list[str]) -> bool:
