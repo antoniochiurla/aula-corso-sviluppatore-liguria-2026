@@ -22,7 +22,6 @@ class Calculator(ICalculator):
         Restituisce True se str_value contiene un numero
         altrimenti restituisce False 
         """
-
         return str_value in Calculator.operators
     
     @staticmethod
@@ -35,12 +34,10 @@ class Calculator(ICalculator):
     
     @staticmethod
     def _is_number(str_value: str) -> bool:
-       
         """
         Restituisce True se str_value contiene un numero
         altrimenti restituisce False 
         """
-     
         try:
             float(str_value)
             return True
@@ -86,7 +83,6 @@ class Calculator(ICalculator):
         ISTRUZIONI:
         Restituire il risultato della somma dei due parametri
         """
-        # TODO: implementare la somma
         return add1 + add2
 
     @staticmethod
@@ -125,9 +121,7 @@ class Calculator(ICalculator):
     
     @staticmethod
     def _is_assignment(elements: list[str]) -> bool:
-        # TODO: Implementare verificando che sia un'assegnazione semplice
-        # esempi:
-        #    a = 5
+        
         return (
         len(elements) == 3
         and Calculator._is_variable_name(elements[0])
@@ -209,7 +203,6 @@ class Calculator(ICalculator):
         Restituisce True se la lista contiene
         un solo valore numerico
         """
-        
         return len(elements) == 1 and Calculator._is_number(elements[0])
         
     def _is_variable(self, elements: list[str]) -> bool:
