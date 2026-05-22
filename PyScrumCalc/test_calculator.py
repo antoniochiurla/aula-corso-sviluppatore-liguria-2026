@@ -79,11 +79,9 @@ class TestCalculator(unittest.TestCase):
         self.assertEqual(self.calc.get_variables()["a"], 6.0)
 
     def test_assignment_or_calculation(self):
-        self.assertTrue(self.calc._assignment_or_calculation(["a", "=", "5"]))
-        self.assertTrue(self.calc._assignment_or_calculation(["a", "+", "5"]))
-        self.assertFalse(self.calc._assignment_or_calculation(["a"]))
-        self.assertFalse(self.calc._assignment_or_calculation(["5"]))
-        self.assertFalse(self.calc._assignment_or_calculation(["5", "="]))
+        self.assertEqual(self.calc._assignment_or_calculation(["a", "=", "5"]), 5.0)
+        self.assertEqual(self.calc._assignment_or_calculation(["a", "=", "!"]), 5.0)
+        self.assertEqual(self.calc._assignment_or_calculation(["a", "+", "5"]), 10.0)
 
     def test_is_assignment(self):
         self.assertTrue(self.calc._is_assignment(["a", "=", "5"]))

@@ -166,11 +166,15 @@ class Calculator(ICalculator):
     
     def _assignment_or_calculation(self,elements: list[str]) -> float:
         if self._is_assignment(elements):
-            value = self._parse_number(elements[2])
+            if self._is_variable_name(elements[2]):
+                value = self.get_variable(elements[2])
+            else:
+                value = self._parse_number(elements[2])
             self.set_variable(elements[0], value)
-            return value
         elif self._is_calculation(elements):
-            return self._calculation(elements)
+            value = self._calculation(elements)
+        self.set_variable(self.last_value_variable, value)
+        return value
 
    
     def _assignment_with_calculation(self,elements: list[str]) -> float:
@@ -241,12 +245,9 @@ class Calculator(ICalculator):
             return False
         return self._is_variable_name(elements[0])
     
-    def _single_value_or_variable(elements: list[str]) -> float:
-        # TODO: Implementare e verificare che la sintassi sia corretta
-        # esempi:
-        #    5
-        #    a
-        return 0.0
+    def _single_value_or_variable(self, elements: list[str]) -> float:
+        token = elements[0]
+        return float(token) if Calculator._is_number (token) else self.get_variable(token)
     
     operators = {
         '+': sum,
