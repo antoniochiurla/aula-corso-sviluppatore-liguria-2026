@@ -102,6 +102,11 @@ class TestCalculator(unittest.TestCase):
         self.assertTrue(self.calc._is_variable(["a"]))
         self.assertTrue(self.calc._is_variable(["a42"]))
         self.assertTrue(self.calc._is_variable(["cs"]))
+    
+    def test_single_value_or_variable(self):
+        self.assertEqual(self.calc._single_value_or_variable(["5"]), 5.0)
+        self.calc.set_variable("a", 6)
+        self.assertEqual(self.calc._single_value_or_variable(["a"]), 6.0)
 
     def test_inner_parse_number(self):
         self.assertEqual(self.calc._parse_number("1"), 1.0)
