@@ -28,13 +28,13 @@ class TestCalculator(unittest.TestCase):
         self.assertFalse(self.calc._is_operator("5"))
 
     def test_inner_is_assignment_sign(self):
-        self.assertTrue(self.calc._is_operator("="))
-        self.assertFalse(self.calc._is_operator("+"))
-        self.assertFalse(self.calc._is_operator("-"))
-        self.assertFalse(self.calc._is_operator("*"))
-        self.assertFalse(self.calc._is_operator("/"))
-        self.assertFalse(self.calc._is_operator("a"))
-        self.assertFalse(self.calc._is_operator("5"))
+        self.assertTrue(self.calc._is_assignment_sign("="))
+        self.assertFalse(self.calc._is_assignment_sign("+"))
+        self.assertFalse(self.calc._is_assignment_sign("-"))
+        self.assertFalse(self.calc._is_assignment_sign("*"))
+        self.assertFalse(self.calc._is_assignment_sign("/"))
+        self.assertFalse(self.calc._is_assignment_sign("a"))
+        self.assertFalse(self.calc._is_assignment_sign("5"))
 
     def test_inner_is_number(self):
         self.assertTrue(self.calc._is_number("1"))
