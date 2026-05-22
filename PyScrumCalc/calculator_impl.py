@@ -114,10 +114,32 @@ class Calculator(ICalculator):
 
     @staticmethod
     def _is_assignment_with_calculation(elements: list[str]) -> bool:
-        # TODO: Implementare verificando che sia un'assegnazione con calcolo
-        # esempi:
-        #    a = 5 + 7
-        return False
+        """
+        Verifica se la lista rappresenta un'assegnazione con calcolo
+        nel formato:
+            variabile = operando operatore operando
+
+        Esempi validi:
+            ["a", "=", "5", "+", "1"]
+            ["a", "=", "b", "+", "1"]
+            ["a", "=", "5", "+", "c"]
+        """
+
+        if len(elements) != 5:
+            return False
+
+        variable, assign, left, operator, right = elements
+
+        valid_operators = Calculator._is_operator
+        valid_variable = Calculator._is_variable_name
+
+        return (
+            valid_variable(variable)
+            and assign == "="
+            and (left.isdigit() or valid_variable(left))
+            and valid_operators(operator)
+            and (right.isdigit() or valid_variable(right))
+        )
     
     @staticmethod
     def _is_assignment(elements: list[str]) -> bool:
