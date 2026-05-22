@@ -168,7 +168,10 @@ class Calculator(ICalculator):
         # esempi:
         #    5
         #    a
+            value = elements[0]
+            return float(value) if value.replace('.', '', 1).isdigit() else VARIABLES[value]
         return 0.0
+    
     
     operators = {
         '+': sum,
