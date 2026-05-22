@@ -87,7 +87,7 @@ class Calculator(ICalculator):
         Restituire il risultato della somma dei due parametri
         """
         # TODO: implementare la somma
-        return 0.0
+        return add1 + add2
 
     @staticmethod
     def diff(sub1: float, sub2: float) -> float:
