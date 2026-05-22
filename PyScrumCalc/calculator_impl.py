@@ -151,8 +151,7 @@ class Calculator(ICalculator):
         #    a = 5 + 7
         return 0.0
     
-    @staticmethod
-    def _assignment_or_calculation(elements: list[str]) -> float:
+    def _assignment_or_calculation(self, elements: list[str]) -> float:
         # TODO: Implementare e verificare che la sintassi sia corretta
         # esempi:
         #    a = 5
