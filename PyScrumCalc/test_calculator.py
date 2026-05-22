@@ -58,7 +58,7 @@ class TestCalculator(unittest.TestCase):
     def test_inner_get_variable(self):
         self.calc.get_variables()["a"] = 0.0
         self.assertEqual(self.calc.get_variable("a"), 0.0)
-        self.calc.get_variables()["a"] = 0.0
+        self.calc.get_variables()["a"] = 5.0
         self.assertEqual(self.calc.get_variable("a"), 5.0)
 
     def test_inner_set_variable(self):

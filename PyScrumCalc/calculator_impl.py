@@ -142,6 +142,14 @@ class Calculator(ICalculator):
             and (Calculator._is_number(elements[2]) or Calculator._is_variable_name(elements[2]))
         )
     
+    def _assignment_or_calculation(self,elements: list[str]) -> float:
+        if self._is_assignment(elements):
+            value = self._parse_number(elements[2])
+            self.set_variable(elements[0], value)
+            return value
+        elif self._is_calculation(elements):
+            return self._calculation(elements)
+
    
     def _assignment_with_calculation(self,elements: list[str]) -> float:
          
@@ -170,23 +178,27 @@ class Calculator(ICalculator):
             raise CalcSyntaxError(" ".join(elements), "secondo valore non valido")
 
          variable_name = elements[0]
-         first_value = elements[2]
-         operator = elements[3]
-         second_value = elements[4]
 
+         result = self._calculation(elements[2:])
+         self.set_variable(variable_name, result)
+
+         return result
+
+    def _calculation(self, elements: list[str]):
+         first_value = elements[0]
+         operator = elements[1]
+         second_value = elements[2]
          if Calculator._is_number(first_value):
-            num1 = Calculator._parse_number(first_value)
+           num1 = Calculator._parse_number(first_value)
          else:
-            num1 = self.get_variable(first_value)
+           num1 = self.get_variable(first_value)
 
          if Calculator._is_number(second_value):
-            num2 = Calculator._parse_number(second_value)
+           num2 = Calculator._parse_number(second_value)
          else:
-            num2 = self.get_variable(second_value)
+           num2 = self.get_variable(second_value)
 
          result = Calculator.operators[operator](num1, num2)
-
-         self.set_variable(variable_name, result)
 
          return result
     
