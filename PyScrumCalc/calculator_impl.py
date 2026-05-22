@@ -116,10 +116,8 @@ class Calculator(ICalculator):
 
     @staticmethod
     def _is_assignment_with_calculation(elements: list[str]) -> bool:
-        # TODO: Implementare verificando che sia un'assegnazione con calcolo
-        # esempi:
-        #    a = 5 + 7
-        return False
+        expr = " ".join(elements)
+        return "=" in expr and any(op in expr for op in "+-*/%")
     
     @staticmethod
     def _is_assignment(elements: list[str]) -> bool:
