@@ -1,0 +1,591 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<title>Corso di programmazione</title>
+<!-- metadata -->
+<meta charset="UTF-8" />
+<meta name="generator" content="Zim 0.76.3" />
+<meta name="version" content="S5 1.1" />
+<meta name="presdate" content="" />
+<meta name="author" content="" />
+<meta name="company" content="" />
+<!-- configuration parameters -->
+<meta name="defaultView" content="slideshow" />
+<meta name="controlVis" content="hidden" />
+<!-- style sheet links -->
+<link rel="stylesheet" href="./04-TestingDebuggingVersionamentoCodice_files/_resources/ui/default/slides.css" type="text/css" media="projection" id="slideProj" />
+<link rel="stylesheet" href="./04-TestingDebuggingVersionamentoCodice_files/_resources/ui/default/outline.css" type="text/css" media="screen" id="outlineStyle" />
+<link rel="stylesheet" href="./04-TestingDebuggingVersionamentoCodice_files/_resources/ui/default/print.css" type="text/css" media="print" id="slidePrint" />
+<link rel="stylesheet" href="./04-TestingDebuggingVersionamentoCodice_files/_resources/ui/default/opera.css" type="text/css" media="projection" id="operaFix" />
+<!-- S5 JS -->
+<script src="./04-TestingDebuggingVersionamentoCodice_files/_resources/ui/default/slides.js" type="text/javascript"></script>
+</head>
+<body>
+
+<div class="layout">
+<div id="controls"><!-- DO NOT EDIT --></div>
+<div id="currentSlide"><!-- DO NOT EDIT --></div>
+<div id="header"></div>
+<div id="footer">
+<!--
+<h1>[location/date of presentation]</h1>
+<h2>[slide show title here]</h2>
+-->
+<h1 id="h1-footer">&nbsp;</h1>
+<h2 id="h2-footer">&nbsp;</h2>
+</div>
+
+</div>
+
+<div class="presentation">
+
+<div class="slide">
+<h1>Corso di programmazione<a id="corso-di-programmazione" class="h_anchor"></a></h1>
+<h2>Testing Debugging Versioning<a id="testing-debugging-versioning" class="h_anchor"></a></h2>
+<h3>Antonio Chiurla<a id="antonio-chiurla" class="h_anchor"></a></h3>
+<h4>logo: tamasy.png<a id="logo-tamasypng" class="h_anchor"></a></h4>
+<h4>date: 2026<a id="date-2026" class="h_anchor"></a></h4>
+
+</div>
+<div class="slide">
+<h1>Testing Software<a id="testing-software" class="h_anchor"></a></h1>
+<ul>
+<li>I test
+<ul>
+<li>non sono un costo</li>
+<li>sono un investimento</li>
+<li>la maggior parte sono automatizzabili</li>
+</ul></li>
+</ul>
+
+
+</div>
+<div class="slide">
+<h1>Tipologie di test<a id="tipologie-di-test" class="h_anchor"></a></h1>
+<ul>
+<li>Unit Test</li>
+<li>Integration Test</li>
+<li>System Test</li>
+</ul>
+
+
+</div>
+<div class="slide">
+<h1>Unit Test<a id="unit-test" class="h_anchor"></a></h1>
+<ul>
+<li>Unit Test (Test Unitari)
+<ul>
+<li>Verificano la singola unità di codice (una funzione o un metodo o un'intera classe)</li>
+<li>Deve essere isolato, non dipendere da servizi esterni</li>
+<li>Mock: si utilizzano per simulare comportamenti di componenti esteni</li>
+<li>TaMaSy: Testare se la funzione calcola_scadenza() restituisce la data corretta</li>
+</ul></li>
+<li>Integration Test</li>
+<li>System Test</li>
+</ul>
+
+
+</div>
+<div class="slide">
+<h1>Perché testare<a id="perché-testare" class="h_anchor"></a></h1>
+<ul>
+<li>Prevenzione dei bug
+<ul>
+<li>Trovare l'errore mentre si scrive il codice costa meno che farlo trovare all'utente</li>
+</ul></li>
+<li>Modifiche future sicure
+<ul>
+<li>Posso cambiare il codice interno sapendo che, se i test passano, non ho rotto le funzionalità esistenti</li>
+</ul></li>
+<li>Documentazione viva
+<ul>
+<li>I test spiegano come deve comportarsi il codice meglio di mille commenti</li>
+</ul></li>
+</ul>
+
+
+</div>
+<div class="slide">
+<h1>Caratteristiche di un buon test<a id="caratteristiche-di-un-buon-test" class="h_anchor"></a></h1>
+<ul>
+<li>Principi F.I.R.S.T.
+<ul>
+<li>Fast - esecuzione in pochi secondi</li>
+<li>Independent - non deve dipendere dal risultati di un altro test</li>
+<li>Repeatable - deve dare lo stesso risultato sempre in ogni ambiente</li>
+<li>Self-validating - risultato binario PASS (verde) o FAIL (rosso)</li>
+<li>Thorough/Timely (Completo/Tempestivo) - copre i casi limite e viene scritto insieme al codice</li>
+</ul></li>
+</ul>
+
+
+</div>
+<div class="slide">
+<h1>Ciclo TDD<a id="ciclo-tdd" class="h_anchor"></a></h1>
+<ul>
+<li>Fase 1 - RED
+<ul>
+<li>Scrivi un test per una funzione che non esiste ancora. Il test fallisce</li>
+</ul></li>
+<li>Fase 2 - GREEN
+<ul>
+<li>Scrivi il minimo codice necessario per far passare il test</li>
+</ul></li>
+<li>Fase 3 - REFACTOR
+<ul>
+<li>Migliora il codice appena scritto (pulizia, performance) mantenendo il test verde</li>
+</ul></li>
+</ul>
+
+<p>
+Motto: "Prima scrivi il test, poi scrivi il codice"
+</p>
+
+
+</div>
+<div class="slide">
+<h1>Unit Testing in Django<a id="unit-testing-in-django" class="h_anchor"></a></h1>
+<ul>
+<li><b>Tool Integrato</b>: Django usa il modulo unittest di Python ma lo potenzia</li>
+<li><b>Database di Test</b>: Ogni volta che lanciamo python manage.py test, Django crea un database temporaneo vuoto (non tocca i dati reali!)</li>
+<li><b>Il Client di Django</b>: Simula un browser per testare le View (richieste GET/POST) senza aprire il browser</li>
+<li><b>Comando</b>: python manage.py test</li>
+</ul>
+
+
+</div>
+<div class="slide">
+<h1>Le asserzioni comuni<a id="le-asserzioni-comuni" class="h_anchor"></a></h1>
+<ul>
+<li>assertEqual(a, b): a è uguale a b?</li>
+<li>assertNotEqual(a, b): a è diverso da b?</li>
+<li>assertTrue(x) / assertFalse(x): la condizione è vera/falsa?</li>
+<li>assertContains(response, "testo"): La pagina HTML contiene questa parola?</li>
+<li>assertRaises(Error): Il codice lancia l'errore corretto in caso di dati sbagliati?</li>
+</ul>
+
+
+</div>
+<div class="slide">
+<h1>Anatomia di un test<a id="anatomia-di-un-test" class="h_anchor"></a></h1>
+<ol type="1" start="1">
+<li>Set Up: Preparazione dei dati (creazione utenti, task di prova)</li>
+<li>Execution: Esecuzione della logica da testare (chiamata a una funzione o visita a una URL)</li>
+<li>Validation (Assert): Controllo del risultato</li>
+<li>Tear Down: Pulizia (gestita automaticamente da Django)</li>
+</ol>
+
+
+</div>
+<div class="slide">
+<h1>Integration Test<a id="integration-test" class="h_anchor"></a></h1>
+<ul>
+<li>Unit Test</li>
+<li>Integration Test
+<ul>
+<li>Verificano se due parti del sistema funzionano bene insieme</li>
+<li>TaMaSy: Testare se il salvataggio di un Task scrive correttamente nel database</li>
+</ul></li>
+<li>System Test</li>
+</ul>
+
+
+</div>
+<div class="slide">
+<h1>Oltre l'isolamento<a id="oltre-lisolamento" class="h_anchor"></a></h1>
+<ul>
+<li>E' la fase di testing in cui i moduli vengono combinati</li>
+<li>Obiettivo
+<ul>
+<li>Verificare che le interfacce e la comunicazione tra i diversi pezzi del sistema funzionino correttamente</li>
+</ul></li>
+<li>Focus
+<ul>
+<li>la view deve leggere correttamente dal database</li>
+<li>la sicurezza è garantita per le operazioni disponibili?</li>
+<li>i dati passano bene da back-end a front-end e viceversa?</li>
+<li>...</li>
+</ul></li>
+</ul>
+
+
+</div>
+<div class="slide">
+<h1>Integration Test con Django<a id="integration-test-con-django" class="h_anchor"></a></h1>
+<ul>
+<li>In un'applicazione web come Django, la distinzione tra Unit e Integration è sottile perché quasi tutto interagisce con il Database</li>
+<li>Verifichiamo
+<ul>
+<li>Integrità del Database: Un task salvato tramite una form viene scritto correttamente nella tabella</li>
+<li>Flusso di Navigazione: Dopo il login, l'utente viene reindirizzato correttamente alla sua dashboard</li>
+<li>Middleware e Sicurezza: I filtri di sicurezza di Django (CSRF, Authentication) proteggono le rotte sensibili</li>
+</ul></li>
+<li>Si usa ancora django.test.TestCase ma si usa il client</li>
+</ul>
+
+
+</div>
+<div class="slide">
+<h1>System Test<a id="system-test" class="h_anchor"></a></h1>
+<ul>
+<li>Unit Test</li>
+<li>Integration Test</li>
+<li>System Test
+<ul>
+<li>Verificano l'intera applicazione come se fossimo l'utente finale</li>
+</ul></li>
+</ul>
+
+
+</div>
+<div class="slide">
+<h1>L'App nel suo insieme<a id="lapp-nel-suo-insieme" class="h_anchor"></a></h1>
+<ul>
+<li>È la fase in cui il sistema software viene testato nella sua interezza. Non testiamo più i singoli componenti, ma il prodotto finito</li>
+<li>Approccio "Black Box": Il tester non guarda il codice interno (le classi Python o Java), ma interagisce con l'applicazione come se fosse l'utente finale, verificando ingressi e uscite</li>
+<li>Validare se il sistema soddisfa i Requisiti Funzionali (cosa deve fare l'app) e i Requisiti Non Funzionali (prestazioni, sicurezza, usabilità)</li>
+</ul>
+
+
+</div>
+<div class="slide">
+<h1>Ambiente<a id="ambiente" class="h_anchor"></a></h1>
+<ul>
+<li>Viene eseguito in un ambiente di "Staging"
+<ul>
+<li>Una copia esatta di quello che sarà l'ambiente di produzione reale (il web server finale)</li>
+</ul></li>
+<li>I test in produzione sono vietati
+<ul>
+<li>Porre la massima restistenza quando viene chiesto di farlo</li>
+</ul></li>
+</ul>
+
+
+</div>
+<div class="slide">
+<h1>TaMaSy System Test<a id="tamasy-system-test" class="h_anchor"></a></h1>
+<ul>
+<li>Test EndToEnd
+<ul>
+<li>L'utente si registra e accede al portale.</li>
+<li>Crea un BugTask per un errore critico.</li>
+<li>Filtra i task per vedere solo quelli urgenti.</li>
+<li>Cambia lo stato del task in "Completato".</li>
+<li>Effettua il logout.</li>
+</ul></li>
+</ul>
+
+
+</div>
+<div class="slide">
+<h1>Test non funzionali<a id="test-non-funzionali" class="h_anchor"></a></h1>
+<ul>
+<li>Verifiche
+<ul>
+<li>Usabilità: È facile per un nuovo utente capire come creare un task?</li>
+<li>Sicurezza: Se provo ad accedere alla dashboard senza login, il sistema mi blocca sempre?</li>
+<li>Carico: Cosa succede se 50 utenti salvano un task nello stesso istante?</li>
+</ul></li>
+<li>Strumenti Professionali
+<ul>
+<li>In questa fase si usano spesso tool di automazione browser come Selenium o Playwright, che "guidano" il browser al posto dell'uomo</li>
+</ul></li>
+</ul>
+
+
+
+</div>
+<div class="slide">
+<h1>Framework<a id="framework" class="h_anchor"></a></h1>
+<ul>
+<li>Framework
+<ul>
+<li>PyTest (per Python) strumento standard</li>
+<li>Base: assert</li>
+<li>JUnit (per Java)</li>
+<li>Playwright (per end-to-end)</li>
+<li>tanti altri...</li>
+</ul></li>
+</ul>
+
+
+</div>
+<div class="slide">
+<h1>Piramide del Testing<a id="piramide-del-testing" class="h_anchor"></a></h1>
+<ul>
+<li>Piramide del Testing
+<ul>
+<li>Base larga tanti unit test (veloci ed economici)</li>
+<li>Metà alcuni Integration Test</li>
+<li>Punta Pochi System Test (lenti e costosi)</li>
+</ul></li>
+<li>Test manuali, pochi ma buoni</li>
+</ul>
+
+
+</div>
+<div class="slide">
+<h1>Riassumendo i Test<a id="riassumendo-i-test" class="h_anchor"></a></h1>
+<ul>
+<li>Tipi di test
+<ul>
+<li>Unit: "Il bullone tiene?"</li>
+<li>Integration: "Il motore gira?"</li>
+<li>System: "La macchina corre in autostrada senza rompersi?"</li>
+</ul></li>
+<li><b>Regola d'oro</b>: "Codice non testato è codice rotto".</li>
+</ul>
+
+
+</div>
+<div class="slide">
+<h1>Debugging<a id="debugging" class="h_anchor"></a></h1>
+<ul>
+<li>L'Arte del Detective
+<ul>
+<li>Uso del Debugger: Il programmatore non "indovina", ma "osserva"</li>
+<li>Breakpoints: Punti di interruzione in cui il programma si ferma per permetterci di ispezionare e modificare i valori in memoria</li>
+<li>Watch Expressions: Tenere d'occhio una variabile specifica mentre il codice scorre riga per riga</li>
+<li>Analisi Errori: Differenza tra errori di sintassi (il codice non parte) e bug logici (il codice parte ma fa cose sbagliate)</li>
+</ul></li>
+</ul>
+
+
+</div>
+<div class="slide">
+<h1>Debug in VS Code<a id="debug-in-vs-code" class="h_anchor"></a></h1>
+<ul>
+<li>Il Breakpoint (Punto di Interruzione):
+<ul>
+<li>Si inserisce cliccando a sinistra del numero di riga (apparirà un pallino rosso)</li>
+<li>Indica a VS Code di mettere in pausa il programma esattamente prima di eseguire quella riga</li>
+</ul></li>
+<li>Come Avviare:
+<ul>
+<li>Premere F5 o andare sull'icona "Run and Debug" nella barra laterale</li>
+<li>Scegliere "Python File" (o "Django" se stiamo testando unàapplicazione Django)</li>
+</ul></li>
+<li>Perché non usare il print()?
+<ul>
+<li>Il debug non sporca il codice, permette di vedere tutte le variabili insieme e di modificare lo stato del programma "al volo"</li>
+</ul></li>
+</ul>
+
+
+</div>
+<div class="slide">
+<h1>Navigazione nel Debug<a id="navigazione-nel-debug" class="h_anchor"></a></h1>
+<ul>
+<li>Quando il codice si ferma su un breakpoint, appare una barra degli strumenti in alto. Ecco come muoversi
+<ul>
+<li>Continue (F5) Riprende l'esecuzione</li>
+<li>Step Over (F10) Esegue la riga corrente</li>
+<li>Step Into (F11) Se nella riga c'è una chiamata di funzione entra nella funzione</li>
+<li>Step Out (Shift+F11) Esce dalla funzione corrente</li>
+<li>Restart (Ctrl+Shift+F5) Riavvia il programma da capo</li>
+<li>Stop (Shift+F5) Chiude la sessione di debug</li>
+</ul></li>
+</ul>
+
+
+</div>
+<div class="slide">
+<h1>Lo stato di esecuzione del programma<a id="lo-stato-di-esecuzione-del-programma" class="h_anchor"></a></h1>
+<ul>
+<li>Quando programma è in pausa sono visibili le finestre
+<ul>
+<li>Variables - mostra le variabili del contesto attuale
+<ul>
+<li>Locali</li>
+<li>Globali</li>
+</ul></li>
+<li>Watch - si possono aggiungere espressioni</li>
+<li>Debug Console - la console di esecuzione del programma</li>
+</ul></li>
+</ul>
+
+
+
+</div>
+<div class="slide">
+<h1>Performance profiling<a id="performance-profiling" class="h_anchor"></a></h1>
+<ul>
+<li>Profiling di esecuzione
+<ul>
+<li>Individuare chi consuma più tempo</li>
+</ul></li>
+</ul>
+
+
+</div>
+<div class="slide">
+<h1>Version control<a id="version-control" class="h_anchor"></a></h1>
+<ul>
+<li>Version Control con Git (Il "Tasto Annulla" dei programmatori)
+<ul>
+<li>Concetti base: Repository (la cartella del progetto), Commit (il salvataggio dello stato), Push/Pull (invio e ricezione dati dal server)</li>
+<li>GitHub: Non è solo un backup, è il "social network" del codice e lo strumento di hosting per il portfolio degli studenti</li>
+<li>TaMaSy: Carichiamo TaMaSy su GitHub: la vostra prima impronta nel mondo professionale</li>
+</ul></li>
+</ul>
+
+
+</div>
+<div class="slide">
+<h1>Git inizializzazione<a id="git-inizializzazione" class="h_anchor"></a></h1>
+<ul>
+<li>Configurazioni iniziali
+<ul>
+<li><b>git config --global user.name "Tuo Nome"</b>: Imposta il nome dell'autore</li>
+<li><b>git config --global user.email "<a href="mailto:email@esempio.it" title="email@esempio.it" class="mailto">email@esempio.it</a>"</b>: Imposta l'email</li>
+</ul></li>
+</ul>
+
+
+</div>
+<div class="slide">
+<h1>Git repository<a id="git-repository" class="h_anchor"></a></h1>
+<ul>
+<li>Ottenere un repository
+<ul>
+<li><b>git init</b>: Crea un nuovo repository locale nella cartella corrente. Apparirà una cartella nascosta .git</li>
+<li><b>git clone &lt;url&gt;</b>: Copia un repository esistente da GitHub sul tuo PC</li>
+</ul></li>
+</ul>
+
+
+</div>
+<div class="slide">
+<h1>Git ciclo di lavoro<a id="git-ciclo-di-lavoro" class="h_anchor"></a></h1>
+<ul>
+<li><b>git status</b> Il comando più importante. Ti dice quali file sono stati modificati e cosa sta succedendo</li>
+<li><b>git add &lt;file&gt;</b>: Aggiunge un file alla Staging Area (lo prepara per il salvataggio). Usate git add . per aggiungere tutto</li>
+<li><b>git commit -m "Descrizione modifica"</b>: Crea un punto di ripristino (snapshot). La descrizione deve essere chiara</li>
+<li>Ordine delle operazioni: Modifica file ➔ git add ➔ git commit</li>
+</ul>
+
+
+</div>
+<div class="slide">
+<h1>Sincronizzazione con il repository di origine<a id="sincronizzazione-con-il-repository-di-origine" class="h_anchor"></a></h1>
+<ul>
+<li>Relazione con i repository remoti
+<ul>
+<li><b>git remote add origin &lt;url&gt;</b>: Collega il tuo repository locale a quello remoto</li>
+<li><b>git push</b>: Carica i tuoi commit locali sul server remoto (GitHub)</li>
+<li><b>git pull</b>: Scarica le ultime modifiche fatte dai tuoi colleghi e le unisce al tuo codice</li>
+<li><b>git fetch</b>: Controlla se ci sono novità sul server senza scaricarle ancora nel tuo codice</li>
+</ul></li>
+</ul>
+
+
+</div>
+<div class="slide">
+<h1>Branching (Lavorare in parallelo)<a id="branching-lavorare-in-parallelo" class="h_anchor"></a></h1>
+<ul>
+<li>Creare numerose linee di sviluppo
+<ul>
+<li><b>git branch &lt;nome-ramo&gt;</b>: Crea un nuovo ramo (es: feature-notifiche)</li>
+<li><b>git checkout &lt;nome-ramo&gt;</b>: Si sposta sul ramo indicato (o git switch)</li>
+<li><b>git merge &lt;nome-ramo&gt;</b>: Unisce le modifiche del ramo indicato nel ramo in cui ti trovi (solitamente main)</li>
+</ul></li>
+</ul>
+
+
+</div>
+<div class="slide">
+<h1>Ispezione e ripristino<a id="ispezione-e-ripristino" class="h_anchor"></a></h1>
+<ul>
+<li>Cosa fare quando qualcosa va storto o vogliamo vedere la storia
+<ul>
+<li><b>git log</b>: Mostra la cronologia di tutti i commit (chi ha fatto cosa e quando)</li>
+<li><b>git diff</b>: Mostra le differenze esatte tra il codice attuale e l'ultimo salvataggio</li>
+<li><b>git checkout -- &lt;file&gt;</b>: Annulla le modifiche non salvate a un file, riportandolo all'ultimo commit</li>
+<li><b>git reset --soft HEAD~1</b>: Torna indietro di un commit ma mantiene le modifiche nei file (per correggere un errore nel messaggio di commit</li>
+</ul></li>
+</ul>
+
+
+</div>
+<div class="slide">
+<h1>Workflow Collaborativo (Teamwork)<a id="workflow-collaborativo-teamwork" class="h_anchor"></a></h1>
+<ul>
+<li>Branching (Rami): il ramo main è il prodotto finito. Ogni sviluppatore lavora su un ramo separato (es. feature-notifiche) per non rompere il lavoro degli altri</li>
+<li>Merge &amp; Pull Request (PR): Il processo di richiesta di unione del proprio codice nel ramo principale</li>
+<li>Gestione Conflitti: Cosa succede se due persone modificano la stessa riga?</li>
+<li>Code Review: Leggere il codice degli altri sviluppatori per suggerire miglioramenti prima che venga accettato</li>
+</ul>
+
+
+</div>
+<div class="slide">
+<h1>Documentazione<a id="documentazione" class="h_anchor"></a></h1>
+<ul>
+<li>Scrivere per gli esseri umani
+<ul>
+<li>Docstring: Commenti speciali dentro il codice per spiegare cosa fa una funzione</li>
+<li>README.md: Il file più importante di ogni progetto GitHub. Deve spiegare cos'è TaMaSy, come si installa e come si usa</li>
+<li>TaMaSy Slide: "Se un altro programmatore legge il vostro codice, deve capire come farlo girare in 5 minuti grazie al README."</li>
+</ul></li>
+</ul>
+
+
+</div>
+<div class="slide">
+<h1>Esercitazioni<a id="esercitazioni" class="h_anchor"></a></h1>
+<ul>
+<li>Formazione Team: Dividiamo la classe in gruppi di 2-3 persone.</li>
+<li>Uno studente
+<ul>
+<li>crea il repository "Main" di TaMaSy</li>
+<li>invita gli altri come collaboratori</li>
+</ul></li>
+<li>Suddivisione Task:
+<ul>
+<li>Gruppo A: Crea la pagina di profilo utente</li>
+<li>Gruppo B: Aggiunge un sistema di filtri per i task (es. "solo urgenti")</li>
+<li>Gruppo C: Implementa la funzione di cancellazione definitiva</li>
+</ul></li>
+<li>segue...</li>
+</ul>
+
+</div>
+<div class="slide">
+<h1>Esercitazioni<a id="esercitazioni" class="h_anchor"></a></h1>
+<ul>
+<li>Sviluppo in Branch
+<ul>
+<li>ogni gruppo deve creare un suo branch</li>
+<li>fare almeno 3 commit</li>
+<li>aprire una Pull Request</li>
+</ul></li>
+<li>Conflitto
+<ul>
+<li>Due gruppi modificano il titolo della pagina nel file HTML</li>
+<li>Risolvere il conflitto manualmente</li>
+</ul></li>
+<li>segue...</li>
+</ul>
+
+</div>
+<div class="slide">
+<h1>Esercitazioni<a id="esercitazioni" class="h_anchor"></a></h1>
+<ul>
+<li>Test finale
+<ul>
+<li>una volta uniti tutti i rami</li>
+<li>provare TaMaSy e verificare che tutte le nuove funzioni convivano pacificamente</li>
+</ul></li>
+</ul>
+
+
+</div>
+
+</div>
+
+</body>
+</html>

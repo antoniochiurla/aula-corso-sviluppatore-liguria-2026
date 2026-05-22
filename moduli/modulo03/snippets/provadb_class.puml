@@ -1,0 +1,46 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class MATERIE <<table>> {
+  +ID : INT <<PK>>
+  NOME : TEXT
+}
+
+class STUDENTI_MATERIE <<table>> {
+  +ID : INT <<PK>>
+  ID_STUDENTE : INT <<FK>>
+  ID_MATERIA : INT <<FK>>
+}
+
+class CITTA <<table>> {
+  +ID : INT <<PK>>
+  NOME : TEXT
+}
+
+class INDIRIZZI <<table>> {
+  +ID : INT <<PK>>
+  VIA : TEXT
+  ID_CITTA : INT <<FK>>
+}
+
+class STUDENTI <<table>> {
+  +ID : INT <<PK>>
+  NOME : TEXT
+  COGNOME : TEXT
+  EMAIL : TEXT
+  ID_INDIRIZZO : INT <<FK>>
+}
+
+class PRESENZE <<table>> {
+  +ID : INT <<PK>>
+  ID_STUDENTE : INT <<FK>>
+  GIORNO : TEXT
+}
+
+CITTA "1" -- "0..*" INDIRIZZI : FK_INDIRIZZI_CITTA
+INDIRIZZI "1" -- "0..*" STUDENTI : FK_STUDENTI_INDIRIZZI
+STUDENTI "1" -- "0..*" PRESENZE : FK_PRESENZE_STUDENTI
+STUDENTI "1" -- "0..*" STUDENTI_MATERIE : FK_STUDENTI_MATERIE_1
+MATERIE "1" -- "0..*" STUDENTI_MATERIE : FK_STUDENTI_MATERIE_2
+
+@enduml

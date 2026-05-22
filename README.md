@@ -1,7 +1,7 @@
 # Materiale per corso di sviluppatore 2026
 
 ## contenuti
-* moduli
+* [moduli](moduli)
   * [modulo02](moduli/modulo02)
   * [modulo03](moduli/modulo03)
   * [modulo04](moduli/modulo04)
@@ -10,3 +10,6 @@
   * [modulo12](moduli/modulo12)
   * [modulo13](moduli/modulo13)
   * [modulo22](moduli/modulo22)
+* [workspaces](workspaces)
+
+## ne faremo un uso condiviso

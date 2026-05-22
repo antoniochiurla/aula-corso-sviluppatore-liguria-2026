@@ -1,0 +1,344 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Verifica Modulo 3 - Sviluppo Web e Database</title>
+  <style>
+    :root {
+      --ink: #111;
+      --muted: #555;
+      --line: #c8c8c8;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: #fff;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 12pt;
+      line-height: 1.35;
+    }
+
+    main {
+      max-width: 210mm;
+      margin: 0 auto;
+      padding: 16mm;
+    }
+
+    h1 {
+      margin: 0 0 8mm;
+      text-align: center;
+      font-size: 18pt;
+      line-height: 1.2;
+    }
+
+    h2 {
+      margin: 10mm 0 4mm;
+      padding-bottom: 1.5mm;
+      border-bottom: 1px solid var(--ink);
+      font-size: 13.5pt;
+      text-transform: uppercase;
+    }
+
+    .student-data {
+      display: grid;
+      grid-template-columns: 1fr 45mm;
+      gap: 10mm;
+      margin-bottom: 8mm;
+      align-items: end;
+    }
+
+    .field {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 2mm;
+      align-items: end;
+      white-space: nowrap;
+    }
+
+    .field input {
+      width: 100%;
+      min-height: 8mm;
+      padding: 1mm 2mm;
+      border: 1px solid var(--ink);
+      color: var(--ink);
+      background: #fff;
+      font: inherit;
+    }
+
+    .field input:focus {
+      outline: 2px solid var(--ink);
+      outline-offset: 1px;
+    }
+
+    .question {
+      margin: 0 0 6mm;
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+
+    .question-text {
+      margin: 0 0 3mm;
+      font-weight: 700;
+    }
+
+    .answers {
+      display: grid;
+      gap: 2mm;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .answer {
+      display: grid;
+      grid-template-columns: 7mm 1fr;
+      gap: 2mm;
+      align-items: start;
+    }
+
+    .answer input {
+      width: 4mm;
+      height: 4mm;
+      margin: 0.75mm 0 0;
+      accent-color: #000;
+    }
+
+    .answer label {
+      display: block;
+    }
+
+    .answer-space {
+      display: block;
+      width: 100%;
+      height: 34mm;
+      margin-top: 3mm;
+      padding: 1mm 2mm;
+      border: 1px solid var(--line);
+      color: var(--ink);
+      background-color: #fff;
+      background-image: repeating-linear-gradient(
+        to bottom,
+        transparent 0,
+        transparent 7.5mm,
+        var(--line) 7.5mm,
+        var(--line) 7.85mm
+      );
+      font: inherit;
+      line-height: 7.5mm;
+      resize: vertical;
+    }
+
+    .answer-space:focus {
+      outline: 2px solid var(--ink);
+      outline-offset: 1px;
+    }
+
+    .muted {
+      color: var(--muted);
+      font-weight: 400;
+    }
+
+    @page {
+      size: A4;
+      margin: 12mm;
+    }
+
+    @media print {
+      main {
+        max-width: none;
+        padding: 0;
+      }
+
+      h2 {
+        break-after: avoid;
+        page-break-after: avoid;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Verifica Modulo 3: Sviluppo Web e Database</h1>
+
+    <div class="student-data">
+      <div class="field">
+        <label for="student-name">Nome e Cognome:</label>
+        <input type="text" id="student-name" name="student_name" autocomplete="name">
+      </div>
+      <div class="field">
+        <label for="exam-date">Data:</label>
+        <input type="text" id="exam-date" name="exam_date" autocomplete="off">
+      </div>
+    </div>
+
+    <h2>Parte 1: Architettura e Fondamenti del Web <span class="muted">(Risposta Chiusa)</span></h2>
+
+    <section class="question">
+      <p class="question-text">1. Nell'architettura Client-Server, qual è il ruolo principale del "Client"?</p>
+      <ul class="answers">
+        <li class="answer"><input type="radio" name="q1" id="q1a"><label for="q1a">A) Gestire il database e la sicurezza dei dati.</label></li>
+        <li class="answer"><input type="radio" name="q1" id="q1b"><label for="q1b">B) Inviare richieste al server e visualizzare l'interfaccia all'utente.</label></li>
+        <li class="answer"><input type="radio" name="q1" id="q1c"><label for="q1c">C) Eseguire le migrazioni del database.</label></li>
+        <li class="answer"><input type="radio" name="q1" id="q1d"><label for="q1d">D) Rispondere alle richieste degli altri browser.</label></li>
+      </ul>
+    </section>
+
+    <section class="question">
+      <p class="question-text">2. Cosa succede durante una richiesta HTTP di tipo "POST"?</p>
+      <ul class="answers">
+        <li class="answer"><input type="radio" name="q2" id="q2a"><label for="q2a">A) Il browser richiede solo di visualizzare una pagina senza inviare dati.</label></li>
+        <li class="answer"><input type="radio" name="q2" id="q2b"><label for="q2b">B) Il browser invia dati al server (es. i dati di un nuovo task) per essere elaborati.</label></li>
+        <li class="answer"><input type="radio" name="q2" id="q2c"><label for="q2c">C) Il server cancella automaticamente il database.</label></li>
+        <li class="answer"><input type="radio" name="q2" id="q2d"><label for="q2d">D) Viene aggiornato solo il file CSS della pagina.</label></li>
+      </ul>
+    </section>
+
+    <section class="question">
+      <p class="question-text">3. L'architettura "3-tier" (a tre livelli) divide l'applicazione in:</p>
+      <ul class="answers">
+        <li class="answer"><input type="radio" name="q3" id="q3a"><label for="q3a">A) HTML, CSS e JavaScript.</label></li>
+        <li class="answer"><input type="radio" name="q3" id="q3b"><label for="q3b">B) Presentation Layer, Logic Layer e Data Layer.</label></li>
+        <li class="answer"><input type="radio" name="q3" id="q3c"><label for="q3c">C) Windows, Mac e Linux.</label></li>
+        <li class="answer"><input type="radio" name="q3" id="q3d"><label for="q3d">D) Header, Body e Footer.</label></li>
+      </ul>
+    </section>
+
+    <h2>Parte 2: Frontend - HTML, CSS e Bootstrap</h2>
+
+    <section class="question">
+      <p class="question-text">4. In HTML5, quale tag è corretto per creare un modulo di inserimento dati?</p>
+      <ul class="answers">
+        <li class="answer"><input type="radio" name="q4" id="q4a"><label for="q4a">A) &lt;input&gt;</label></li>
+        <li class="answer"><input type="radio" name="q4" id="q4b"><label for="q4b">B) &lt;table_form&gt;</label></li>
+        <li class="answer"><input type="radio" name="q4" id="q4c"><label for="q4c">C) &lt;form&gt;</label></li>
+        <li class="answer"><input type="radio" name="q4" id="q4d"><label for="q4d">D) &lt;section&gt;</label></li>
+      </ul>
+    </section>
+
+    <section class="question">
+      <p class="question-text">5. A cosa serve il "Grid System" di Bootstrap (basato su 12 colonne)?</p>
+      <ul class="answers">
+        <li class="answer"><input type="radio" name="q5" id="q5a"><label for="q5a">A) A decidere il colore dei font nel sito.</label></li>
+        <li class="answer"><input type="radio" name="q5" id="q5b"><label for="q5b">B) A creare layout responsivi che si adattano a diverse dimensioni di schermo.</label></li>
+        <li class="answer"><input type="radio" name="q5" id="q5c"><label for="q5c">C) A velocizzare la connessione al database.</label></li>
+        <li class="answer"><input type="radio" name="q5" id="q5d"><label for="q5d">D) A nascondere il codice JavaScript agli utenti.</label></li>
+      </ul>
+    </section>
+
+    <section class="question">
+      <p class="question-text">6. Quale classe Bootstrap useresti per rendere un pulsante rosso (indicando ad esempio un Bug o un'azione di eliminazione)?</p>
+      <ul class="answers">
+        <li class="answer"><input type="radio" name="q6" id="q6a"><label for="q6a">A) .btn-primary</label></li>
+        <li class="answer"><input type="radio" name="q6" id="q6b"><label for="q6b">B) .btn-success</label></li>
+        <li class="answer"><input type="radio" name="q6" id="q6c"><label for="q6c">C) .btn-danger</label></li>
+        <li class="answer"><input type="radio" name="q6" id="q6d"><label for="q6d">D) .btn-warning</label></li>
+      </ul>
+    </section>
+
+    <section class="question">
+      <p class="question-text">7. Che cos'è il DOM (Document Object Model) in JavaScript?</p>
+      <ul class="answers">
+        <li class="answer"><input type="radio" name="q7" id="q7a"><label for="q7a">A) Un nuovo tipo di database relazionale.</label></li>
+        <li class="answer"><input type="radio" name="q7" id="q7b"><label for="q7b">B) La rappresentazione ad albero della pagina HTML che JS può modificare dinamicamente.</label></li>
+        <li class="answer"><input type="radio" name="q7" id="q7c"><label for="q7c">C) Il protocollo che cripta le password.</label></li>
+        <li class="answer"><input type="radio" name="q7" id="q7d"><label for="q7d">D) Una libreria di icone per Bootstrap.</label></li>
+      </ul>
+    </section>
+
+    <h2>Parte 3: Backend e Database <span class="muted">(Django &amp; SQL)</span></h2>
+
+    <section class="question">
+      <p class="question-text">8. Nel pattern MVT di Django, a cosa serve il "Template"?</p>
+      <ul class="answers">
+        <li class="answer"><input type="radio" name="q8" id="q8a"><label for="q8a">A) A definire la struttura delle tabelle nel database.</label></li>
+        <li class="answer"><input type="radio" name="q8" id="q8b"><label for="q8b">B) A gestire la logica di business e i calcoli.</label></li>
+        <li class="answer"><input type="radio" name="q8" id="q8c"><label for="q8c">C) A generare l'output HTML che verrà visualizzato dall'utente.</label></li>
+        <li class="answer"><input type="radio" name="q8" id="q8d"><label for="q8d">D) A smistare le URL del sito.</label></li>
+      </ul>
+    </section>
+
+    <section class="question">
+      <p class="question-text">9. In un database SQL, che cos'è una "Foreign Key" (Chiave Esterna)?</p>
+      <ul class="answers">
+        <li class="answer"><input type="radio" name="q9" id="q9a"><label for="q9a">A) La password per accedere al server.</label></li>
+        <li class="answer"><input type="radio" name="q9" id="q9b"><label for="q9b">B) Un vincolo che stabilisce una relazione tra due tabelle (es. collega un Task a un Utente).</label></li>
+        <li class="answer"><input type="radio" name="q9" id="q9c"><label for="q9c">C) L'ID principale e univoco di una riga.</label></li>
+        <li class="answer"><input type="radio" name="q9" id="q9d"><label for="q9d">D) Un comando per cancellare l'intera tabella.</label></li>
+      </ul>
+    </section>
+
+    <section class="question">
+      <p class="question-text">10. Quale comando SQL useresti per modificare lo stato di un task esistente?</p>
+      <ul class="answers">
+        <li class="answer"><input type="radio" name="q10" id="q10a"><label for="q10a">A) INSERT</label></li>
+        <li class="answer"><input type="radio" name="q10" id="q10b"><label for="q10b">B) SELECT</label></li>
+        <li class="answer"><input type="radio" name="q10" id="q10c"><label for="q10c">C) UPDATE</label></li>
+        <li class="answer"><input type="radio" name="q10" id="q10d"><label for="q10d">D) ALTER</label></li>
+      </ul>
+    </section>
+
+    <section class="question">
+      <p class="question-text">11. A cosa serve il file models.py in Django?</p>
+      <ul class="answers">
+        <li class="answer"><input type="radio" name="q11" id="q11a"><label for="q11a">A) A definire la struttura dei dati (tabelle) tramite classi Python.</label></li>
+        <li class="answer"><input type="radio" name="q11" id="q11b"><label for="q11b">B) A scrivere il codice CSS del sito.</label></li>
+        <li class="answer"><input type="radio" name="q11" id="q11c"><label for="q11c">C) A configurare l'indirizzo IP del server.</label></li>
+        <li class="answer"><input type="radio" name="q11" id="q11d"><label for="q11d">D) A gestire i click dell'utente sulla pagina.</label></li>
+      </ul>
+    </section>
+    <hr>
+    <h2>Parte 4: Risposte Aperte <span class="muted">(Spiegazione e Analisi)</span></h2>
+
+    <section class="question">
+      <p class="question-text">12. Spiega brevemente il flusso di una richiesta in Django: cosa succede dal momento in cui l'utente clicca su un link al momento in cui vede la pagina?</p>
+      <textarea class="answer-space" name="q12" aria-label="Risposta alla domanda 12"></textarea>
+    </section>
+
+    <section class="question">
+      <p class="question-text">13. In TaMaSy Web, abbiamo usato {% csrf_token %} all'interno dei form. Spiega a cosa serve e perché è importante per la sicurezza.</p>
+      <textarea class="answer-space" name="q13" aria-label="Risposta alla domanda 13"></textarea>
+    </section>
+
+    <section class="question">
+      <p class="question-text">14. Descrivi la differenza tra un Database Relazionale (come MySQL o SQLite) e un file di testo semplice (come il .txt usato nel modulo 2).</p>
+      <textarea class="answer-space" name="q14" aria-label="Risposta alla domanda 14"></textarea>
+    </section>
+
+    <section class="question">
+      <p class="question-text">15. Che cos'è un ORM e quali vantaggi offre a un programmatore Django rispetto allo scrivere SQL a mano?</p>
+      <textarea class="answer-space" name="q15" aria-label="Risposta alla domanda 15"></textarea>
+    </section>
+
+    <section class="question">
+      <p class="question-text">16. Perché le password degli utenti non dovrebbero mai essere salvate in "chiaro" nel database? Cosa si usa al loro posto?</p>
+      <textarea class="answer-space" name="q16" aria-label="Risposta alla domanda 16"></textarea>
+    </section>
+
+    <section class="question">
+      <p class="question-text">17. Cosa si intende per "Responsive Design" e come lo abbiamo implementato in TaMaSy utilizzando Bootstrap?</p>
+      <textarea class="answer-space" name="q17" aria-label="Risposta alla domanda 17"></textarea>
+    </section>
+
+    <section class="question">
+      <p class="question-text">18. In Django, a cosa servono i comandi makemigrations e migrate?</p>
+      <textarea class="answer-space" name="q18" aria-label="Risposta alla domanda 18"></textarea>
+    </section>
+
+    <section class="question">
+      <p class="question-text">19. Spiega il concetto di "Relazione 1 a Molti" facendo l'esempio del rapporto tra Utenti e Task in TaMaSy.</p>
+      <textarea class="answer-space" name="q19" aria-label="Risposta alla domanda 19"></textarea>
+    </section>
+
+    <section class="question">
+      <p class="question-text">20. Descrivi la funzione del decoratore @login_required applicato a una View.</p>
+      <textarea class="answer-space" name="q20" aria-label="Risposta alla domanda 20"></textarea>
+    </section>
+  </main>
+</body>
+</html>

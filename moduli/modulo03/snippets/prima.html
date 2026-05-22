@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Titolo della pagina</title>
+		<style>
+			#primo-div {
+				color: blue;
+				background-color: red;
+				border: solid yellow 5px;
+				border-bottom: dotted yellow 5px;
+			}
+			#secondo-div {color: red; background-color: blue; border: dashed green;}
+			body {background-color: rgb(160,160,160); }
+			span {color: green;}
+			span#primo-span {font-size: 150%;}
+		</style>
+		<script language="javascript">
+			function mia_funzione() {
+				const mio_bottone = document.getElementById("bottone");
+				const mia_etichetta = document.getElementById("etichetta");
+				var numero = Number(mia_etichetta.innerText);
+				numero = numero + 1;
+				mia_etichetta.innerText = numero;
+			}
+		</script>
+	</head>
+	<body>
+		<h1>Primo</h1>
+		<h2>Secondo</h2>
+		<h3>Terzo</h3>
+		<h4>Quarto</h4>
+		<h5>Quinto</h5>
+		<h6>Sesto</h6>
+		Prima riga di HTML<br>
+		Seconda riga         di HTML<br>
+		Terza riga molto lunga lksjdh fglkjsh dglkj sdflkgj sldkjfgh lskjdfgh lkjsdhf glkjsdh fglkjhs dflgkjh sdflkgjh sdlkfgjh dlskfjgh lsdkjfhg lksdjhf glkjsdhf glksjh dfglkjhs dflgkjh sdlfkgjh sdlkfjgh lkjsfh glkajhs glkjas lgkjhs dflkgjh slkdfjgh lksdjhf glkjshd fglkjsdh fglkjsd hflgkjh sdflkgjh sdlfkjgh lskdjfhg lksdjfhg lksjdfhg lksdjfhg lksdjfhg lksdhf g
+		<hr>
+		<p>Prima riga di HTML
+		<p>Seconda riga         di HTML
+		<div id='primo-div'>
+			Inizio del contenuto del DIV
+			proseguo con il contenuto
+			<ul>
+				<li>Primo
+					<ul>
+						<li>Primo / Primo
+							<ul>
+								<li>Primo / Primo / Primo</li>
+								<li>Primo / Primo / Secondo</li>
+								<li>Primo / Primo / Terzo</li>
+							</ul>
+						<li>Primo / Secondo</li>
+						<li>Primo / Terzo</li>
+					</ul>
+				<li>Secondo elemento
+				<li>Terzo elemento
+				<li>Quarto elemento
+				<li>AA Quarto elemento
+			</ul>
+		</div>
+		<br>
+		<br>
+		<br>
+		<div id='secondo-div'>
+			Inizio del contenuto del secondo DIV
+			proseguo con il contenuto del secondo
+		</div>
+		<span id='primo-span'>
+			Inizio del contenuto del DIV
+			proseguo con il contenuto
+		</span>
+		<span id='secondo-span'>
+			Inizio del contenuto del secondo DIV
+			proseguo con il contenuto del secondo
+		</span>
+		&#x1F332;
+		<hr>
+		<button onclick='mia_funzione();' id="bottone">Bottone da schiacciare</button>
+		<label id="etichetta">0</label>
+	</body>
+</html>

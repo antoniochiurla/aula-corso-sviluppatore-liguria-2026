@@ -1,0 +1,216 @@
+from interfaces import ICalculator
+from exceptions import CalcSyntaxError
+
+class Calculator(ICalculator):
+    def __init__(self):
+        # Inizializzazione memoria: '=' memorizza sempre l'ultimo risultato
+        self._variables = {self.last_value_variable: 0.0}
+
+    def get_variables(self) -> dict:
+        return self._variables
+
+    @staticmethod
+    def _separate_elements(expression: str) -> list[str]:
+        """
+        Restituisce una lista contenente le stringhe che rappresentano gli elementi dell'espressione
+        """
+        return expression.split(" ")
+    
+    @staticmethod
+    def _is_operator(str_value: str) -> bool:
+        """
+        Restituisce True se str_value contiene un numero
+        altrimenti restituisce False 
+        """
+
+        return str_value in Calculator.operators
+    
+    @staticmethod
+    def _is_assignment_sign(str_value: str) -> bool:
+        """
+        Restituisce True se str_value contiene il simbolo = (uguale)
+        altrimenti restituisce False 
+        """
+        return str_value == "="
+    
+    @staticmethod
+    def _is_number(str_value: str) -> bool:
+       
+        """
+        Restituisce True se str_value contiene un numero
+        altrimenti restituisce False 
+        """
+     
+        try:
+            float(str_value)
+            return True
+        except ValueError:
+            return False
+    
+    @staticmethod
+    def _is_variable_name(str_value: str) -> bool:
+        """
+        Restituisce True se str_value contiene un nome valido di variabile
+        deve iniziare per una lettera maiuscola o minuscola e contenere solo lettere o cifre
+        """
+        return len(str_value) > 0 and str_value[0].isalpha() and str_value.isalnum()
+    
+    @staticmethod
+    def _parse_number(str_number: str) -> float:
+        """
+        Converte la stringa in un numero float
+        """
+        return float(str_number)
+
+    def get_variable(self, name: str) -> float:
+        """
+        ISTRUZIONI:
+        Restituire il valore  della variabile con il nome fornito
+        Se la variabile non esiste va restituito 0.0
+        """
+        return float(self._variables.get(name, 0.0))
+
+    def set_variable(self, name: str, value: float):
+        """
+        ISTRUZIONI:
+        Aggiungere la variabile con il valore fornito
+        Se la variabile esiste già va sostituita
+        Restituisce il valore assegnato alla variabile
+        """
+        self._variables[name] = value
+        return value
+
+    @staticmethod
+    def sum(add1: float, add2: float) -> float:
+        """
+        ISTRUZIONI:
+        Restituire il risultato della somma dei due parametri
+        """
+        # TODO: implementare la somma
+        return add1 + add2
+
+    @staticmethod
+    def diff(sub1: float, sub2: float) -> float:
+        """
+        ISTRUZIONI:
+        Restituire il risultato della differenza tra i due parametri
+        """
+        return sub1-sub2
+
+    @staticmethod
+    def mult(mult1: float, mult2: float) -> float:
+        """
+        ISTRUZIONI:
+        Restituire il risultato del prodotto dei due parametri
+        """
+        return mult1*mult2
+
+    @staticmethod
+    def div(div1: float, div2: float) -> float:
+        """
+        ISTRUZIONI:
+        Restituire il risultato della divisione tra i due parametri
+        """
+        # TODO: implementare la divisione e generare CalcDivisionByZero se il divisore è zero
+        return 0.0
+
+    @staticmethod
+    def _is_assignment_with_calculation(elements: list[str]) -> bool:
+        # TODO: Implementare verificando che sia un'assegnazione con calcolo
+        # esempi:
+        #    a = 5 + 7
+        return False
+    
+    @staticmethod
+    def _is_assignment(elements: list[str]) -> bool:
+        # TODO: Implementare verificando che sia un'assegnazione semplice
+        # esempi:
+        #    a = 5
+        return (
+        len(elements) == 3
+        and Calculator._is_variable_name(elements[0])
+        and Calculator._is_assignment_sign(elements[1])
+        and (
+            Calculator._is_number(elements[2])
+            or Calculator._is_variable_name(elements[2])
+        )
+    )
+    
+    @staticmethod
+    def _is_calculation(elements: list[str]) -> bool:
+        # TODO: Implementare verificando che sia un calcolo semplice
+        # esempi:
+        #    a + 5
+        #    a - 5
+        return False
+    
+    @staticmethod
+    def _assignment_with_calculation(elements: list[str]) -> float:
+        # TODO: Implementare e verificare che la sintassi sia corretta
+        # esempi:
+        #    a = 5 + 7
+        return 0.0
+    
+    @staticmethod
+    def _assignment_or_calculation(elements: list[str]) -> float:
+        # TODO: Implementare e verificare che la sintassi sia corretta
+        # esempi:
+        #    a = 5
+        #    3 * 2
+        return 0.0
+
+    @staticmethod
+    def _is_single_value(elements: list[str]) -> bool:
+        """
+        Restituisce True se la lista contiene
+        un solo valore numerico
+        """
+        
+        return len(elements) == 1 and Calculator._is_number(elements[0])
+        
+    def _is_variable(self, elements: list[str]) -> bool:
+        if len(elements) != 1:
+            return False
+        return self._is_variable_name(elements[0])
+    
+    def _single_value_or_variable(elements: list[str]) -> float:
+        # TODO: Implementare e verificare che la sintassi sia corretta
+        # esempi:
+        #    5
+        #    a
+        return 0.0
+    
+    operators = {
+        '+': sum,
+        '-': diff,
+        '*': mult,
+        '/': div,
+    }
+
+    def evaluate(self, expression: str) -> float:
+        """
+        ISTRUZIONI:
+        1. Gestire l'assegnazione (es. 'x = 5 + 2')
+        2. Sostituire le variabili nell'espressione con i loro valori
+        3. Calcolare il risultato delle 4 operazioni (+ - * /)
+        4. Aggiornare sempre la variabile '=' con il risultato finale
+        5. Lanciare ValueError per divisione per zero o sintassi errata
+        """
+        elements = self._separate_elements(expression)
+        result = 0.0
+        match len(elements):
+            case 1: # single value or variable
+                result = Calculator._single_value_or_variable(elements)
+            case 2: # error
+                raise CalcSyntaxError(expression, "non interpretata correttamente!!!")
+            case 3: # variable assignment with single value or calculation
+                result = Calculator._assignment_or_calculation(elements)
+            case 4: # error
+                raise CalcSyntaxError(expression, "non interpretata correttamente!!!")
+            case 5: # variable assignment with calculation
+                result = Calculator._assignment_with_calculation(elements)
+            case _:
+                raise CalcSyntaxError(expression, "non interpretata correttamente!!!")
+        self.set_variable(self.last_value_variable, result)
+        return result
+    
