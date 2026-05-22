@@ -127,7 +127,15 @@ class Calculator(ICalculator):
         # TODO: Implementare verificando che sia un'assegnazione semplice
         # esempi:
         #    a = 5
-        return False
+        return (
+        len(elements) == 3
+        and Calculator._is_variable_name(elements[0])
+        and Calculator._is_assignment_sign(elements[1])
+        and (
+            Calculator._is_number(elements[2])
+            or Calculator._is_variable_name(elements[2])
+        )
+    )
     
     @staticmethod
     def _is_calculation(elements: list[str]) -> bool:
