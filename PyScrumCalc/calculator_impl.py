@@ -89,10 +89,9 @@ class Calculator(ICalculator):
     def percent(value: float, perc: float) -> float:
         """
         ISTRUZIONI:
-        Restituire il risultato della somma dei due parametri
+        Restituire il risultato della percentuale dei due parametri
         """
-        # TODO implementare il calcolo della percentuale
-        return 0.0
+        return value * perc / 100
 
     @staticmethod
     def diff(sub1: float, sub2: float) -> float:
@@ -259,6 +258,7 @@ class Calculator(ICalculator):
         '-': diff,
         '*': mult,
         '/': div,
+        '%': percent,
     }
 
     def evaluate(self, expression: str) -> float:
