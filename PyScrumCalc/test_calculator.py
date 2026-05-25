@@ -127,6 +127,9 @@ class TestCalculator(unittest.TestCase):
         with self.assertRaises(CalcDivisionByZero):
             self.calc.div(10, 0)
 
+    def test_inner_percent(self):
+        self.assertEqual(self.calc.percent(10, 20), 2.0)
+
     def test_basic_addition(self):
         self.assertEqual(self.calc.evaluate("10 + 5"), 15.0)
 
@@ -138,6 +141,9 @@ class TestCalculator(unittest.TestCase):
 
     def test_basic_division(self):
         self.assertEqual(self.calc.evaluate("10 / 2"), 5.0)
+
+    def test_basic_percent(self):
+        self.assertEqual(self.calc.evaluate("10 % 20"), 2.0)
 
     def test_assignments_value(self):
         self.calc.set_variable("a", 0.0)

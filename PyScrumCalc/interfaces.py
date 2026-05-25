@@ -58,3 +58,10 @@ class ICalculator(ABC):
         Restituisce il risultato della divisione tra i due parametri
         """
         pass
+
+    @abstractmethod
+    def percent(self, value: float, perc: float) -> float:
+        """
+        Restituisce il risultato della divisione tra i due parametri
+        """
+        pass
