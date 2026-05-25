@@ -23,6 +23,7 @@ class TestCalculator(unittest.TestCase):
         self.assertTrue(self.calc._is_operator("-"))
         self.assertTrue(self.calc._is_operator("*"))
         self.assertTrue(self.calc._is_operator("/"))
+        self.assertTrue(self.calc._is_operator("%"))
         self.assertFalse(self.calc._is_operator("="))
         self.assertFalse(self.calc._is_operator("a"))
         self.assertFalse(self.calc._is_operator("5"))
