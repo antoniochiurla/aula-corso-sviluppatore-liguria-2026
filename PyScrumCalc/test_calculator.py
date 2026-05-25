@@ -46,6 +46,19 @@ class TestCalculator(unittest.TestCase):
         self.assertFalse(self.calc._is_number("1a3"))
         self.assertFalse(self.calc._is_number("a13"))
     
+    def test_inner_contains_letters_or_numbers(self):
+        self.assertTrue(self.calc._contains_letters_or_numbers("a1bc4"))
+        self.assertFalse(self.calc._contains_letters_or_numbers("a1bc-4"))
+
+    def test_inner_starts_with_letter(self):
+        self.assertTrue(self.calc._starts_with_letter("a"))
+        self.assertFalse(self.calc._starts_with_letter("4"))
+        self.assertFalse(self.calc._starts_with_letter("-"))
+
+    def test_inner_is_not_empty(self):
+        self.assertTrue(self.calc._is_not_empty("a"))
+        self.assertFalse(self.calc._is_not_empty(""))
+
     def test_inner_is_variable_name(self):
         self.assertTrue(self.calc._is_variable_name("a"))
         self.assertTrue(self.calc._is_variable_name("A"))
@@ -73,16 +86,28 @@ class TestCalculator(unittest.TestCase):
         self.assertTrue(self.calc._is_assignment_with_calculation(["a", "=", "b", "+", "1"]))
         self.assertTrue(self.calc._is_assignment_with_calculation(["a", "=", "5", "+", "c"]))
         self.assertFalse(self.calc._is_assignment_with_calculation(["=", "+", "5", "a", "c"]))
+        self.assertFalse(self.calc._is_assignment_with_calculation(["=", "+", "5", "c"]))
 
     def test_assignment_with_calculation(self):
         self.calc.set_variable("a", 0)
         self.calc._assignment_with_calculation(["a", "=", "5", "+", "1"])
         self.assertEqual(self.calc.get_variables()["a"], 6.0)
+        with self.assertRaises(CalcSyntaxError) as context:
+            self.calc._assignment_with_calculation(["a", "=", "5", "1"])
+        with self.assertRaises(CalcSyntaxError) as context:
+            self.calc._assignment_with_calculation(["a", "+", "5", "+", "1"])
+        with self.assertRaises(CalcSyntaxError) as context:
+            self.calc._assignment_with_calculation(["a", "=", "+", "5", "1"])
+        with self.assertRaises(CalcSyntaxError) as context:
+            self.calc._assignment_with_calculation(["a", "=", "5", "+", "+"])
 
     def test_assignment_or_calculation(self):
         self.assertEqual(self.calc._assignment_or_calculation(["a", "=", "5"]), 5.0)
         self.assertEqual(self.calc._assignment_or_calculation(["a", "=", "!"]), 5.0)
         self.assertEqual(self.calc._assignment_or_calculation(["a", "+", "5"]), 10.0)
+        with self.assertRaises(CalcSyntaxError) as context:
+            risultato = self.calc._assignment_or_calculation(["a", "3", "5"])
+            print("Risultato:", risultato)
 
     def test_is_assignment(self):
         self.assertTrue(self.calc._is_assignment(["a", "=", "5"]))
@@ -96,11 +121,13 @@ class TestCalculator(unittest.TestCase):
         self.assertTrue(self.calc._is_single_value(["5"]))
         self.assertTrue(self.calc._is_single_value(["42"]))
         self.assertTrue(self.calc._is_single_value(["27.6"]))
+        self.assertFalse(self.calc._is_single_value(["27.6", "+"]))
 
     def test_is_variable(self):
         self.assertTrue(self.calc._is_variable(["a"]))
         self.assertTrue(self.calc._is_variable(["a42"]))
         self.assertTrue(self.calc._is_variable(["cs"]))
+        self.assertFalse(self.calc._is_variable(["a", "3"]))
     
     def test_single_value_or_variable(self):
         self.assertEqual(self.calc._single_value_or_variable(["5"]), 5.0)
@@ -145,6 +172,19 @@ class TestCalculator(unittest.TestCase):
 
     def test_basic_percent(self):
         self.assertEqual(self.calc.evaluate("10 % 20"), 2.0)
+
+    def test_basic_single_value_or_variable(self):
+        self.assertEqual(self.calc.evaluate("5"), 5.0)
+        self.assertEqual(self.calc.evaluate("!"), 5.0)
+        self.calc.set_variable("a", 7.0)
+        self.assertEqual(self.calc.evaluate("a"), 7.0)
+
+    def test_basic_no_elements(self):
+        self.assertEqual(self.calc.evaluate(""), 0.0)
+
+    def test_basic_too_many_elements(self):
+        with self.assertRaises(CalcSyntaxError):
+            self.calc.evaluate("a = 5 + 3 + 4")
 
     def test_assignments_value(self):
         self.calc.set_variable("a", 0.0)
