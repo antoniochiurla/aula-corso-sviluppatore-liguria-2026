@@ -180,7 +180,8 @@ def delete_task(request, task_id):
 
 @login_required
 def logout_view(request):
-    return logout(request)
+    logout(request)
+    return redirect('index')
 
 def angular_index(request):
     return render(request, 'index.html')
