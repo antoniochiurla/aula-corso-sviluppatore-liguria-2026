@@ -20,5 +20,5 @@
         "extensions.ignoreRecommendations": true
   }
  },
- "postStartCommand": "pip install -r docker/requirements.txt"
+ "postStartCommand": "bash docker/setup.sh"
 }
