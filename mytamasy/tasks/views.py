@@ -1,3 +1,5 @@
+import random
+
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpRequest, HttpResponseForbidden
 from django.contrib.auth import logout
@@ -176,6 +178,32 @@ def toggle_task(request, task_id):
 def delete_task(request, task_id):
     task = Task.objects.get(id=task_id)
     task.delete()
+    return redirect('index')
+
+@login_required
+def create_sample_tasks(request):
+    first_words = ['Primo', 'Secondo', 'Terzo', 'Quarto']
+    task_types = ['Task', 'Bug', 'Feature']
+    third_words = ['UI', 'DB', 'Template', 'urls']
+    word_count = 3
+    vocabulary = [
+        "hello", "world", "python", "coffee", "sunshine",
+        "coding", "random", "simple", "fun", "today",
+        "chat", "music", "easy", "bright", "smile",
+        "story", "dream", "coffee", "travel", "good"
+    ]
+    other_words = " ".join(random.choice(vocabulary) for _ in range(word_count))
+    for first_word in first_words:
+        for task_type in task_types:
+            for third_word in third_words:
+                title = f"{first_word} {task_type} {other_words} {third_word}"
+                description = f"Descrizione per {title}. Altre parole: {other_words}"
+                if task_type == 'Task':
+                    Task.objects.create(created_by=request.user, title=title, description=description)
+                elif task_type == 'Bug':
+                    BugTask.objects.create(created_by=request.user, title=title, description=description, severity='ME')
+                elif task_type == 'Feature':
+                    FeatureTask.objects.create(created_by=request.user, title=title, description=description, priority='2')
     return redirect('index')
 
 @login_required
