@@ -310,18 +310,15 @@ def task_detail(request, task_id):
 def bulk_assign(request):
     """
     Assegna tutti i task aperti a un utente scelto.
-    Problema: esegue un UPDATE separato per ogni task con .save()
-    invece di usare QuerySet.update() che fa tutto in una sola query SQL.
+    Ottimizzato: QuerySet.update() produce un unico UPDATE SQL
+    indipendentemente dal numero di task aperti.
     """
     if request.method == 'POST':
         user_id = request.POST.get('user_id')
         user = User.objects.get(pk=user_id)
 
-        open_tasks = Task.objects.filter(status='AP')
-        # Un UPDATE per ogni task: con 100 task aperti = 100 query!
-        for task in open_tasks:
-            task.assigned_to = user
-            task.save()
+        # Una sola query UPDATE invece di N
+        Task.objects.filter(status='AP').update(assigned_to=user)
 
         return redirect('index')
 
