@@ -12,11 +12,15 @@
 
     <div class="container">
         <!-- PULSANTI AGGIUNTA -->
-        <div class="mb-4">
+        <div class="mb-3">
             <a href="{% url 'add_task' 'T' %}" class="btn btn-primary">+ Task</a>
             <a href="{% url 'add_task' 'B' %}" class="btn btn-danger">+ Bug 🐞</a>
             <a href="{% url 'add_task' 'F' %}" class="btn btn-warning">+ Feature ⭐</a>
             <a href="{% url 'create_sample_tasks' %}" class="btn btn-secondary">+ Random tasks</a>
+        </div>
+        <div class="mb-4">
+            <a href="{% url 'stats' %}" class="btn btn-outline-info btn-sm">Statistiche</a>
+            <a href="{% url 'bulk_assign' %}" class="btn btn-outline-warning btn-sm">Assegnazione massiva</a>
         </div>
 
         <!-- LISTA TASK -->
@@ -27,7 +31,9 @@
                     <div class="card-body">
                         <h5 class="card-title">
                             {% if t.status == 'CL' %}<del>{% endif %}
-                            {{icons|dict_key:t.type}} {{ t.title }}
+                            <a href="{% url 'task_detail' t.id %}" class="text-decoration-none text-dark">
+                                {{icons|dict_key:t.type}} {{ t.title }}
+                            </a>
                             {% if t.status == 'CL' %}</del>{% endif %}
                         </h5>
                         <p class="text-muted small">{{ t.description }}</p>

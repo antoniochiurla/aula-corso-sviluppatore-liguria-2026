@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>TaMaSy - Dettaglio Task</title>
+</head>
+<body class="bg-light">
+    <nav class="navbar navbar-dark bg-dark mb-4">
+        <div class="w-auto ms-3"><a class="navbar-brand" href="{% url 'index' %}">TaMaSy Web Dashboard</a></div>
+        <div class="w-auto text-light col-md-auto me-4">{{ user.get_username }} <a href="{% url 'logout' %}">logout</a></div>
+    </nav>
+
+    <div class="container">
+        <div class="row">
+            <!-- Colonna principale: dettaglio task -->
+            <div class="col-md-8">
+                <div class="card shadow-sm mb-4">
+                    <div class="card-header bg-dark text-white">
+                        {{ icons|dict_key:task.type }} {{ types|dict_key:task.type }} #{{ task.id }}
+                    </div>
+                    <div class="card-body">
+                        <h4>{{ task.title }}</h4>
+                        <p class="text-muted">{{ task.description }}</p>
+                        <hr>
+                        <p><strong>Stato:</strong>
+                            {% if task.status == 'AP' %}
+                                <span class="badge bg-success">Aperto</span>
+                            {% else %}
+                                <span class="badge bg-secondary">Chiuso</span>
+                            {% endif %}
+                        </p>
+                        <!-- Accesso ai FK: task.created_by e task.assigned_to generano query
+                             separate perché non è stato usato select_related() nella view -->
+                        <p><strong>Creato da:</strong> {{ task.created_by.username }}</p>
+                        <p><strong>Creato il:</strong> {{ task.created_at|date:'d/m/Y H:i' }}</p>
+                        <p><strong>Assegnato a:</strong> {{ task.assigned_to.username|default:"--" }}</p>
+
+                        {% if bug_task %}
+                        <p><strong>Severità:</strong> {{ bug_task.get_severity_display }}</p>
+                        {% endif %}
+                        {% if feature_task %}
+                        <p><strong>Priorità:</strong> {{ feature_task.get_priority_display }}</p>
+                        {% endif %}
+                    </div>
+                    <div class="card-footer">
+                        <a href="{% url 'edit_task' task.id %}" class="btn btn-sm btn-outline-primary">Modifica</a>
+                        <a href="{% url 'toggle_task' task.id %}" class="btn btn-sm btn-outline-success">
+                            {% if task.status == 'AP' %}Completa{% else %}Riapri{% endif %}
+                        </a>
+                        <a href="{% url 'index' %}" class="btn btn-sm btn-outline-secondary">← Lista</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Colonna laterale: task correlati -->
+            <div class="col-md-4">
+                <!-- Ultimi task dello stesso creatore -->
+                <div class="card shadow-sm mb-3">
+                    <div class="card-header">Ultimi task di {{ creator.username }}</div>
+                    <ul class="list-group list-group-flush">
+                        {% for t in creator_tasks %}
+                        <li class="list-group-item {% if t.status == 'CL' %}text-muted{% endif %}">
+                            <a href="{% url 'task_detail' t.id %}">{{ t.title|truncatechars:35 }}</a>
+                        </li>
+                        {% empty %}
+                        <li class="list-group-item text-muted">Nessun task.</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+                <!-- Altri task dello stesso tipo -->
+                <div class="card shadow-sm">
+                    <div class="card-header">Altri {{ types|dict_key:task.type }}</div>
+                    <ul class="list-group list-group-flush">
+                        {% for t in same_type_tasks %}
+                        <li class="list-group-item">
+                            <a href="{% url 'task_detail' t.id %}">{{ t.title|truncatechars:35 }}</a>
+                        </li>
+                        {% empty %}
+                        <li class="list-group-item text-muted">Nessun altro task di questo tipo.</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
