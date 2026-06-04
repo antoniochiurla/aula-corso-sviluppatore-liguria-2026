@@ -3,6 +3,7 @@ import random
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpRequest, HttpResponseForbidden
 from django.contrib.auth import logout
+from django.core.paginator import Paginator
 from django.contrib.auth.models import User
 from django.views.generic import ListView
 
@@ -76,9 +77,15 @@ class TaskListView(ListView):
 def index(request):
     log.debug(f"Begin of index")
     # Recuperiamo tutti i task dal database
-    tasks = Task.objects.all().order_by('-created_at')
+    # Problema: nessun select_related/prefetch_related → il template accede
+    # a t.created_by, t.assigned_to, t.bugtask, t.featuretask con query lazy
+    # separate per ogni task (4 query × N task per pagina)
+    all_tasks = Task.objects.all().order_by('-created_at')
+    paginator = Paginator(all_tasks, 12)
+    page_obj = paginator.get_page(request.GET.get('page', 1))
     context = {
-        'tasks': tasks,
+        'tasks': page_obj,
+        'page_obj': page_obj,
         'colors': colors,
         'icons': icons}
     return render(request, 'tasks/index.html', context)

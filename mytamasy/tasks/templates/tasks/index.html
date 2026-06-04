@@ -61,6 +61,26 @@
             <p>Nessun task presente. Inizia a crearne uno!</p>
             {% endfor %}
         </div>
+
+        <!-- PAGINAZIONE -->
+        <div class="d-flex justify-content-center align-items-center gap-2 mt-2 mb-4">
+            {% if page_obj.has_previous %}
+            <a href="?page={{ page_obj.previous_page_number }}" class="btn btn-outline-secondary btn-sm">«</a>
+            {% else %}
+            <button class="btn btn-outline-secondary btn-sm" disabled>«</button>
+            {% endif %}
+
+            <span class="text-muted small">
+                Pagina {{ page_obj.number }} di {{ page_obj.paginator.num_pages }}
+                &nbsp;({{ page_obj.paginator.count }} task totali)
+            </span>
+
+            {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}" class="btn btn-outline-secondary btn-sm">»</a>
+            {% else %}
+            <button class="btn btn-outline-secondary btn-sm" disabled>»</button>
+            {% endif %}
+        </div>
     </div>
 </body>
 </html>
