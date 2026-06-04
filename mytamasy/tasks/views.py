@@ -76,11 +76,15 @@ class TaskListView(ListView):
 @login_required
 def index(request):
     log.debug(f"Begin of index")
-    # Recuperiamo tutti i task dal database
-    # Problema: nessun select_related/prefetch_related → il template accede
-    # a t.created_by, t.assigned_to, t.bugtask, t.featuretask con query lazy
-    # separate per ogni task (4 query × N task per pagina)
-    all_tasks = Task.objects.all().order_by('-created_at')
+    # select_related carica created_by e assigned_to (FK) con un unico JOIN.
+    # prefetch_related carica bugtask e featuretask (reverse OneToOne)
+    # con 2 query aggiuntive per tutta la pagina, invece di 2 per ogni task.
+    # Con 12 task per pagina: da ~49 query a 5 (1 tasks + 2 prefetch + 1 count + 1 page).
+    all_tasks = Task.objects.select_related(
+        'created_by', 'assigned_to'
+    ).prefetch_related(
+        'bugtask', 'featuretask'
+    ).order_by('-created_at')
     paginator = Paginator(all_tasks, 12)
     page_obj = paginator.get_page(request.GET.get('page', 1))
     context = {
