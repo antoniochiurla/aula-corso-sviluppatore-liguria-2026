@@ -269,20 +269,17 @@ def stats(request):
 def task_detail(request, task_id):
     """
     Pagina di dettaglio di un singolo task.
-    Problema: nessun select_related() sui ForeignKey → ogni accesso a
-    task.created_by e task.assigned_to genera una query aggiuntiva.
-    In più vengono eseguite query ridondanti per gli ultimi task correlati.
+    Ottimizzato: select_related() carica created_by e assigned_to
+    in un solo JOIN, eliminando le query aggiuntive per i FK.
+    Il creator viene letto direttamente dall'oggetto già caricato
+    senza una query separata.
     """
-    # Nessun select_related: i FK verranno caricati uno alla volta dal template
-    task = Task.objects.get(pk=task_id)
+    task = Task.objects.select_related('created_by', 'assigned_to').get(pk=task_id)
 
-    # Query separata per il creatore (già accessibile via task.created_by)
-    creator = User.objects.get(pk=task.created_by_id)
+    # Non serve più User.objects.get(): task.created_by è già in memoria
+    creator = task.created_by
 
-    # Ultimi 5 task dello stesso creatore: query inutile se avessimo prefetch
     creator_tasks = Task.objects.filter(created_by=creator).order_by('-created_at')[:5]
-
-    # Ultimi 5 task dello stesso tipo: un'altra query separata
     same_type_tasks = Task.objects.filter(type=task.type).exclude(pk=task.pk).order_by('-created_at')[:5]
 
     bug_task = None
