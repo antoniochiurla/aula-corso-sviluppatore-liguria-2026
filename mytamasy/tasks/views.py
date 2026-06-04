@@ -1,5 +1,6 @@
 import random
 
+from django.db.models import Count, Q, OuterRef, Subquery
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpRequest, HttpResponseForbidden
 from django.contrib.auth import logout
@@ -223,45 +224,46 @@ def angular_index(request):
 def stats(request):
     """
     Dashboard con statistiche sui task.
-    Problema: esegue più query separate per ogni utente (N+1)
-    e più query distinte per i totali globali invece di usare
-    aggregate() / annotate().
+    Ottimizzato: annotate() calcola i contatori per utente in 1 query,
+    Subquery recupera l'id dell'ultimo task senza loop,
+    aggregate() produce tutti i totali globali in 1 query.
+    Totale: 3 query invece di (4 × N_utenti + 6).
     """
-    users = User.objects.all()
+    last_task_subquery = Task.objects.filter(
+        created_by=OuterRef('pk')
+    ).order_by('-created_at').values('id')[:1]
 
-    user_stats = []
-    for user in users:
-        # 3 query per utente invece di una sola con annotate()
-        task_count = Task.objects.filter(created_by=user).count()
-        open_count = Task.objects.filter(created_by=user, status='AP').count()
-        closed_count = Task.objects.filter(created_by=user, status='CL').count()
-        # 1 query per ottenere l'ultimo task dell'utente
-        last_task = Task.objects.filter(created_by=user).order_by('-created_at').first()
-        user_stats.append({
-            'user': user,
-            'total': task_count,
-            'open': open_count,
-            'closed': closed_count,
-            'last_task': last_task,
-        })
+    users = User.objects.annotate(
+        total=Count('tasks'),
+        open_count=Count('tasks', filter=Q(tasks__status='AP')),
+        closed_count=Count('tasks', filter=Q(tasks__status='CL')),
+        last_task_id=Subquery(last_task_subquery),
+    ).order_by('username')
 
-    # Totali globali: 6 query separate invece di una sola con aggregate()
-    total_tasks = Task.objects.all().count()
-    total_open = Task.objects.filter(status='AP').count()
-    total_closed = Task.objects.filter(status='CL').count()
-    total_bugs = Task.objects.filter(type='B').count()
-    total_features = Task.objects.filter(type='F').count()
-    total_generic = Task.objects.filter(type='T').count()
+    last_task_ids = [u.last_task_id for u in users if u.last_task_id]
+    last_tasks_map = {t.id: t for t in Task.objects.filter(id__in=last_task_ids)}
 
-    context = {
-        'user_stats': user_stats,
-        'total_tasks': total_tasks,
-        'total_open': total_open,
-        'total_closed': total_closed,
-        'total_bugs': total_bugs,
-        'total_features': total_features,
-        'total_generic': total_generic,
-    }
+    user_stats = [
+        {
+            'user': u,
+            'total': u.total,
+            'open': u.open_count,
+            'closed': u.closed_count,
+            'last_task': last_tasks_map.get(u.last_task_id),
+        }
+        for u in users
+    ]
+
+    totals = Task.objects.aggregate(
+        total_tasks=Count('id'),
+        total_open=Count('id', filter=Q(status='AP')),
+        total_closed=Count('id', filter=Q(status='CL')),
+        total_bugs=Count('id', filter=Q(type='B')),
+        total_features=Count('id', filter=Q(type='F')),
+        total_generic=Count('id', filter=Q(type='T')),
+    )
+
+    context = {'user_stats': user_stats, **totals}
     return render(request, 'tasks/stats.html', context)
 
 
