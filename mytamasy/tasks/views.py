@@ -3,6 +3,7 @@ import random
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpRequest, HttpResponseForbidden
 from django.contrib.auth import logout
+from django.core.paginator import Paginator
 from django.contrib.auth.models import User
 from django.views.generic import ListView
 
@@ -76,9 +77,15 @@ class TaskListView(ListView):
 def index(request):
     log.debug(f"Begin of index")
     # Recuperiamo tutti i task dal database
-    tasks = Task.objects.all().order_by('-created_at')
+    # Problema: nessun select_related/prefetch_related → il template accede
+    # a t.created_by, t.assigned_to, t.bugtask, t.featuretask con query lazy
+    # separate per ogni task (4 query × N task per pagina)
+    all_tasks = Task.objects.all().order_by('-created_at')
+    paginator = Paginator(all_tasks, 12)
+    page_obj = paginator.get_page(request.GET.get('page', 1))
     context = {
-        'tasks': tasks,
+        'tasks': page_obj,
+        'page_obj': page_obj,
         'colors': colors,
         'icons': icons}
     return render(request, 'tasks/index.html', context)
@@ -213,3 +220,122 @@ def logout_view(request):
 
 def angular_index(request):
     return render(request, 'index.html')
+
+
+# -----------------------------------------------------------------------
+# FEATURE NON OTTIMIZZATE  (da analizzare con la Django Debug Toolbar)
+# -----------------------------------------------------------------------
+
+@login_required
+def stats(request):
+    """
+    Dashboard con statistiche sui task.
+    Problema: esegue più query separate per ogni utente (N+1)
+    e più query distinte per i totali globali invece di usare
+    aggregate() / annotate().
+    """
+    users = User.objects.all()
+
+    user_stats = []
+    for user in users:
+        # 3 query per utente invece di una sola con annotate()
+        task_count = Task.objects.filter(created_by=user).count()
+        open_count = Task.objects.filter(created_by=user, status='AP').count()
+        closed_count = Task.objects.filter(created_by=user, status='CL').count()
+        # 1 query per ottenere l'ultimo task dell'utente
+        last_task = Task.objects.filter(created_by=user).order_by('-created_at').first()
+        user_stats.append({
+            'user': user,
+            'total': task_count,
+            'open': open_count,
+            'closed': closed_count,
+            'last_task': last_task,
+        })
+
+    # Totali globali: 6 query separate invece di una sola con aggregate()
+    total_tasks = Task.objects.all().count()
+    total_open = Task.objects.filter(status='AP').count()
+    total_closed = Task.objects.filter(status='CL').count()
+    total_bugs = Task.objects.filter(type='B').count()
+    total_features = Task.objects.filter(type='F').count()
+    total_generic = Task.objects.filter(type='T').count()
+
+    context = {
+        'user_stats': user_stats,
+        'total_tasks': total_tasks,
+        'total_open': total_open,
+        'total_closed': total_closed,
+        'total_bugs': total_bugs,
+        'total_features': total_features,
+        'total_generic': total_generic,
+    }
+    return render(request, 'tasks/stats.html', context)
+
+
+@login_required
+def task_detail(request, task_id):
+    """
+    Pagina di dettaglio di un singolo task.
+    Problema: nessun select_related() sui ForeignKey → ogni accesso a
+    task.created_by e task.assigned_to genera una query aggiuntiva.
+    In più vengono eseguite query ridondanti per gli ultimi task correlati.
+    """
+    # Nessun select_related: i FK verranno caricati uno alla volta dal template
+    task = Task.objects.get(pk=task_id)
+
+    # Query separata per il creatore (già accessibile via task.created_by)
+    creator = User.objects.get(pk=task.created_by_id)
+
+    # Ultimi 5 task dello stesso creatore: query inutile se avessimo prefetch
+    creator_tasks = Task.objects.filter(created_by=creator).order_by('-created_at')[:5]
+
+    # Ultimi 5 task dello stesso tipo: un'altra query separata
+    same_type_tasks = Task.objects.filter(type=task.type).exclude(pk=task.pk).order_by('-created_at')[:5]
+
+    bug_task = None
+    feature_task = None
+    if task.type == 'B':
+        bug_task = task.bugtask
+    if task.type == 'F':
+        feature_task = task.featuretask
+
+    context = {
+        'task': task,
+        'creator': creator,
+        'creator_tasks': creator_tasks,
+        'same_type_tasks': same_type_tasks,
+        'bug_task': bug_task,
+        'feature_task': feature_task,
+        'colors': colors,
+        'icons': icons,
+        'types': types,
+    }
+    return render(request, 'tasks/task_detail.html', context)
+
+
+@login_required
+def bulk_assign(request):
+    """
+    Assegna tutti i task aperti a un utente scelto.
+    Problema: esegue un UPDATE separato per ogni task con .save()
+    invece di usare QuerySet.update() che fa tutto in una sola query SQL.
+    """
+    if request.method == 'POST':
+        user_id = request.POST.get('user_id')
+        user = User.objects.get(pk=user_id)
+
+        open_tasks = Task.objects.filter(status='AP')
+        # Un UPDATE per ogni task: con 100 task aperti = 100 query!
+        for task in open_tasks:
+            task.assigned_to = user
+            task.save()
+
+        return redirect('index')
+
+    users = User.objects.all().order_by('username')
+    open_count = Task.objects.filter(status='AP').count()
+    context = {
+        'users': users,
+        'open_count': open_count,
+    }
+    return render(request, 'tasks/bulk_assign.html', context)
