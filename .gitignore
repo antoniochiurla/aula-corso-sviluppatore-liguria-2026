@@ -9,3 +9,5 @@ tamasy/django/db.sqlite3
 /mytamasy/venv/
 .vscode/
 /mytamasy/.claude/
+/**/.coverage
+/**/.DS_Store
