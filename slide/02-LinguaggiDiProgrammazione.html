@@ -725,6 +725,158 @@ mia_funzione(name='John', eta=35, nazione='USA')
 
 </div>
 <div class="slide">
+<h1>Thread - che cosa è?<a id="thread---che-cosa-è" class="h_anchor"></a></h1>
+<ul>
+<li>Definizione: Un Thread (o "filo d'esecuzione") è la più piccola unità di lavoro che può essere gestita da un sistema operativo</li>
+<li>Relazione Processo/Thread: Un processo è un programma in esecuzione che può contenere uno o più thread.</li>
+<li>Memoria Condivisa: A differenza dei processi, i thread dello stesso processo condividono lo stesso spazio di memoria (variabili, oggetti, risorse)</li>
+<li>Leggerezza: Creare un thread è molto più veloce e meno costoso in termini di risorse rispetto a creare un intero processo</li>
+</ul>
+
+
+</div>
+<div class="slide">
+<h1>Concorrenza vs Parallelismo<a id="concorrenza-vs-parallelismo" class="h_anchor"></a></h1>
+<ul>
+<li>Concorrenza: Gestire più compiti nello stesso arco di tempo, alternandoli rapidamente (es. un cuoco che segue due pentole). Ideale per operazioni di attesa (I/O)</li>
+<li>Parallelismo: Eseguire più compiti esattamente nello stesso istante, sfruttando più core della CPU (es. due cuochi che cucinano due piatti diversi)</li>
+<li>Multithreading: È la tecnica che permette a un'applicazione di eseguire più thread contemporaneamente per migliorare la reattività o le prestazioni</li>
+</ul>
+
+
+</div>
+<div class="slide">
+<h1>Vantaggi e Rischi del Multithreading<a id="vantaggi-e-rischi-del-multithreading" class="h_anchor"></a></h1>
+<p>
+Vantaggi:<br>
+<div style='padding-left: 30pt'>
+Reattività: Evita che l'interfaccia grafica (GUI) si blocchi durante operazioni lunghe<br>
+Efficienza: Ottimo per gestire operazioni "I/O Bound" (es. scaricare file, interrogare database)
+</div>
+Rischi:<br>
+<div style='padding-left: 30pt'>
+Race Conditions: Due thread modificano la stessa variabile nello stesso momento, creando risultati imprevedibili<br>
+Deadlock: Due thread si bloccano a vicenda aspettando risorse che l'altro possiede<br>
+Complessità: Il debug di programmi multithread è molto più difficile
+</div>
+</p>
+
+
+</div>
+<div class="slide">
+<h1>Python - Il Modulo threading<a id="python---il-modulo-threading" class="h_anchor"></a></h1>
+<p>
+In Python, la gestione dei thread avviene tramite il modulo standard threading<br>
+La classe Thread: È l'oggetto principale<br>
+Metodi chiave:<br>
+<div style='padding-left: 30pt'>
+start(): Avvia il thread (chiama internamente il metodo run)<br>
+join(): Blocca il programma principale finché il thread non ha terminato (attesa)<br>
+is_alive(): Controlla se il thread sta ancora lavorando
+</div>
+</p>
+
+
+</div>
+<div class="slide">
+<h1>Esempio Pratico: Creare un Thread<a id="esempio-pratico-creare-un-thread" class="h_anchor"></a></h1>
+<pre>
+import threading
+import time
+
+def compito_lungo(nome):
+	print(f"Thread {nome} avviato...")
+	time.sleep(2)  # Simula un'attesa
+	print(f"Thread {nome} terminato.")
+
+# Creazione del thread
+t = threading.Thread(target=compito_lungo, args=("TaMaSy",))
+t.start() # Avvio
+t.join()  # Aspetto che finisca
+print("Fine programma principale.")
+</pre>
+
+
+</div>
+<div class="slide">
+<h1>Il "Grande Ostacolo": Il GIL<a id="il-grande-ostacolo-il-gil" class="h_anchor"></a></h1>
+<ul>
+<li>GIL (Global Interpreter Lock): È un meccanismo di Python che permette a un solo thread alla volta di eseguire il bytecode Python</li>
+<li>Conseguenza: In Python, i thread non possono sfruttare il vero parallelismo multi-core per calcoli matematici pesanti</li>
+<li>Perché esiste? Per rendere più semplice e sicura la gestione della memoria interna di Python</li>
+<li>Nota: I thread in Python sono ottimi per l'attesa, non per il calcolo puro</li>
+</ul>
+
+
+</div>
+<div class="slide">
+<h1>I/O Bound vs CPU Bound<a id="io-bound-vs-cpu-bound" class="h_anchor"></a></h1>
+<ul>
+<li>I/O Bound (Dove i thread brillano): Operazioni che passano la maggior parte del tempo ad aspettare (Network, Disco, Database). Durante l'attesa, il GIL viene rilasciato, permettendo ad altri thread di lavorare</li>
+<li>CPU Bound (Dove i thread falliscono): Operazioni che usano intensamente il processore (Crittografia, Compressione video, Matematica complessa). Qui il GIL blocca tutto</li>
+<li>Soluzione per CPU Bound: Invece dei thread, si usa il modulo multiprocessing (che crea processi separati senza GIL)</li>
+</ul>
+
+
+</div>
+<div class="slide">
+<h1>Sincronizzazione: I Lock<a id="sincronizzazione-i-lock" class="h_anchor"></a></h1>
+<ul>
+<li>Poiché i thread condividono la memoria, dobbiamo evitare che accedano a una risorsa critica contemporaneamente</li>
+<li>Oggetto Lock: Funziona come una chiave per una stanza. Solo chi ha la chiave entra</li>
+</ul>
+
+
+
+</div>
+<div class="slide">
+<h1>Esempio in TaMaSy: Operazioni in Background<a id="esempio-in-tamasy-operazioni-in-background" class="h_anchor"></a></h1>
+<p>
+Immaginiamo che TaMaSy debba inviare una mail di notifica quando un task viene completato<br>
+Senza Thread: L'utente clicca "Completa" e il sito si blocca per 3 secondi aspettando che il server mail risponda<br>
+Con Thread:<br>
+<div style='padding-left: 30pt'>
+L'utente clicca "Completa"<br>
+La View avvia un thread separato per l'invio della mail<br>
+La View risponde immediatamente all'utente: "Task completato!"<br>
+L'utente continua a navigare mentre il thread lavora "dietro le quinte"
+</div>
+</p>
+
+
+
+</div>
+<div class="slide">
+<h1>Thread "Daemon" e Conclusioni<a id="thread-daemon-e-conclusioni" class="h_anchor"></a></h1>
+<p>
+<div style='padding-left: 30pt'>
+Daemon Threads: Thread che girano in background e vengono chiusi automaticamente quando il programma principale termina.
+</div>
+</p>
+
+<p>
+<div style='padding-left: 60pt'>
+<tt>t = threading.Thread(target=funz, daemon=True)</tt>
+</div>
+</p>
+
+
+
+</div>
+<div class="slide">
+<h1>Thread - Best Practices<a id="thread---best-practices" class="h_anchor"></a></h1>
+<ul>
+<li>Usa i thread solo per operazioni di I/O (Database, Web)</li>
+<li>Mantieni il codice dei thread semplice</li>
+<li>Usa sempre i Lock se modifichi variabili condivise</li>
+<li>Per calcoli pesanti, passa a multiprocessing</li>
+</ul>
+
+
+
+
+</div>
+<div class="slide">
 <h1>Programma interattivo<a id="programma-interattivo" class="h_anchor"></a></h1>
 <ul>
 <li>TaMaSy interattivo
