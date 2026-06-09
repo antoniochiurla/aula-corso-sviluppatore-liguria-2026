@@ -8,3 +8,4 @@ tamasy/django/db.sqlite3
 /mytamasy/debug.log
 /mytamasy/venv/
 .vscode/
+/mytamasy/.claude/
